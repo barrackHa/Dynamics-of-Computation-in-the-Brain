@@ -107,10 +107,6 @@ Solution EX #1
 
 \begin_layout Author
 Barak Haim 
-\begin_inset Newline linebreak
-\end_inset
-
-1
 \end_layout
 
 \begin_layout Date
@@ -632,7 +628,16 @@ We use Tylor's expansion around
 \begin_inset Formula $ln(1+x)=x-\frac{x^{2}}{2}+o(x^{3})$
 \end_inset
 
- and remember 
+.
+ For this to work, we'll add the condition that 
+\begin_inset Formula $(\lambda\Delta t=)x\ll1$
+\end_inset
+
+ such that 
+\begin_inset Formula $ln(1-\lambda\Delta t)$
+\end_inset
+
+ is defined.Also, remember 
 \begin_inset Formula $n\approx\frac{t_{1}}{\Delta t}$
 \end_inset
 
