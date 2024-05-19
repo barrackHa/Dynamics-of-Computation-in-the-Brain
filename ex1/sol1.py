@@ -13,11 +13,6 @@ def numerical_Euler_solver(x0=X0, l=LAMBDA, dt=0.1, t1=20):
     times[0] = 0
     return (times, sol)
 
-# def analytical_solution(x0, l=LAMBDA, t=0):
-#     return x0 * np.exp(-l*t)
-
-analytical_solution = lambda t, l: X0 * np.exp(-l*t)
-# err = lambda x0, t, l, dt: x0 * np.exp(-l*t) - x0 * ((1 - l * dt)**t)
 def q_1():
     for dt in [0.4, 0.93, 1.02]:
         times, sol = numerical_Euler_solver(dt=dt)
@@ -29,8 +24,19 @@ def q_1():
     plt.legend()
     plt.show()
 
+analytical_solution = lambda t: X0 * np.exp(-1*LAMBDA*t)
 
+def q_2():
+    times, sol = numerical_Euler_solver(dt=0.2)
+    errors = np.abs(analytical_solution(times) - sol)
+    plt.plot(times, errors)
+    plt.grid()
+    plt.xlabel('Time')
+    plt.ylabel('Error')
+    plt.title(f'Error as function of time.\n' + r'$\lambda$' + f'={LAMBDA}')
+    plt.show()
 
 
 if __name__ == "__main__":
     q_1()
+    q_2()

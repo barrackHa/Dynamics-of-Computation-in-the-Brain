@@ -523,7 +523,7 @@ will socialite between
 \begin_inset Formula $q^{n}$
 \end_inset
 
- will oscilate between 
+ will oscillate between 
 \begin_inset Formula $\pm1$
 \end_inset
 
@@ -624,7 +624,7 @@ Assume for simplicity
 
 \end_inset
 
-We use Tylor's expantion around 
+We use Tylor's expansion around 
 \begin_inset Formula $0$
 \end_inset
 
@@ -632,7 +632,7 @@ We use Tylor's expantion around
 \begin_inset Formula $ln(1+x)=x-\frac{x^{2}}{2}+o(x^{3})$
 \end_inset
 
- and remeber 
+ and remember 
 \begin_inset Formula $n\approx\frac{t_{1}}{\Delta t}$
 \end_inset
 
@@ -644,11 +644,11 @@ We use Tylor's expantion around
 
 \end_inset
 
-Once more we'll use Tylor series expantion of 
+Once more we'll use Tylor series expansion of 
 \begin_inset Formula $e^{x}$
 \end_inset
 
- arround 
+ around 
 \begin_inset Formula $0$
 \end_inset
 
@@ -665,9 +665,9 @@ Once more we'll use Tylor series expantion of
 \begin_inset Formula $\left(-\frac{1}{2}\lambda^{2}t_{1}\Delta t\right)^{2}$
 \end_inset
 
-is a negligable term.
- Moreover, from the conclusions of aricle (b), we'll add the condition that
- 
+is a negligible term.
+ Moreover, from the conclusions of article (b), we'll add the condition
+ that 
 \begin_inset Formula $\lambda\Delta t\ll1$
 \end_inset
 
@@ -790,7 +790,11 @@ The leading order of
 \begin_inset Formula $t_{1}'s$
 \end_inset
 
-, however, for lage enough 
+ and 
+\begin_inset Formula $t_{1}e^{-\lambda t_{1}}\approx t_{1}$
+\end_inset
+
+, however, for large enough 
 \begin_inset Formula $t_{1}'s$
 \end_inset
 
@@ -848,7 +852,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Formula 
 \[
-e(t_{1})=|x(t_{1})-\hat{x}(t_{1})|\underset{n\rightarrow\infty}{\rightarrow}|x(t_{1})-x(t_{1})|=0
+\epsilon(t_{1})=|x(t_{1})-\hat{x}(t_{1})|\underset{n\rightarrow\infty}{\rightarrow}|x(t_{1})-x(t_{1})|=0
 \]
 
 \end_inset
@@ -868,6 +872,80 @@ Numerical Part
 \begin_layout Subsubsection
 Numerical Simulations of 
 \begin_inset Formula $\hat{x}(t)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename Figure_1.png
+	width 75text%
+	height 75theight%
+	keepAspectRatio
+	rotateOrigin center
+
+\end_inset
+
+
+\begin_inset Newline linebreak
+\end_inset
+
+Here 
+\begin_inset Formula $x_{0}=1,t_{1}=20,\lambda=2$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Error Function
+\end_layout
+
+\begin_layout Paragraph
+Here 
+\begin_inset Formula $x_{0}=1,t_{1}=20,\lambda=2$
+\end_inset
+
+ and 
+\begin_inset Formula $dt=0.2$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename Figure_2.png
+	width 75text%
+	height 75theight%
+	keepAspectRatio
+	rotateOrigin center
+
+\end_inset
+
+
+\begin_inset Newline linebreak
+\end_inset
+
+(a+b) As explained in 
+\begin_inset Formula $1.1.2$
+\end_inset
+
+ we can see that for small 
+\begin_inset Formula $t$
+\end_inset
+
+ the error function increases with 
+\begin_inset Formula $t$
+\end_inset
+
+ but 
+\begin_inset Formula 
+\[
+\epsilon(t)\underset{t\rightarrow\infty}{\rightarrow}0
+\]
+
 \end_inset
 
 
