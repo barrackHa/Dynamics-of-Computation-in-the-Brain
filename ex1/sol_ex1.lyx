@@ -200,7 +200,7 @@ Note
 \begin_inset Formula $\hat{x}(0)=x_{0}$
 \end_inset
 
-the starting condition for the solution and we get:
+ the starting condition for the solution and we get:
 \begin_inset Newline linebreak
 \end_inset
 
@@ -322,11 +322,11 @@ Fixed-time Simulation Error
 \begin_inset Formula $t_{1}$
 \end_inset
 
-and 
+ and 
 \begin_inset Formula $\Delta t$
 \end_inset
 
-, let 
+ , let 
 \begin_inset Formula $n$
 \end_inset
 
@@ -415,7 +415,7 @@ status open
 \begin_inset Formula $0<\lambda,\Delta t$
 \end_inset
 
-, so we get 
+ , so we get 
 \begin_inset Formula $0<\lambda\cdot\Delta t$
 \end_inset
 
@@ -427,7 +427,7 @@ status open
 \begin_inset Formula $1-\lambda\Delta t<1$
 \end_inset
 
-.
+ .
  Ergo, we only need to consider what happens to 
 \begin_inset Formula $q\coloneqq1-\lambda\Delta t$
 \end_inset
@@ -436,12 +436,12 @@ status open
 \begin_inset Formula $(-\infty,1)$
 \end_inset
 
-.
+ .
  Given a fixed 
 \begin_inset Formula $\lambda$
 \end_inset
 
-, this will singularly determine the different qualitative outcomes.
+ , this will singularly determine the different qualitative outcomes.
  Moreover, note 
 \begin_inset Formula $t_{1}\rightarrow\infty$
 \end_inset
@@ -665,7 +665,7 @@ Once more we'll use Tylor series expansion of
 \begin_inset Formula $\left(-\frac{1}{2}\lambda^{2}t_{1}\Delta t\right)^{2}$
 \end_inset
 
-is a negligible term.
+ is a negligible term.
  Moreover, from the conclusions of article (b), we'll add the condition
  that 
 \begin_inset Formula $\lambda\Delta t\ll1$
@@ -880,8 +880,8 @@ Numerical Simulations of
 \begin_layout Paragraph
 \begin_inset Graphics
 	filename Figure_1.png
-	width 75text%
-	height 75theight%
+	width 70text%
+	height 70theight%
 	keepAspectRatio
 	rotateOrigin center
 
@@ -917,8 +917,8 @@ Here
 \begin_layout Paragraph
 \begin_inset Graphics
 	filename Figure_2.png
-	width 75text%
-	height 75theight%
+	width 70text%
+	height 70theight%
 	keepAspectRatio
 	rotateOrigin center
 
@@ -941,14 +941,76 @@ Here
 \end_inset
 
  but 
-\begin_inset Formula 
-\[
-\epsilon(t)\underset{t\rightarrow\infty}{\rightarrow}0
-\]
-
+\begin_inset Formula $\epsilon(t)\underset{t\rightarrow\infty}{\rightarrow}0$
 \end_inset
 
+.
+\end_layout
 
+\begin_layout Subsection
+Qualitative Observation
+\end_layout
+
+\begin_layout Paragraph
+In the previous sections, we saw numerically and analytically that size
+ of 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+ does matter.
+ First, as we saw in 1.1.2, it important to have 
+\begin_inset Formula $\Delta t<\frac{1}{\lambda}$
+\end_inset
+
+ and keep
+\begin_inset Formula $\left(-\frac{1}{2}\lambda^{2}t_{1}\Delta t\right)^{2}$
+\end_inset
+
+ small.
+ On the other hand, as 
+\begin_inset Formula $\Delta t\rightarrow0$
+\end_inset
+
+, the number of iterations needed in order to approximate 
+\begin_inset Formula $x(t_{1})$
+\end_inset
+
+ increases.
+ Moreover, our analysis was limited to a very specific case where 
+\begin_inset Formula $\dot{x}=-\lambda x$
+\end_inset
+
+.
+ This case practically calls for a first order approximation like Euler’s
+ Method, however, for other functions, this may not show such a 
+\begin_inset Quotes eld
+\end_inset
+
+nice
+\begin_inset Quotes erd
+\end_inset
+
+ behavior.
+ When trying to determine 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+, as a rule of thumb, I'd first consider the timescales of the system we're
+ trying to simulate.
+ E.g.
+ when dealing with dynamics of an action potential we're talking in milliseconds
+ but weather changes in minuets if not hours.
+ 
+\bar under
+I suggest choosing the largest 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+ possible such that 
+\begin_inset Formula $\Delta t<\frac{1}{\lambda}$
+\end_inset
+
+ and is also minimal with respect to the dynamical system.
 \end_layout
 
 \begin_layout Section
