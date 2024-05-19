@@ -1,0 +1,981 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{enumitem}
+\setenumerate{label=A)}
+\setenumerate[2]{label=a)}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\pdf_quoted_options "linkcolor=blue"
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\boxbgcolor #007df2
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Dynamics of Computation in the Brain
+\begin_inset Newline linebreak
+\end_inset
+
+76908
+\begin_inset Newline linebreak
+\end_inset
+
+Solution EX #1
+\end_layout
+
+\begin_layout Author
+Barak Haim 
+\begin_inset Newline linebreak
+\end_inset
+
+1
+\end_layout
+
+\begin_layout Date
+20/05/2024
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Euler’s Method for Numerical Integration
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\begin{align*}
+\dot{x} & =f(x)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\hat{x}(t+\Delta t)=\hat{x}(t)+f(\hat{x}(t))\Delta t
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\dot{x}=-\lambda x
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Analytical Part
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+\epsilon(t)=|x(t)-\hat{x}(t)|
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Single-step Simulation Error
+\end_layout
+
+\begin_layout Paragraph
+
+\bar under
+(a)
+\bar default
+ The approximated solution after a single-step is:
+\begin_inset Formula 
+\[
+\hat{x}(0+\Delta t)=\hat{x}(0)+f(\hat{x}(0))\Delta t=\hat{x}(0)-\lambda\hat{x}(0)\Delta t
+\]
+
+\end_inset
+
+Note 
+\begin_inset Formula $\hat{x}(0)=x_{0}$
+\end_inset
+
+the starting condition for the solution and we get:
+\begin_inset Newline linebreak
+\end_inset
+
+
+\begin_inset Box Boxed
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "c"
+use_parbox 0
+use_makebox 0
+width "100text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "lightgray"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\hat{x}(\Delta t)=x_{0}-\lambda x_{0}\Delta t
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+
+\bar under
+(b)
+\bar default
+ The analytical solution as we know is 
+\begin_inset Formula $x(t)=x_{0}e^{-\lambda t}$
+\end_inset
+
+.
+ The single-step error is:
+\begin_inset Formula 
+\begin{align*}
+\epsilon(\Delta t) & =|x(\Delta t)-\hat{x}(\Delta t)|=|x_{0}e^{-\lambda\Delta t}-x_{0}+\lambda x_{0}\Delta t|\\
+= & |x_{0}|\cdot|e^{-\lambda\Delta t}-1+\lambda\Delta t|
+\end{align*}
+
+\end_inset
+
+Using the fact that 
+\begin_inset Formula $e^{x}=\sum_{i=0}^{\infty}\frac{x^{i}}{i!}$
+\end_inset
+
+ (Tylor expansion of 
+\begin_inset Formula $e^{x}$
+\end_inset
+
+at 0), we get:
+\begin_inset Formula 
+\[
+\epsilon(\Delta t)=|x_{0}|\cdot|1-\lambda\Delta t+\frac{\lambda^{2}\Delta t^{2}}{2}+O(t^{3})-1+\lambda\Delta t|=|x_{0}|\cdot|\frac{\lambda^{2}\Delta t^{2}}{2}+O(t^{3})|
+\]
+
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100text%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "lightgray"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\approx|x_{0}|\cdot\frac{\lambda^{2}\Delta t^{2}}{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Fixed-time Simulation Error
+\end_layout
+
+\begin_layout Paragraph
+
+\bar under
+(a)
+\bar default
+ Given 
+\begin_inset Formula $t_{1}$
+\end_inset
+
+and 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+, let 
+\begin_inset Formula $n$
+\end_inset
+
+ be the maximal integer such that: 
+\begin_inset Formula $n<\frac{t_{1}}{\Delta t}$
+\end_inset
+
+ (less formally, this means 
+\begin_inset Formula $t_{1}=n\cdot\Delta t$
+\end_inset
+
+ up to a small residual).
+ We then get: 
+\begin_inset Formula 
+\[
+\hat{x}(0)=x_{0},\:\hat{x}(\Delta t)=x_{0}-\lambda x_{0}\Delta t=x_{1},\:...,\:\hat{x}(n\Delta t)=x_{n-1}-\lambda x_{n-1}\Delta t=x_{n}=\hat{x}(t_{1})
+\]
+
+\end_inset
+
+So, for 
+\begin_inset Formula $1\le i\le n$
+\end_inset
+
+: 
+\begin_inset Formula 
+\[
+\frac{x_{i}}{x_{i-1}}=\frac{x_{i-1}-\lambda x_{i-1}\Delta t}{x_{i-1}}=1-\lambda\Delta t
+\]
+
+\end_inset
+
+And now we can get a closed formula:
+\begin_inset Formula 
+\[
+\hat{x}(i\cdot\Delta t)=x_{i}=x_{0}(1-\lambda\Delta t)^{i}
+\]
+
+\end_inset
+
+Specifically: 
+\begin_inset Newline linebreak
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "lightgray"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\hat{x}(t_{1})=x_{0}(1-\lambda\Delta t)^{n}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+
+\bar under
+(b)
+\bar default
+ First, note that 
+\begin_inset Formula $0<\lambda,\Delta t$
+\end_inset
+
+, so we get 
+\begin_inset Formula $0<\lambda\cdot\Delta t$
+\end_inset
+
+ and thus 
+\begin_inset Formula $-\lambda\Delta t<0$
+\end_inset
+
+ and 
+\begin_inset Formula $1-\lambda\Delta t<1$
+\end_inset
+
+.
+ Ergo, we only need to consider what happens to 
+\begin_inset Formula $q\coloneqq1-\lambda\Delta t$
+\end_inset
+
+ in the ray 
+\begin_inset Formula $(-\infty,1)$
+\end_inset
+
+.
+ Given a fixed 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, this will singularly determine the different qualitative outcomes.
+ Moreover, note 
+\begin_inset Formula $t_{1}\rightarrow\infty$
+\end_inset
+
+ iff 
+\begin_inset Formula $n\rightarrow\infty.$
+\end_inset
+
+ Thus, it suffices to consider the asymptotic behavior of 
+\begin_inset Formula $q^{n}$
+\end_inset
+
+.
+ We'll look at 3 regimes: 
+\begin_inset Formula $(-\infty,-1],(-1,0),[0,1)$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\begin{cases}
+0\le q<1 & q^{n}\underset{n\rightarrow\infty}{\searrow}0\\
+-1<q<0 & q^{n}\underset{n\rightarrow\infty}{\rightarrow}0\\
+q\le-1 & q^{n}\;diverges
+\end{cases}
+\]
+
+\end_inset
+
+I.e.
+ , for 
+\begin_inset Formula $0\le q<1$
+\end_inset
+
+, 
+\begin_inset Formula $q^{n}$
+\end_inset
+
+ will monotonically decrease to 
+\begin_inset Formula $0$
+\end_inset
+
+.
+ For 
+\begin_inset Formula $-1<q<0$
+\end_inset
+
+, 
+\begin_inset Formula $q^{n}$
+\end_inset
+
+ will still converge to 
+\begin_inset Formula $0$
+\end_inset
+
+ but will do it in an alternating fashion where the sign of 
+\begin_inset Formula $q^{n}$
+\end_inset
+
+will socialite between 
+\begin_inset Formula $+$
+\end_inset
+
+ and 
+\begin_inset Formula $-$
+\end_inset
+
+.
+ Similar oscillations will occurs for 
+\begin_inset Formula $q\le-1$
+\end_inset
+
+ however, in this case there will be no convergence.
+ In the spacial case of 
+\begin_inset Formula $q=-1$
+\end_inset
+
+, 
+\begin_inset Formula $q^{n}$
+\end_inset
+
+ will oscilate between 
+\begin_inset Formula $\pm1$
+\end_inset
+
+, otherwise, between 
+\begin_inset Formula $\pm\infty$
+\end_inset
+
+.
+ Now:
+\begin_inset Formula 
+\begin{align*}
+0 & \le1-\lambda\Delta t<1\Leftrightarrow-1\le-\lambda\Delta t<0\Leftrightarrow1\ge\lambda\Delta t>0\Leftrightarrow\frac{1}{\lambda}\ge\Delta t>0
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+-1<1-\lambda\Delta t<0\Leftrightarrow-2<-\lambda\Delta t<-1\Leftrightarrow2>\lambda\Delta t>1\Leftrightarrow\frac{2}{\lambda}>\Delta t>\frac{1}{\lambda}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+1-\lambda\Delta t\le-1\Leftrightarrow-\lambda\Delta t\le-2\Leftrightarrow\lambda\Delta t\ge2\Leftrightarrow\Delta t\ge\frac{2}{\lambda}
+\]
+
+\end_inset
+
+Thus we're left with:
+\begin_inset Newline linebreak
+\end_inset
+
+ 
+\begin_inset Box Boxed
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "c"
+use_parbox 0
+use_makebox 0
+width "100line%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "lightgray"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\begin{cases}
+\frac{1}{\lambda}\ge\Delta t>0 & (0<\lambda\Delta t\le1)\:monotonical\:\:convergence\\
+\frac{2}{\lambda}>\Delta t>\frac{1}{\lambda} & (1<\lambda\Delta t<2)\:alternating\:\:convergence\\
+\Delta t\ge\frac{2}{\lambda} & (2<\lambda\Delta t)\:divergence
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+
+\bar under
+(c) 
+\bar default
+The error is:
+\begin_inset Formula 
+\[
+\epsilon(t_{1})=|x(t_{1})-\hat{x}(t_{1})|=|x_{0}e^{-\lambda t_{1}}-x_{0}(1-\lambda\Delta t)^{n}|=|x_{0}||e^{-\lambda t_{!}}-(1-\lambda\Delta t)^{n}|
+\]
+
+\end_inset
+
+Assume for simplicity 
+\begin_inset Formula $|x_{0}|=1$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\epsilon(t_{1})=|e^{-\lambda t_{1}}-e^{n\ln(2-\lambda\Delta t)}|=|e^{-\lambda t_{1}}-e^{n\ln(1-\lambda\Delta t)}|
+\]
+
+\end_inset
+
+We use Tylor's expantion around 
+\begin_inset Formula $0$
+\end_inset
+
+ of 
+\begin_inset Formula $ln(1+x)=x-\frac{x^{2}}{2}+o(x^{3})$
+\end_inset
+
+ and remeber 
+\begin_inset Formula $n\approx\frac{t_{1}}{\Delta t}$
+\end_inset
+
+ so:
+\begin_inset Formula 
+\[
+\epsilon(t_{1})\approx|e^{-\lambda t_{1}}-e^{\frac{t_{1}}{\Delta t}(-\lambda\Delta t-\frac{\left(\lambda\Delta t\right)^{2}}{2})}|=|e^{-\lambda t_{1}}-e^{-\lambda t_{1}-\frac{1}{2}\lambda^{2}t_{1}\Delta t}|=e^{-\lambda t_{1}}\cdot|1-e^{-\frac{1}{2}\lambda^{2}t_{1}\Delta t}|
+\]
+
+\end_inset
+
+Once more we'll use Tylor series expantion of 
+\begin_inset Formula $e^{x}$
+\end_inset
+
+ arround 
+\begin_inset Formula $0$
+\end_inset
+
+ up too the first order for 
+\begin_inset Formula $x=-\frac{1}{2}\lambda^{2}t_{1}\Delta t$
+\end_inset
+
+.
+ Note that the firs order is enough as we can have 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+ as small as we'd like, specifically small enough such that 
+\begin_inset Formula $\left(-\frac{1}{2}\lambda^{2}t_{1}\Delta t\right)^{2}$
+\end_inset
+
+is a negligable term.
+ Moreover, from the conclusions of aricle (b), we'll add the condition that
+ 
+\begin_inset Formula $\lambda\Delta t\ll1$
+\end_inset
+
+.We then get:
+\begin_inset Formula 
+\[
+e^{-\frac{1}{2}\lambda^{2}t_{1}\Delta t}\approx1-\frac{1}{2}\lambda^{2}t_{1}\Delta t
+\]
+
+\end_inset
+
+And:
+\begin_inset Formula 
+\[
+e^{-\lambda t_{1}}\cdot|1-e^{-\frac{1}{2}\lambda^{2}t_{1}\Delta t}|\approx e^{-\lambda t_{1}}\cdot|1-1+\frac{1}{2}\lambda^{2}t_{1}\Delta t|=e^{-\lambda t_{1}}\cdot\frac{1}{2}\lambda^{2}t_{1}\Delta t
+\]
+
+\end_inset
+
+Remember to account for 
+\begin_inset Formula $|x_{0}|$
+\end_inset
+
+ and we get:
+\begin_inset Newline linebreak
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "lightgray"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\epsilon(t_{1})\approx\frac{1}{2}|x_{0}|\lambda^{2}t_{1}\Delta te^{-\lambda t_{1}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+
+\bar under
+(d)
+\bar default
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "90col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "lightgray"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\Delta t\;\;\;\;\&\;\;\;\;t_{1}e^{-\lambda t_{1}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline linebreak
+\end_inset
+
+The leading order of 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+ is its linear term, i.e.
+ the power of 1.
+ Also, the term in the error affected by 
+\begin_inset Formula $t_{1}$
+\end_inset
+
+ is 
+\begin_inset Formula $t_{1}e^{-\lambda t_{1}}$
+\end_inset
+
+.
+ This term has a big impact for small 
+\begin_inset Formula $t_{1}'s$
+\end_inset
+
+, however, for lage enough 
+\begin_inset Formula $t_{1}'s$
+\end_inset
+
+, 
+\begin_inset Formula $t_{1}e^{-\lambda t_{1}}$
+\end_inset
+
+ goes quickly to 
+\begin_inset Formula $0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+
+\bar under
+(e)
+\bar default
+ In article (a) we showed (for 
+\begin_inset Formula $\frac{1}{\lambda}\ge\Delta t>0$
+\end_inset
+
+):
+\begin_inset Formula 
+\[
+\hat{x}(t_{1})=x_{0}(1-\lambda\Delta t)^{n}=x_{0}\left(1-\frac{\lambda t_{1}}{n}\right)^{n}\underset{n\rightarrow\infty}{\rightarrow}x_{0}e^{\lambda t_{1}}=x(t_{1})
+\]
+
+\end_inset
+
+Thus, from arithmetics of limits:
+\begin_inset Newline linebreak
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "lightgray"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+e(t_{1})=|x(t_{1})-\hat{x}(t_{1})|\underset{n\rightarrow\infty}{\rightarrow}|x(t_{1})-x(t_{1})|=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Numerical Part
+\end_layout
+
+\begin_layout Subsubsection
+Numerical Simulations of 
+\begin_inset Formula $\hat{x}(t)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Differential equation with time-dependent input
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+\dot{x}(t)=ax(t)+I(t)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+x(t)=x_{0}e^{at}+\intop_{0}^{t}I(\tilde{t})e^{a(t-\tilde{t})}d\tilde{t}
+\]
+
+\end_inset
+
+ we want to show 
+\begin_inset Formula 
+\[
+\frac{d}{dt}\left(x_{0}e^{at}+\intop_{0}^{t}I(\tilde{t})e^{a(t-\tilde{t})}d\tilde{t}\right)=ax(t)+I(t)
+\]
+
+\end_inset
+
+Using the linearity of the derivation operator to break the sum:
+\begin_inset Formula 
+\[
+\frac{d}{dt}\left(x_{0}e^{at}\right)=ax_{0}e^{at}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+And:
+\begin_inset Formula 
+\begin{align*}
+\frac{d}{dt}\left(\intop_{0}^{t}I(\tilde{t})e^{a(t-\tilde{t})}d\tilde{t}\right) & =\frac{d}{dt}\left(e^{at}\intop_{0}^{t}I(\tilde{t})e^{-a\tilde{t}}d\tilde{t}\right)\\
+= & \frac{d}{dt}\left(e^{at}\right)\cdot\intop_{0}^{t}I(\tilde{t})e^{-a\tilde{t}}d\tilde{t}+e^{at}\cdot\frac{d}{dt}\left(\intop_{0}^{t}I(\tilde{t})e^{-a\tilde{t}}d\tilde{t}\right)\\
+=_{1} & ae^{at}\intop_{0}^{t}I(\tilde{t})e^{-a\tilde{t}}d\tilde{t}+e^{at}I(t)e^{-at}\\
+= & a\intop_{0}^{t}I(\tilde{t})e^{a(t-\tilde{t})}d\tilde{t}+I(t)
+\end{align*}
+
+\end_inset
+
+Where 
+\begin_inset Formula $1$
+\end_inset
+
+ is due to the fundamental theorem of calculus.
+ Together we have:
+\begin_inset Newline linebreak
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "lightgray"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{align*}
+\frac{d}{dt}\left(x_{0}e^{at}+\intop_{0}^{t}I(\tilde{t})e^{a(t-\tilde{t})}d\tilde{t}\right) & =ax_{0}e^{at}+a\intop_{0}^{t}I(\tilde{t})e^{a(t-\tilde{t})}d\tilde{t}+I(t)\\
+= & a\left(x_{0}e^{at}+\intop_{0}^{t}I(\tilde{t})e^{a(t-\tilde{t})}d\tilde{t}\right)+I(t)\\
+= & ax(t)+I(t)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline linebreak
+\end_inset
+
+QED.
+\end_layout
+
+\end_body
+\end_document
