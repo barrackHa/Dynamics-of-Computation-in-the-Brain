@@ -9,8 +9,7 @@ t1 = 20
 def numerical_Euler_solver(x0=X0, l=LAMBDA, dt=0.1, t1=20):
     n_steps = int(t1/dt)
     sol = np.array([(x0 * ((1 - l * dt)**n)) for n in range(n_steps)])
-    times = np.cumsum(np.ones(n_steps) * dt)
-    times[0] = 0
+    times = np.arange(0, sol.size*dt, dt)
     return (times, sol)
 
 def q_1():
