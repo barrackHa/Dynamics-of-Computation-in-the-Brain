@@ -630,7 +630,7 @@ We use Tylor's expansion around
 
 .
  For this to work, we'll add the condition that 
-\begin_inset Formula $(\lambda\Delta t=)x\ll1$
+\begin_inset Formula $(\lambda\Delta t=)|x|\ll1$
 \end_inset
 
  such that 
@@ -670,7 +670,12 @@ Once more we'll use Tylor series expansion of
 \begin_inset Formula $\left(-\frac{1}{2}\lambda^{2}t_{1}\Delta t\right)^{2}$
 \end_inset
 
- is a negligible term.
+ , the next member of the series expansion is a negligible term and so is
+ 
+\begin_inset Formula $O(x^{2})$
+\end_inset
+
+ - the order of the tail of the series.
  Moreover, from the conclusions of article (b), we'll add the condition
  that 
 \begin_inset Formula $\lambda\Delta t\ll1$
