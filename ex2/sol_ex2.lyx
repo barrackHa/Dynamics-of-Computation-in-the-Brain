@@ -1,0 +1,1127 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{enumitem}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\pdf_quoted_options "linkcolor=blue"
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\boxbgcolor #007df2
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Dynamics of Computation in the Brain
+\begin_inset Newline linebreak
+\end_inset
+
+76908
+\begin_inset Newline linebreak
+\end_inset
+
+Solution EX #2
+\end_layout
+
+\begin_layout Author
+Barak Haim 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Fourier Series
+\end_layout
+
+\begin_layout Subsection
+Fourier Series Of A Step Function
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+f(x)=\begin{cases}
+-1 & -\pi<x<-\frac{\pi}{2}\\
+1 & -\frac{\pi}{2}<x<\frac{\pi}{2}\\
+-1 & \frac{\pi}{2}<x<\pi
+\end{cases}
+\]
+
+\end_inset
+
+First we note the function is symmetric around 0, i.e.
+ an even function (
+\begin_inset Formula $f(x)=f(-x)$
+\end_inset
+
+).
+ Thus for all 
+\begin_inset Formula $n$
+\end_inset
+
+ we get that 
+\begin_inset Formula $b_{n}=0$
+\end_inset
+
+.
+ Now let's deal with 
+\begin_inset Formula $a_{n}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+a_{n} & =\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)cos(nx)dx=\frac{1}{\pi}\left(\left[\text{\int}_{-\pi}^{-\frac{\pi}{2}}-1\cdot cos(nx)dx\right]+\left[\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}1\cdot cos(nx)dx\right]+\left[\text{\int}_{\frac{\pi}{2}}^{\pi}-1\cdot cos(nx)dx\right]\right)\\
+= & \frac{1}{\pi}\left(\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}cos(nx)dx-\text{\int}_{-\pi}^{-\frac{\pi}{2}}cos(nx)dx-\text{\int}_{\frac{\pi}{2}}^{\pi}cos(nx)dx\right)
+\end{align*}
+
+\end_inset
+
+Because 
+\begin_inset Formula $cos$
+\end_inset
+
+ is an even function (
+\begin_inset Formula $cos(x)=cos(-x)$
+\end_inset
+
+) we get:
+\begin_inset Formula $\text{\int}_{-\pi}^{-\frac{\pi}{2}}cos(nx)dx=\text{\int}_{\frac{\pi}{2}}^{\pi}cos(-nx)dx=\text{\int}_{\frac{\pi}{2}}^{\pi}cos(nx)dx$
+\end_inset
+
+ and so:
+\begin_inset Formula 
+\[
+a_{n}=\frac{1}{\pi}\left(\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}cos(nx)dx-2\text{\int}_{\frac{\pi}{2}}^{\pi}cos(nx)dx\right)
+\]
+
+\end_inset
+
+Using the same argument we get: 
+\begin_inset Formula $\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}cos(nx)dx=\int_{-\frac{\pi}{2}}^{0}cos(nx)dx+\int_{0}^{\frac{\pi}{2}}cos(nx)dx=2\int_{0}^{\frac{\pi}{2}}cos(nx)dx$
+\end_inset
+
+ and so:
+\begin_inset Formula 
+\[
+a_{n}=\frac{1}{\pi}\left(2\int_{0}^{\frac{\pi}{2}}cos(nx)dx-2\text{\int}_{\frac{\pi}{2}}^{\pi}cos(nx)dx\right)=\frac{2}{\pi}\left(\int_{0}^{\frac{\pi}{2}}cos(nx)dx-\text{\int}_{\frac{\pi}{2}}^{\pi}cos(nx)dx\right)
+\]
+
+\end_inset
+
+Using the fact that 
+\begin_inset Formula $\int cos(nx)dx=\frac{1}{n}sin(nx)$
+\end_inset
+
+ we get:
+\begin_inset Formula 
+\begin{align*}
+a_{n} & =\frac{2}{\pi}\left(\int_{0}^{\frac{\pi}{2}}cos(nx)dx-\text{\int}_{\frac{\pi}{2}}^{\pi}cos(nx)dx\right)=\frac{2}{\pi n}\left(sin(nx)\mid_{0}^{\frac{\pi}{2}}-sin(nx)\mid_{\frac{\pi}{2}}^{\pi}\right)\\
+= & \frac{2}{\pi n}\left(sin(n\frac{\pi}{2})-\underset{=0}{sin(0)}-sin(n\pi)+sin(n\frac{\pi}{2})\right)\\
+= & \frac{2}{\pi n}\left(2sin(n\frac{\pi}{2})\right)=\frac{4}{\pi n}sin(\frac{n\pi}{2})
+\end{align*}
+
+\end_inset
+
+Now note that for all 
+\begin_inset Formula $n\in\mathbb{N}$
+\end_inset
+
+: 
+\begin_inset Formula $sin(\frac{2\pi n}{2})=0$
+\end_inset
+
+, 
+\begin_inset Formula $sin(\frac{2n\pi}{2}+\frac{\pi}{2})=1$
+\end_inset
+
+ and 
+\begin_inset Formula $sin(\frac{2n\pi}{2}+\frac{3\pi}{2})=-1$
+\end_inset
+
+ and so:
+\begin_inset Formula 
+\[
+a_{n}=\frac{4}{\pi n}\begin{cases}
+0 & n=2m\\
+1 & n=2m+1\\
+-1 & n=2m+3
+\end{cases}
+\]
+
+\end_inset
+
+For the spacial case of 
+\begin_inset Formula $a_{0}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+a_{0}=\int_{-\pi}^{\pi}f(x)dx=\int_{-\pi}^{-\frac{\pi}{2}}-1dx+\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}1dx+\int_{\frac{\pi}{2}}^{\pi}-1dx=-1\cdot\frac{\pi}{2}+1\cdot\pi-1\cdot\frac{\pi}{2}=0
+\]
+
+\end_inset
+
+At last, we get the series expansion:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+f(x)=\frac{4}{\pi n}\left(\sum_{n=1,5,9,...}cos(nx)-\sum_{n=3,7,11,...}cos(nx)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Compare 
+\begin_inset Formula $f(x)$
+\end_inset
+
+ To The Function We Saw In Class
+\end_layout
+
+\begin_layout Paragraph
+In class we saw a function also named 
+\begin_inset Formula $f(x)$
+\end_inset
+
+, here I'll refer to it as 
+\begin_inset Formula $g$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+g(x)=\begin{cases}
+-1 & -\pi<x<0\\
+1 & 0<x<\pi
+\end{cases}=\sum_{n=1,3,5,...}\frac{4}{\pi n}sin(nx)
+\]
+
+\end_inset
+
+We get g is f shifted by 
+\begin_inset Formula $\frac{\pi}{2}$
+\end_inset
+
+ modulo 
+\begin_inset Formula $\pi$
+\end_inset
+
+.
+ I.e.
+ 
+\begin_inset Formula 
+\[
+g(x)=f(x-\frac{\pi}{2})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Emergence of Oscillations
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\begin{align*}
+\tau\dot{h}_{E}= & -h_{E}+J_{EE}r_{E}-J_{EI}r_{I}+h_{E}^{0}\\
+\tau\dot{h}_{I}= & -h_{I}+J_{IE}r_{E}-J_{II}r_{I}+h_{I}^{0}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+0<J_{\alpha\beta},h_{\alpha}^{0}\;\&\;\tau=1\;\&\;0<h_{I}^{0}<h_{E}^{0}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Analytic Part
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+J_{II}=0\;,\;J_{IE}=1,\;\tau=1
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\dot{h}_{E}= & -h_{E}+J_{EE}\left\lfloor h_{E}\right\rfloor _{+}-J_{EI}\left\lfloor h_{I}\right\rfloor _{+}+h_{E}^{0}\\
+\dot{h_{I}}= & -h_{I}+\left\lfloor h_{E}\right\rfloor _{+}+h_{I}^{0}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Dynamical Equations In Vector Notation By Regime - 
+\begin_inset Formula $\dot{h}=Mh+h_{0}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+We can write: 
+\begin_inset Formula $\dot{h}=Mh+h_{0}$
+\end_inset
+
+for 
+\begin_inset Formula $h_{0}=\left(\begin{array}{cc}
+h_{E}^{0}, & h_{I}^{0}\end{array}\right)^{T}$
+\end_inset
+
+, 
+\begin_inset Formula $h=\left(\begin{array}{cc}
+h_{E}, & h_{I}\end{array}\right)^{T}$
+\end_inset
+
+and a 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ matrix 
+\begin_inset Formula $M$
+\end_inset
+
+ which depends on the values of 
+\begin_inset Formula $\left\lfloor h_{\alpha}\right\rfloor _{+}$
+\end_inset
+
+.
+ For each 
+\begin_inset Formula $\alpha\in\{E,I\}$
+\end_inset
+
+, either 
+\begin_inset Formula $h_{\alpha}\le0$
+\end_inset
+
+ or 
+\begin_inset Formula $0<h_{\alpha}$
+\end_inset
+
+.
+ Note, here 
+\begin_inset Formula $h$
+\end_inset
+
+ is used as a vector notation instead of 
+\begin_inset Formula $\vec{h}$
+\end_inset
+
+for connivance.
+ Altogether we have 4 conditions:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $0<h_{E}$
+\end_inset
+
+ And 
+\begin_inset Formula $0<h_{I}$
+\end_inset
+
+ (i.e.
+ 
+\begin_inset Formula $\left\lfloor h_{\alpha}\right\rfloor _{+}=h_{\alpha}$
+\end_inset
+
+): 
+\begin_inset Formula 
+\[
+M=\left[\begin{array}{cc}
+-1+J_{EE} & -J_{EI}\\
+1 & -1
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $0<h_{E}$
+\end_inset
+
+ But 
+\begin_inset Formula $h_{I}\le0$
+\end_inset
+
+ (i.e.
+ 
+\begin_inset Formula $\left\lfloor h_{E}\right\rfloor _{+}=h_{E}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left\lfloor h_{I}\right\rfloor _{+}=0$
+\end_inset
+
+): 
+\begin_inset Formula 
+\[
+M=\left[\begin{array}{cc}
+-1+J_{EE} & 0\\
+1 & -1
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $h_{E}\le0$
+\end_inset
+
+ But 
+\begin_inset Formula $0<h_{I}$
+\end_inset
+
+ (i.e.
+ 
+\begin_inset Formula $\left\lfloor h_{E}\right\rfloor _{+}=0$
+\end_inset
+
+ and 
+\begin_inset Formula $\left\lfloor h_{I}\right\rfloor _{+}=h_{I}$
+\end_inset
+
+):
+\begin_inset Formula 
+\[
+M=\left[\begin{array}{cc}
+-1 & -J_{EI}\\
+0 & -1
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $h_{E}\le0$
+\end_inset
+
+ And 
+\begin_inset Formula $h_{I}\le0$
+\end_inset
+
+ (i.e.
+ 
+\begin_inset Formula $\left\lfloor h_{\alpha}\right\rfloor _{+}=0$
+\end_inset
+
+): 
+\begin_inset Formula 
+\[
+M=\left[\begin{array}{cc}
+-1 & 0\\
+0 & -1
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Fixed Points By Regimes
+\end_layout
+
+\begin_layout Paragraph
+Let 
+\begin_inset Formula $h^{*}$
+\end_inset
+
+be a fixed point (FP) of the system, then - 
+\begin_inset Formula $0=Mh^{*}+h_{0}$
+\end_inset
+
+ :
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $det(M)=((-1+J_{EE})\cdot(-1))-(1\cdot(-J_{EI}))=1-J_{EE}+J_{EI}$
+\end_inset
+
+ and so:
+\begin_inset Formula 
+\[
+M^{-1}=\frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{cc}
+-1 & J_{EI}\\
+-1 & -1+J_{EE}
+\end{array}\right]
+\]
+
+\end_inset
+
+and 
+\begin_inset Formula $h^{*}=M^{-1}\left(-1\cdot h_{0}\right)$
+\end_inset
+
+.
+ Note this is only possible in case that 
+\begin_inset Formula $1-J_{EE}+J_{EI}\ne0$
+\end_inset
+
+, iff 
+\begin_inset Formula $1\ne J_{EE}-J_{EI}$
+\end_inset
+
+.
+ Furthermore, we get:
+\begin_inset Formula 
+\[
+\left[\begin{array}{c}
+h_{E}^{*}\\
+h_{I}^{*}
+\end{array}\right]=\frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{cc}
+-1 & J_{EI}\\
+-1 & -1+J_{EE}
+\end{array}\right]\left[\begin{array}{c}
+-h_{E}^{0}\\
+-h_{I}^{0}
+\end{array}\right]=\frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{c}
+h_{E}^{0}-h_{I}^{0}J_{EI}\\
+h_{E}^{0}-h_{I}^{0}(-1+J_{EE})
+\end{array}\right]
+\]
+
+\end_inset
+
+So:
+\begin_inset Formula 
+\[
+\begin{cases}
+h_{E}^{*}= & \frac{h_{E}^{0}-h_{I}^{0}J_{EI}}{1-J_{EE}+J_{EI}}\\
+h_{I}^{*}= & \frac{h_{E}^{0}+h_{I}^{0}-J_{EE}h_{I}^{0}}{1-J_{EE}+J_{EI}}
+\end{cases}
+\]
+
+\end_inset
+
+———————————We try again.
+ The equitions defined by are (
+\begin_inset Formula $0=Mh^{*}+h_{0}$
+\end_inset
+
+):
+\begin_inset Formula 
+\[
+M=\left[\begin{array}{cc}
+-1+J_{EE} & -J_{EI}\\
+1 & -1
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{cases}
+1) & 0=(-1+J_{EE})h_{E}^{*}-J_{EI}h_{I}^{*}+h_{E}^{0}\\
+2) & 0=h_{E}^{*}-h_{I}^{*}+h_{I}^{0}
+\end{cases}
+\]
+
+\end_inset
+
+From #2 we get: 
+\begin_inset Formula $h_{I}^{*}=h_{E}^{*}+h_{I}^{0}$
+\end_inset
+
+.
+ Plug it to #1:
+\begin_inset Formula 
+\[
+0=(-1+J_{EE})h_{E}^{*}-J_{EI}(h_{E}^{*}+h_{I}^{0})+h_{E}^{0}=-h_{E}^{*}+J_{EE}h_{E}^{*}-J_{EI}h_{E}^{*}-J_{EI}h_{I}^{0}+h_{E}^{0}
+\]
+
+\end_inset
+
+Iff:
+\begin_inset Formula 
+\[
+(1-J_{EE}+J_{EI})h_{E}^{*}=h_{E}^{*}-J_{EE}h_{E}^{*}+J_{EI}h_{E}^{*}=-J_{EI}h_{I}^{0}+h_{E}^{0}
+\]
+
+\end_inset
+
+So:
+\begin_inset Formula 
+\[
+h_{E}^{*}=\frac{h_{E}^{0}-J_{EI}h_{I}^{0}}{1-J_{EE}+J_{EI}}
+\]
+
+\end_inset
+
+Plug it in to #2 and we get:
+\begin_inset Formula 
+\[
+h_{I}^{*}=\frac{h_{E}^{0}-J_{EI}h_{I}^{0}}{1-J_{EE}+J_{EI}}+h_{I}^{0}
+\]
+
+\end_inset
+
+As we assumed here that 
+\begin_inset Formula $0<h_{E}$
+\end_inset
+
+ And 
+\begin_inset Formula $0<h_{I}$
+\end_inset
+
+, 
+\series bold
+\bar under
+this is possible
+\series default
+\bar default
+ with the conditions that:
+\begin_inset Formula 
+\[
+\begin{array}{ccc}
+0<1-J_{EE}+J_{EI} & \;AND\; & 0<h_{E}^{0}-J_{EI}h_{I}^{0}\end{array}
+\]
+
+\end_inset
+
+Or:
+\begin_inset Formula 
+\[
+\begin{array}{ccc}
+1-J_{EE}+J_{EI}<0 & \;AND\; & h_{E}^{0}-J_{EI}h_{I}^{0}\end{array}<0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $det(M)=((-1+J_{EE})\cdot(-1))-(1\cdot0)=1-J_{EE}$
+\end_inset
+
+ and so:
+\begin_inset Formula 
+\[
+M^{-1}=\frac{1}{1-J_{EE}}\left[\begin{array}{cc}
+-1 & 0\\
+-1 & -1+J_{EE}
+\end{array}\right]
+\]
+
+\end_inset
+
+And 
+\begin_inset Formula $h^{*}=M^{-1}\left(-1\cdot h_{0}\right)$
+\end_inset
+
+.
+ Note this is only possible in case that 
+\begin_inset Formula $1-J_{EE}\ne0$
+\end_inset
+
+, iff 
+\begin_inset Formula $1\ne J_{EE}$
+\end_inset
+
+.
+ Furthermore, we get:
+\begin_inset Formula 
+\[
+\left[\begin{array}{c}
+h_{E}^{*}\\
+h_{I}^{*}
+\end{array}\right]=\frac{1}{1-J_{EE}}\left[\begin{array}{cc}
+-1 & 0\\
+-1 & -1+J_{EE}
+\end{array}\right]\left[\begin{array}{c}
+-h_{E}^{0}\\
+-h_{I}^{0}
+\end{array}\right]=\frac{1}{1-J_{EE}}\left[\begin{array}{c}
+h_{E}^{0}\\
+h_{E}^{0}+h_{I}^{0}(1-J_{EE})
+\end{array}\right]
+\]
+
+\end_inset
+
+So: 
+\begin_inset Formula 
+\[
+\begin{cases}
+h_{E}^{*}= & \frac{h_{E}^{0}}{1-J_{EE}}\\
+h_{i}^{*}= & \frac{h_{E}^{0}}{1-J_{EE}}+h_{I}^{0}=h_{E}^{*}+h_{I}^{0}
+\end{cases}
+\]
+
+\end_inset
+
+Remember, we assumed 
+\begin_inset Formula $0<h_{E}$
+\end_inset
+
+ But 
+\begin_inset Formula $h_{I}\le0$
+\end_inset
+
+.
+ 
+\series bold
+\bar under
+This is not possible
+\series default
+\bar default
+ as both 
+\begin_inset Formula $0<h_{E}^{*},h_{I}^{0}$
+\end_inset
+
+ and thus 
+\begin_inset Formula $0<h_{i}^{*}=h_{E}^{*}+h_{I}^{0}$
+\end_inset
+
+ and so 
+\begin_inset Formula $0<h_{I}$
+\end_inset
+
+ in cotrediction to our assumption.
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $det(M)=((-1)\cdot(-1))-((-J_{EI})\cdot0)=1$
+\end_inset
+
+ and so:
+\begin_inset Formula 
+\[
+M^{-1}=\left[\begin{array}{cc}
+-1 & J_{EI}\\
+0 & -1
+\end{array}\right]
+\]
+
+\end_inset
+
+And 
+\begin_inset Formula $h^{*}=M^{-1}\left(-1\cdot h_{0}\right)$
+\end_inset
+
+.
+ We get:
+\begin_inset Formula 
+\[
+\left[\begin{array}{c}
+h_{E}^{*}\\
+h_{I}^{*}
+\end{array}\right]=\left[\begin{array}{cc}
+-1 & J_{EI}\\
+0 & -1
+\end{array}\right]\left[\begin{array}{c}
+-h_{E}^{0}\\
+-h_{I}^{0}
+\end{array}\right]=\left[\begin{array}{c}
+h_{E}^{0}-h_{I}^{0}J_{EI}\\
+h_{I}^{0}
+\end{array}\right]
+\]
+
+\end_inset
+
+So:
+\begin_inset Formula 
+\[
+\begin{cases}
+h_{E}^{*}= & h_{E}^{0}-h_{I}^{0}J_{EI}\\
+h_{i}^{*}= & h_{I}^{0}
+\end{cases}
+\]
+
+\end_inset
+
+Remeber, here we demand 
+\begin_inset Formula $h_{E}\le0$
+\end_inset
+
+ But 
+\begin_inset Formula $0<h_{I}$
+\end_inset
+
+.
+ This means we must have 
+\begin_inset Formula $h_{E}^{0}-h_{I}^{0}J_{EI}\ll0$
+\end_inset
+
+ which 
+\series bold
+\bar under
+is possible
+\series default
+\bar default
+ for large enough 
+\begin_inset Formula $h_{I}^{0}J_{EI}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $det(M)=((-1)\cdot(-1))-(0\cdot0)=1$
+\end_inset
+
+ and so:
+\begin_inset Formula 
+\[
+M^{-1}=\left[\begin{array}{cc}
+-1 & 0\\
+0 & -1
+\end{array}\right]=M
+\]
+
+\end_inset
+
+And 
+\begin_inset Formula $h^{*}=M^{-1}\left(-1\cdot h_{0}\right)$
+\end_inset
+
+.
+ We get:
+\begin_inset Formula 
+\[
+\left[\begin{array}{c}
+h_{E}^{*}\\
+h_{I}^{*}
+\end{array}\right]=\left[\begin{array}{cc}
+-1 & 0\\
+0 & -1
+\end{array}\right]\left[\begin{array}{c}
+-h_{E}^{0}\\
+-h_{I}^{0}
+\end{array}\right]=\left[\begin{array}{c}
+h_{E}^{0}\\
+h_{I}^{0}
+\end{array}\right]
+\]
+
+\end_inset
+
+So:
+\begin_inset Formula 
+\[
+\begin{cases}
+h_{E}^{*}= & h_{E}^{0}\\
+h_{i}^{*}= & h_{I}^{0}
+\end{cases}
+\]
+
+\end_inset
+
+Remember we assumed 
+\begin_inset Formula $h_{E}\le0$
+\end_inset
+
+ And 
+\begin_inset Formula $h_{I}\le0$
+\end_inset
+
+, but, also, 
+\begin_inset Formula $0<h_{\alpha}^{0}$
+\end_inset
+
+.
+ so: 
+\begin_inset Formula $0<h_{\alpha}^{*}$
+\end_inset
+
+ and thus 
+\begin_inset Formula $0<h_{\alpha}$
+\end_inset
+
+ in contridiction to the assumption.
+ Thus, 
+\series bold
+\bar under
+this is not possible.
+\end_layout
+
+\begin_layout Subsubsection
+Stability Analysis
+\end_layout
+
+\begin_layout Paragraph
+We'll us the fact that for a 2D linear system defined by a matrix 
+\begin_inset Formula $M$
+\end_inset
+
+, its eigenvalues are given by:
+\begin_inset Formula 
+\[
+\mu_{1,2}=\frac{tr(M)\pm\sqrt{tr(M)^{2}-4det(m)}}{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $0<h_{E}$
+\end_inset
+
+ And 
+\begin_inset Formula $0<h_{I}$
+\end_inset
+
+: 
+\begin_inset Formula $det(M)=1-J_{EE}+J_{EI}$
+\end_inset
+
+ and 
+\begin_inset Formula $tr(M)=-2+J_{EE}$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+M=\left[\begin{array}{cc}
+-1+J_{EE} & -J_{EI}\\
+1 & -1
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mu_{1,2}=\frac{-2+J_{EE}\pm\sqrt{4-4J_{EE}+J_{EE}^{2}-4+4J_{EE}-4J_{EI})}}{2}=\frac{-2+J_{EE}\pm\sqrt{J_{EE}^{2}-4J_{EI}}}{2}
+\]
+
+\end_inset
+
+Now, 
+\begin_inset Formula $0<det(M)$
+\end_inset
+
+ iff 
+\begin_inset Formula $0<1-J_{EE}+J_{EI}$
+\end_inset
+
+iff 
+\begin_inset Formula $J_{EE}<1+J_{EI}$
+\end_inset
+
+.
+ And, 
+\begin_inset Formula $tr(M)<0$
+\end_inset
+
+ iff 
+\begin_inset Formula $-2+J_{EE}<0$
+\end_inset
+
+ iff 
+\begin_inset Formula $J_{EE}<2$
+\end_inset
+
+.
+ Together we get the condition for a stable FP:
+\begin_inset Formula 
+\[
+\begin{cases}
+J_{EE}<1+J_{EI}\\
+J_{EE}<2
+\end{cases}
+\]
+
+\end_inset
+
+Moreover, 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $0<h_{E}$
+\end_inset
+
+ But 
+\begin_inset Formula $h_{I}\le0$
+\end_inset
+
+: Not Possible.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $h_{E}\le0$
+\end_inset
+
+ But 
+\begin_inset Formula $0<h_{I}$
+\end_inset
+
+: 
+\begin_inset Formula $det(M)=1$
+\end_inset
+
+ and 
+\begin_inset Formula $tr(M)=-2$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+M=\left[\begin{array}{cc}
+-1 & -J_{EI}\\
+0 & -1
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mu_{1,2}=\frac{-2\pm\sqrt{4-4}}{2}=1
+\]
+
+\end_inset
+
+I.e.
+ , the FP is stable.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $h_{E}\le0$
+\end_inset
+
+ And 
+\begin_inset Formula $h_{I}\le0$
+\end_inset
+
+: Not Possible.
+\end_layout
+
+\end_body
+\end_document
