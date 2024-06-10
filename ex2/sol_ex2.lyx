@@ -299,25 +299,175 @@ g(x)=\begin{cases}
 
 \end_inset
 
-We get g is f shifted by 
-\begin_inset Formula $\frac{\pi}{2}$
+Denote 
+\begin_inset Formula $\bar{f},\bar{g}:\mathbb{R}\rightarrow\{-1,1\}$
 \end_inset
 
- modulo 
-\begin_inset Formula $\pi$
+ be the expansion of the functions 
+\begin_inset Formula $f$
+\end_inset
+
+ and 
+\begin_inset Formula $g$
+\end_inset
+
+ to all of the real numbers in the following way: 
+\end_layout
+
+\begin_layout Paragraph
+For all 
+\begin_inset Formula $x\in\mathbb{R}$
+\end_inset
+
+ there is an 
+\begin_inset Formula $n\in\mathbb{N}$
+\end_inset
+
+such that 
+\begin_inset Formula $|x|\in\left[(2n-1)\pi,(2n+1)\pi\right]$
 \end_inset
 
 .
- I.e.
- 
+ Let 
+\begin_inset Formula $\tilde{x}=|x|-(2n-1)$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $\tilde{x}\in[-\pi,\pi]$
+\end_inset
+
+.
+ We then define:
 \begin_inset Formula 
 \[
-g(x)=f(x-\frac{\pi}{2})
+\bar{f}(x)=\begin{cases}
+f(\tilde{x}) & if\;|x|\in\left((2n-1)\pi,(2n+1)\pi\right)\\
+\underset{t\nearrow\pi}{lim(f(t))} & \tilde{x}=\pi\\
+\underset{t\searrow\pi}{lim(f(t))} & \tilde{x}=-\pi
+\end{cases}
+\]
+
+\end_inset
+
+and 
+\begin_inset Formula $\bar{g}$
+\end_inset
+
+ is defined in the same fashion.
+ Note that when 
+\begin_inset Formula $n=\pi,-\pi$
+\end_inset
+
+ we take the limit from the left or the right sides respectively, so it
+ would make sense from the way 
+\begin_inset Formula $f\;\&\;g$
+\end_inset
+
+ are defined.
+ This is basically a concatenation of of the functions across the real line
+ in a periodic manner.
+ Just copy and paste the function infinitely many times and complete an
+ 
+\begin_inset Formula $\aleph_{0}$
+\end_inset
+
+ amount of undefined concatenation points using the defined limits.
+ We get here bound periodic functions with at most 
+\begin_inset Formula $\aleph_{0}$
+\end_inset
+
+ points of discontinuity.
+ From reasons of functional analysis that I would not get into here, there
+ is a uniform convergence of 
+\begin_inset Formula $\bar{f}'s\;\&\bar{\;g's}$
+\end_inset
+
+ Fourier series to them in all of the real line (note that this is not true
+ for any function but ours are good enough).
+ Moreover, all the arguments we've needed in order to calculate 
+\begin_inset Formula $f\;\&\;g's$
+\end_inset
+
+ Fourier decomposition apply here.
+ Thus:
+\begin_inset Formula 
+\[
+\bar{f}(x)=\frac{4}{\pi n}\left(\sum_{n=1,5,9,...}cos(nx)-\sum_{n=3,7,11,...}cos(nx)\right)
 \]
 
 \end_inset
 
 
+\begin_inset Formula 
+\[
+\bar{g}(x)=\sum_{n=1,3,5,...}\frac{4}{\pi n}sin(nx)=\frac{4}{\pi n}\left(\sum_{n=1,5,9,...}sin(nx)+\sum_{n=3,7,11,...}sin(nx)\right)
+\]
+
+\end_inset
+
+It looks like this:
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename f_n_g.png
+	width 70col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Now, note that 
+\begin_inset Formula $\bar{f}$
+\end_inset
+
+ is merely a shift of 
+\begin_inset Formula $\bar{g}$
+\end_inset
+
+ by 
+\begin_inset Formula $\frac{\pi}{2}$
+\end_inset
+
+ just like the cosine functions is a shift of sine function.
+ I.e.:
+\begin_inset Formula 
+\begin{align*}
+\bar{g}(x+\frac{\pi}{2}) & =\frac{4}{\pi n}\left(\sum_{n=1,5,9,...}sin(n(x+\frac{\pi}{2}))+\sum_{n=3,7,11,...}sin(n(x+\frac{\pi}{2}))\right)\\
+= & \frac{4}{\pi n}\left(\sum_{n=1,5,9,...}sin(nx+\frac{n\pi}{2})+\sum_{n=3,7,11,...}sin(nx+\frac{n\pi}{2})\right)\\
+\underset{\bigstar}{=} & \frac{4}{\pi n}\left(\sum_{n=1,5,9,...}cos(nx)-\sum_{n=3,7,11,...}cos(nx)\right)=\bar{f}(x)
+\end{align*}
+
+\end_inset
+
+Where 
+\begin_inset Formula $\bigstar$
+\end_inset
+
+ is from the fact that:
+\begin_inset Formula 
+\[
+\sum_{n=1,5,9,...}sin(nx+\frac{n\pi}{2})=\sum_{n=1,5,9,...}\left[sin(nx)cos\left(\frac{n\pi}{2}\right)+cos(nx)sin\left(\frac{n\pi}{2}\right)\right]=\sum_{n=1,5,9,...}cos(nx)
+\]
+
+\end_inset
+
+and:
+\begin_inset Formula 
+\[
+\sum_{n=3,7,11,...}sin(nx+\frac{n\pi}{2})=\sum_{n=3,7,11,...}\left[sin(nx)cos\left(\frac{n\pi}{2}\right)+cos(nx)sin\left(\frac{n\pi}{2}\right)\right]=\sum_{n=3,7,11,...}-cos(nx)
+\]
+
+\end_inset
+
+Lastly, we just need to remember 
+\begin_inset Formula $\bar{f}|_{(-\pi,\pi)},\bar{g}|_{(-\pi,\pi)}=f,g$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -576,6 +726,68 @@ M^{-1}=\frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{cc}
 
 \end_inset
 
+
+\begin_inset Formula 
+\begin{align*}
+M^{-1}M & =\frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{cc}
+-1 & J_{EI}\\
+-1 & -1+J_{EE}
+\end{array}\right]\left[\begin{array}{cc}
+-1+J_{EE} & -J_{EI}\\
+1 & -1
+\end{array}\right]\\
+= & \frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{cc}
+-1(-1+J_{EE})+J_{EI} & -J_{EI}*-1+J_{EI}*-1\\
+-1(-1+J_{EE})-1+J_{EE} & -J_{EI}*-1+(-1)(-1+J_{EE})
+\end{array}\right]\\
+= & \frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{cc}
+1-J_{EE}+J_{EI} & 0\\
+0 & 1-J_{EE}+J_{EI}
+\end{array}\right]\\
+= & \left[\begin{array}{cc}
+\frac{1-J_{EE}+J_{EI}}{1-J_{EE}+J_{EI}} & 0\\
+0 & \frac{1-J_{EE}+J_{EI}}{1-J_{EE}+J_{EI}}
+\end{array}\right]=\left[\begin{array}{cc}
+1 & 0\\
+0 & 1
+\end{array}\right]
+\end{align*}
+
+\end_inset
+
+———————-
+\begin_inset Formula 
+\begin{align*}
+M^{-1}h_{0} & =\frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{cc}
+-1 & J_{EI}\\
+-1 & -1+J_{EE}
+\end{array}\right]\left[\begin{array}{c}
+h_{E}^{0}\\
+h_{I}^{0}
+\end{array}\right]\\
+= & \frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{c}
+-1*h_{E}^{0}+J_{EI}*h_{I}^{0}\\
+-1*h_{E}^{0}+(-1+J_{EE})h_{I}^{0}
+\end{array}\right]\\
+= & \frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{c}
+J_{EI}h_{I}^{0}-h_{E}^{0}\\
+J_{EE}h_{I}^{0}-h_{E}^{0}-h_{I}^{0}
+\end{array}\right]
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+-M^{-1}h_{0}=\frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{c}
+h_{E}^{0}-J_{EI}h_{I}^{0}\\
+h_{E}^{0}+h_{I}^{0}-J_{EE}h_{I}^{0}
+\end{array}\right]
+\]
+
+\end_inset
+
 and 
 \begin_inset Formula $h^{*}=M^{-1}\left(-1\cdot h_{0}\right)$
 \end_inset
@@ -622,7 +834,7 @@ h_{I}^{*}= & \frac{h_{E}^{0}+h_{I}^{0}-J_{EE}h_{I}^{0}}{1-J_{EE}+J_{EI}}
 \end_inset
 
 ———————————We try again.
- The equitions defined by are (
+ The equations defined by are (
 \begin_inset Formula $0=Mh^{*}+h_{0}$
 \end_inset
 
@@ -807,7 +1019,7 @@ This is not possible
 \begin_inset Formula $0<h_{I}$
 \end_inset
 
- in cotrediction to our assumption.
+ in contradiction to our assumption.
  
 \end_layout
 
@@ -862,7 +1074,7 @@ h_{i}^{*}= & h_{I}^{0}
 
 \end_inset
 
-Remeber, here we demand 
+Remember, here we demand 
 \begin_inset Formula $h_{E}\le0$
 \end_inset
 
@@ -960,7 +1172,7 @@ Remember we assumed
 \begin_inset Formula $0<h_{\alpha}$
 \end_inset
 
- in contridiction to the assumption.
+ in contradiction to the assumption.
  Thus, 
 \series bold
 \bar under
@@ -1059,6 +1271,16 @@ J_{EE}<2
 
 \end_inset
 
+—————————————————-
+\begin_inset Formula 
+\begin{align*}
+0 & <J_{EE}^{2}-4J_{EI}\\
+\Longleftrightarrow & 4J_{EI}<J_{EE}^{2}\\
+\Longleftrightarrow & 2\sqrt{J_{EI}}<J_{EE}
+\end{align*}
+
+\end_inset
+
 Moreover, 
 \end_layout
 
@@ -1103,7 +1325,7 @@ M=\left[\begin{array}{cc}
 
 \begin_inset Formula 
 \[
-\mu_{1,2}=\frac{-2\pm\sqrt{4-4}}{2}=1
+\mu_{1,2}=\frac{-2\pm\sqrt{4-4}}{2}=\frac{-2}{2}\pm\frac{0}{2}=-1
 \]
 
 \end_inset
@@ -1121,6 +1343,22 @@ I.e.
 \end_inset
 
 : Not Possible.
+\end_layout
+
+\begin_layout Section
+Fourier Meets Oscillations
+\end_layout
+
+\begin_layout Subsection
+Numerical Part
+\end_layout
+
+\begin_layout Subsection
+Explaining The Numerical Results Via The Linear Model
+\end_layout
+
+\begin_layout Subsection
+Qualitative Observation
 \end_layout
 
 \end_body
