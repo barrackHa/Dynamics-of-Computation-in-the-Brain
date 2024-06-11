@@ -712,129 +712,7 @@ be a fixed point (FP) of the system, then -
 \end_layout
 
 \begin_layout Enumerate
-\begin_inset Formula $det(M)=((-1+J_{EE})\cdot(-1))-(1\cdot(-J_{EI}))=1-J_{EE}+J_{EI}$
-\end_inset
-
- and so:
-\begin_inset Formula 
-\[
-M^{-1}=\frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{cc}
--1 & J_{EI}\\
--1 & -1+J_{EE}
-\end{array}\right]
-\]
-
-\end_inset
-
-
-\begin_inset Formula 
-\begin{align*}
-M^{-1}M & =\frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{cc}
--1 & J_{EI}\\
--1 & -1+J_{EE}
-\end{array}\right]\left[\begin{array}{cc}
--1+J_{EE} & -J_{EI}\\
-1 & -1
-\end{array}\right]\\
-= & \frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{cc}
--1(-1+J_{EE})+J_{EI} & -J_{EI}*-1+J_{EI}*-1\\
--1(-1+J_{EE})-1+J_{EE} & -J_{EI}*-1+(-1)(-1+J_{EE})
-\end{array}\right]\\
-= & \frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{cc}
-1-J_{EE}+J_{EI} & 0\\
-0 & 1-J_{EE}+J_{EI}
-\end{array}\right]\\
-= & \left[\begin{array}{cc}
-\frac{1-J_{EE}+J_{EI}}{1-J_{EE}+J_{EI}} & 0\\
-0 & \frac{1-J_{EE}+J_{EI}}{1-J_{EE}+J_{EI}}
-\end{array}\right]=\left[\begin{array}{cc}
-1 & 0\\
-0 & 1
-\end{array}\right]
-\end{align*}
-
-\end_inset
-
-———————-
-\begin_inset Formula 
-\begin{align*}
-M^{-1}h_{0} & =\frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{cc}
--1 & J_{EI}\\
--1 & -1+J_{EE}
-\end{array}\right]\left[\begin{array}{c}
-h_{E}^{0}\\
-h_{I}^{0}
-\end{array}\right]\\
-= & \frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{c}
--1*h_{E}^{0}+J_{EI}*h_{I}^{0}\\
--1*h_{E}^{0}+(-1+J_{EE})h_{I}^{0}
-\end{array}\right]\\
-= & \frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{c}
-J_{EI}h_{I}^{0}-h_{E}^{0}\\
-J_{EE}h_{I}^{0}-h_{E}^{0}-h_{I}^{0}
-\end{array}\right]
-\end{align*}
-
-\end_inset
-
-
-\begin_inset Formula 
-\[
--M^{-1}h_{0}=\frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{c}
-h_{E}^{0}-J_{EI}h_{I}^{0}\\
-h_{E}^{0}+h_{I}^{0}-J_{EE}h_{I}^{0}
-\end{array}\right]
-\]
-
-\end_inset
-
-and 
-\begin_inset Formula $h^{*}=M^{-1}\left(-1\cdot h_{0}\right)$
-\end_inset
-
-.
- Note this is only possible in case that 
-\begin_inset Formula $1-J_{EE}+J_{EI}\ne0$
-\end_inset
-
-, iff 
-\begin_inset Formula $1\ne J_{EE}-J_{EI}$
-\end_inset
-
-.
- Furthermore, we get:
-\begin_inset Formula 
-\[
-\left[\begin{array}{c}
-h_{E}^{*}\\
-h_{I}^{*}
-\end{array}\right]=\frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{cc}
--1 & J_{EI}\\
--1 & -1+J_{EE}
-\end{array}\right]\left[\begin{array}{c}
--h_{E}^{0}\\
--h_{I}^{0}
-\end{array}\right]=\frac{1}{1-J_{EE}+J_{EI}}\left[\begin{array}{c}
-h_{E}^{0}-h_{I}^{0}J_{EI}\\
-h_{E}^{0}-h_{I}^{0}(-1+J_{EE})
-\end{array}\right]
-\]
-
-\end_inset
-
-So:
-\begin_inset Formula 
-\[
-\begin{cases}
-h_{E}^{*}= & \frac{h_{E}^{0}-h_{I}^{0}J_{EI}}{1-J_{EE}+J_{EI}}\\
-h_{I}^{*}= & \frac{h_{E}^{0}+h_{I}^{0}-J_{EE}h_{I}^{0}}{1-J_{EE}+J_{EI}}
-\end{cases}
-\]
-
-\end_inset
-
-———————————We try again.
- The equations defined by are (
+The equations defined by are (
 \begin_inset Formula $0=Mh^{*}+h_{0}$
 \end_inset
 
@@ -905,10 +783,38 @@ As we assumed here that
 \begin_inset Formula $0<h_{I}$
 \end_inset
 
-, 
+
+\series bold
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series default
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
 \series bold
 \bar under
-this is possible
+This is possible
 \series default
 \bar default
  with the conditions that:
@@ -926,6 +832,11 @@ Or:
 \begin{array}{ccc}
 1-J_{EE}+J_{EI}<0 & \;AND\; & h_{E}^{0}-J_{EI}h_{I}^{0}\end{array}<0
 \]
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -1004,6 +915,36 @@ Remember, we assumed
  
 \series bold
 \bar under
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series default
+\bar default
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+\bar under
 This is not possible
 \series default
 \bar default
@@ -1021,6 +962,11 @@ This is not possible
 
  in contradiction to our assumption.
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -1331,7 +1277,15 @@ M=\left[\begin{array}{cc}
 \end_inset
 
 I.e.
- , the FP is stable.
+ , the FP is stable for any values of 
+\begin_inset Formula $J_{EE}$
+\end_inset
+
+ (which is not even a factor here) and 
+\begin_inset Formula $J_{EI}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -1355,6 +1309,44 @@ Numerical Part
 
 \begin_layout Subsection
 Explaining The Numerical Results Via The Linear Model
+\end_layout
+
+\begin_layout Subsubsection
+Eigenvalues And Oscillation In A 2D Linear System
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+M=\left[\begin{array}{cc}
+0 & J\\
+-J & 0
+\end{array}\right]
+\]
+
+\end_inset
+
+Now - 
+\begin_inset Formula $tr(M)=0$
+\end_inset
+
+ and 
+\begin_inset Formula $det(M)=0-(-J*J)=J^{2}$
+\end_inset
+
+ we get then that the eigenvalues are:
+\begin_inset Formula 
+\[
+\mu_{1,2}=\frac{0\pm\sqrt{0^{2}-4J^{2}}}{2}=\pm\frac{2J\sqrt{-1}}{2}=\pm Ji
+\]
+
+\end_inset
+
+So, the expected frequency of this system is: 
+\begin_inset Formula $k=\frac{J}{2\pi}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
