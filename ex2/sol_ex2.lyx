@@ -1177,23 +1177,23 @@ J_{EE}-1<J_{EI}\;\;\&\&\;\;J_{EE}<2\;\;\&\&\;\;J_{EI}<\frac{J_{EE}^{2}}{4}
 
 \end_inset
 
-Are the conditions for real eignvalues and a stable solution.
+Are the conditions for real eigenvalues and a stable solution.
  For 
 \begin_inset Formula $J_{EI}\le J_{EE}-1$
 \end_inset
 
- the eignvalues are real and the solution is not stable.
+ the eigenvalues are real and the solution is not stable.
  
 \begin_inset Newline newline
 \end_inset
 
-Now, in the case when the eignvalues are complex, i.e.
+Now, in the case when the eigenvalues are complex, i.e.
  
 \begin_inset Formula $\frac{J_{EE}^{2}}{4}<J_{EI}$
 \end_inset
 
 .
- In this case the sign of the real part of the eign values would be determined
+ In this case the sign of the real part of the eigenvalues would be determined
  by 
 \begin_inset Formula $tr(M)$
 \end_inset
@@ -1203,12 +1203,12 @@ Now, in the case when the eignvalues are complex, i.e.
 \end_inset
 
 ), the dynamics converges and otherwise diverges.
- As we've already calculted, the is sparated by 
+ As we've already calculated, the is separated by 
 \begin_inset Formula $J_{EE}=2$
 \end_inset
 
 .
- Ploting it altogther we get:
+ Plotting it altogether we get:
 \begin_inset Newline newline
 \end_inset
 
@@ -1323,8 +1323,107 @@ Numerical Part
 Simulating The System 
 \end_layout
 
+\begin_layout Paragraph
+For 
+\begin_inset Formula $h_{E}^{0}=2$
+\end_inset
+
+ and 
+\begin_inset Formula $h_{I}^{0}=1$
+\end_inset
+
+ Here are the plots:
+\end_layout
+
+\begin_layout Enumerate
+Real Stable:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename q_2_2_1_real_stable.png
+	width 70text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Real Unstable:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename q_2_2_1_real_unstable.png
+	width 70text%
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+And zoomed in to show 4 unique staring points (the legend rounds it up...):
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename q_2_2_1_real_unstable_zoom_in.png
+	width 70text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Complex Stable:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename q_2_2_1_complex_stable.png
+	width 70text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Complex Unstable:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename q_2_2_1_complex_unstable.png
+	width 70text%
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Bonus
+\end_layout
+
+\begin_layout Subsection
+Qualitative Observation
+\end_layout
+
+\begin_layout Subsubsection
+Stability Analysis 
+\end_layout
+
+\begin_layout Subsubsection
+Connectivity Structure And Non-Linearities
 \end_layout
 
 \begin_layout Section
@@ -1333,6 +1432,83 @@ Fourier Meets Oscillations
 
 \begin_layout Subsection
 Numerical Part
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $r_{E}$
+\end_inset
+
+In Time
+\end_layout
+
+\begin_layout Paragraph
+The duration of a single oscillation is about 6 seconds
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_3_1_1_r_E_VS_time.png
+	width 70text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Power Spectrum Analysis Using The FFT Algorithm
+\end_layout
+
+\begin_layout Paragraph
+A wave with 
+\begin_inset Formula $k=3\left[\frac{1}{sec}\right]$
+\end_inset
+
+ takes 
+\begin_inset Formula $\frac{1}{3}$
+\end_inset
+
+ of a second to complete a single oscillation.
+ When 
+\begin_inset Formula $k=6\left[\frac{1}{sec}\right]$
+\end_inset
+
+it takes 
+\begin_inset Formula $\frac{1}{6}$
+\end_inset
+
+ of a second to complete a single oscillation.
+ In this frequencies vector, the max is 
+\begin_inset Formula $k=0.49\left[\frac{1}{sec}\right]$
+\end_inset
+
+, meaning the wave takes 
+\begin_inset Formula $\frac{1}{0.49}\approx2.04$
+\end_inset
+
+ second to complete an oscillation.
+ As we can see in power spectrum's plot, the peak power is around 
+\begin_inset Formula $k=0.16\left[\frac{1}{sec}\right]$
+\end_inset
+
+, meaning about 
+\begin_inset Formula $\frac{1}{0.16}\approx6.25$
+\end_inset
+
+ second to complete an oscillation.
+ As was approximated from the the signal's plot.
+ 
+\begin_inset Newline newline
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename q_3_1_2_PSD.png
+	width 70text%
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
