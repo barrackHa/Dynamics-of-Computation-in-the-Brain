@@ -785,6 +785,27 @@ As we assumed here that
 
 
 \series bold
+ 
+\series default
+and that 
+\series bold
+
+\begin_inset Formula $0\ne1-J_{EE}+J_{EI}$
+\end_inset
+
+ 
+\series default
+(iff 
+\series bold
+
+\begin_inset Formula $J_{EI}\ne J_{EE}-1$
+\end_inset
+
+
+\series default
+) such that the FP is defined.
+ 
+\series bold
 
 \begin_inset Newline newline
 \end_inset
@@ -1300,10 +1321,6 @@ Numerical Part
 
 \begin_layout Subsubsection
 Simulating The System 
-\end_layout
-
-\begin_layout Standard
-
 \end_layout
 
 \begin_layout Subsection
