@@ -790,29 +790,6 @@ As we assumed here that
 \end_inset
 
 
-\series default
-
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status open
-
-\begin_layout Plain Layout
-
-\series bold
 \bar under
 This is possible
 \series default
@@ -832,11 +809,6 @@ Or:
 \begin{array}{ccc}
 1-J_{EE}+J_{EI}<0 & \;AND\; & h_{E}^{0}-J_{EI}h_{I}^{0}\end{array}<0
 \]
-
-\end_inset
-
-
-\end_layout
 
 \end_inset
 
@@ -919,32 +891,6 @@ Remember, we assumed
 \begin_inset Newline newline
 \end_inset
 
-
-\series default
-\bar default
-
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status open
-
-\begin_layout Plain Layout
-
-\series bold
-\bar under
 This is not possible
 \series default
 \bar default
@@ -962,11 +908,6 @@ This is not possible
 
  in contradiction to our assumption.
  
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Enumerate
@@ -1033,10 +974,10 @@ Remember, here we demand
 \begin_inset Formula $h_{E}^{0}-h_{I}^{0}J_{EI}\ll0$
 \end_inset
 
- which 
+ which
 \series bold
 \bar under
-is possible
+ is possible
 \series default
 \bar default
  for large enough 
@@ -1119,10 +1060,10 @@ Remember we assumed
 \end_inset
 
  in contradiction to the assumption.
- Thus, 
+ Thus: 
 \series bold
 \bar under
-this is not possible.
+This is not possible.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1180,54 +1121,108 @@ M=\left[\begin{array}{cc}
 
 \end_inset
 
-Now, 
-\begin_inset Formula $0<det(M)$
+First, we consider the case when the eigenvalues are real.
+ That is 
+\begin_inset Formula $0<J_{EE}^{2}-4J_{EI}$
 \end_inset
 
- iff 
-\begin_inset Formula $0<1-J_{EE}+J_{EI}$
+ (iff 
+\begin_inset Formula $J_{EI}<\frac{J_{EE}^{2}}{4}$
 \end_inset
 
-iff 
-\begin_inset Formula $J_{EE}<1+J_{EI}$
-\end_inset
-
-.
- And, 
+).
+ Then, the dynamics would be stable iff 
 \begin_inset Formula $tr(M)<0$
 \end_inset
 
- iff 
-\begin_inset Formula $-2+J_{EE}<0$
-\end_inset
-
- iff 
+ (iff 
 \begin_inset Formula $J_{EE}<2$
 \end_inset
 
-.
- Together we get the condition for a stable FP:
+) and 
+\begin_inset Formula $0<det(M)=1-J_{EE}+J_{EI}$
+\end_inset
+
+ (iff 
+\begin_inset Formula $J_{EE}-1<J_{EI}$
+\end_inset
+
+), i.e.
+ :
 \begin_inset Formula 
 \[
-\begin{cases}
-J_{EE}<1+J_{EI}\\
-J_{EE}<2
-\end{cases}
+J_{EE}-1<J_{EI}\;\;\&\&\;\;J_{EE}<2\;\;\&\&\;\;J_{EI}<\frac{J_{EE}^{2}}{4}
 \]
 
 \end_inset
 
-—————————————————-
-\begin_inset Formula 
-\begin{align*}
-0 & <J_{EE}^{2}-4J_{EI}\\
-\Longleftrightarrow & 4J_{EI}<J_{EE}^{2}\\
-\Longleftrightarrow & 2\sqrt{J_{EI}}<J_{EE}
-\end{align*}
+Are the conditions for real eignvalues and a stable solution.
+ For 
+\begin_inset Formula $J_{EI}\le J_{EE}-1$
+\end_inset
+
+ the eignvalues are real and the solution is not stable.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Now, in the case when the eignvalues are complex, i.e.
+ 
+\begin_inset Formula $\frac{J_{EE}^{2}}{4}<J_{EI}$
+\end_inset
+
+.
+ In this case the sign of the real part of the eign values would be determined
+ by 
+\begin_inset Formula $tr(M)$
+\end_inset
+
+, when it's negative (iff 
+\begin_inset Formula $J_{EE}<2$
+\end_inset
+
+), the dynamics converges and otherwise diverges.
+ As we've already calculted, the is sparated by 
+\begin_inset Formula $J_{EE}=2$
+\end_inset
+
+.
+ Ploting it altogther we get:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename jee_vs_jei.png
+	width 75col%
 
 \end_inset
 
-Moreover, 
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -1297,6 +1292,22 @@ I.e.
 \end_inset
 
 : Not Possible.
+\end_layout
+
+\begin_layout Subsection
+Numerical Part
+\end_layout
+
+\begin_layout Subsubsection
+Simulating The System 
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Subsection
+Bonus
 \end_layout
 
 \begin_layout Section
