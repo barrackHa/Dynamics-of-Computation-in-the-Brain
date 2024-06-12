@@ -223,6 +223,33 @@ def q_2():
         q_2_2_1_complex_unstable(),
     ]
 
+def q_2_bonus():
+    J_EE, J_EI = 2, 4
+    dict = plot_helper_wrapper(np.array([
+            [J_EE, J_EI],
+        ]), type_str='Complex UnStable', t_span=(0, 20), NPOINTS=1000,
+        h_E_0=36, h_I_0=1
+    )
+    
+    h_0 = dict['h_0']
+    y0 = dict['initial_conditions'][0]
+    t_span = dict['t_span']
+    NPOINTS = dict['NPOINTS']
+
+    # solution = get_simulation_results(M_1(J_EE,J_EI), h_0, y0, t_span, NPOINTS)
+    solution = simulate_excitatory_inhibitory_system(J_EE, J_EI, h_0, y0, t_span, NPOINTS)
+    max_freq = q_3_2_1_fft_helper(solution)
+    fig, ax = plt.subplots()
+    ax.plot(solution.t, solution.y[0], label=r'$r_{E}$', linewidth=2)
+    ax.set_title(f'Max Freq Using FFT Is: {max_freq:.2f}[Hz]')
+    ax.set_xlabel('Time [Seconds]')
+    ax.set_ylabel(r'$r_{E}$', rotation=0)
+    ax.grid()
+    ax.set_facecolor('lightgray')
+    fig.suptitle('Q2 Bonus - Simulation Of The Excitatory-Inhibitory System With J_EE=2, J_EI=4\n')
+    return fig, ax
+        
+
 def q_3_1_1(J_EE=2, J_EI=2, t_span=(0, 100), NPOINTS=100, h_0=np.array([32, 1]), y0=[1,1]):    
     # solution = get_simulation_results(M_1(J_EE,J_EI), h_0, y0, t_span, NPOINTS)
     solution = simulate_excitatory_inhibitory_system(J_EE, J_EI, h_0, y0, t_span, NPOINTS)
@@ -298,7 +325,6 @@ def q_3_1_2_4():
         funcs.append(np.array(func))
     
     funcs = np.array(funcs)
-    print(funcs.shape)
 
     fig, ax = plt.subplots(figsize=(10,6))
     for i, func in enumerate(funcs):
@@ -393,7 +419,6 @@ def q_3_2_2():
         funcs.append(np.array(func))
     
     funcs = np.array(funcs)
-    print(funcs.shape)
     fig, ax = plt.subplots(figsize=(10,6))
     for i, func in enumerate(funcs):
         ax.plot(J_EIs, func[:,0], label=r'$J_{EE}$'+f'={2+(i/2)} FFT', linewidth=2)
@@ -413,17 +438,18 @@ def q_3_2_2():
     return fig, ax
 
 def q_3():
-    # t_span, NPOINTS = (0, 100), 100
     # _, _, sol_q_3_1 = q_3_1_1()
-    # q_3_1_2()
-    # q_3_1_2_4()
-    # q_3_2_1()
+    q_3_1_2() # Includes q_3_1_1
+    q_3_1_2_4()
+    q_3_2_1()
     q_3_2_2()
 
 
 if __name__ == "__main__":
-    # q_2()
-    # plt.show()
+    q_2()
+    plt.show()
     q_3()
+    plt.show()
+    q_2_bonus()
     plt.show()
     

@@ -1414,6 +1414,157 @@ Complex Unstable:
 Bonus
 \end_layout
 
+\begin_layout Subsubsection
+\begin_inset Formula $J_{EI}=4$
+\end_inset
+
+, 
+\begin_inset Formula $J_{EE}=2$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+The value past which the system loses stability is 
+\begin_inset Formula $J_{EE}=2$
+\end_inset
+
+ as was explained in the stability analysis in section 2.1.3.1.
+ We get the matrix and eigenvalues at that point:
+\begin_inset Formula 
+\[
+M=\left[\begin{array}{cc}
+-1+J_{EE} & -J_{EI}\\
+1 & -1
+\end{array}\right]=\left[\begin{array}{cc}
+1 & -4\\
+1 & -1
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mu_{1,2}=\frac{-2+J_{EE}\pm\sqrt{J_{EE}^{2}-4J_{EI}}}{2}=\frac{-2+2\pm\sqrt{2^{2}-4\cdot4}}{2}=\pm\sqrt{3}i
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Analytical Assent Of The Period Of The Oscillations
+\end_layout
+
+\begin_layout Paragraph
+As we've seen thus far, If we look at the system in a small neighborhood
+ of the FP, it can be approximated by the linear system.
+ Moreover, if we look at the linear system in its complex eigenbase, it
+ would look like this:
+\begin_inset Formula 
+\[
+S=\left[\begin{array}{cc}
+\sqrt{3}i & 0\\
+0 & -\sqrt{3}i
+\end{array}\right]
+\]
+
+\end_inset
+
+Specifically, in this base, we would get the solutions:
+\begin_inset Formula 
+\[
+h_{E}=h_{E}^{0}e^{\sqrt{3}it}=ae^{t}(cos(\sqrt{3}t)+isin(\sqrt{3}t))
+\]
+
+\end_inset
+
+And the same goes for the other dimension.
+ Using what we've learned in Q.3, we know the expected frequency is 
+\begin_inset Formula 
+\[
+k=\frac{im(\mu_{1})}{2\pi}=\frac{\sqrt{3}}{2\pi}\approx0.275[Hz]
+\]
+
+\end_inset
+
+Now, sure, you can say we didn't need the Euler's identity for that, just
+ the eigenvalue and you'll be right.
+ As I'm trying to please the crowd - it's included anyway.
+ Now, for the magic...
+\end_layout
+
+\begin_layout Subsubsection
+Simulation Gives the same results 
+\begin_inset Formula $\pm$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+So as per request, Here is the simulation of the system:
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_bonus_system_sim.png
+	scale 50
+
+\end_inset
+
+And the oscillations of 
+\begin_inset Formula $r_{E}$
+\end_inset
+
+ plotted VS time.
+ Using FFT analysis, we get the frequency is ~
+\begin_inset Formula $0.25$
+\end_inset
+
+.
+ Moreover, we can see from the graph it's a bit under 3.
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_bonus_r_E_VS_t.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+For fun, I've also simulated the linear system and it looks pretty much
+ the same:
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_bonus_linear_system_sim.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_bonus_linear_sys_r_E_VS_t.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Qualitative Observation
 \end_layout
@@ -1473,8 +1624,8 @@ good
  ratio, and the excitatory (E) initial input is bigger than the inhibitory
  (I), the E neuron excites the I neuron, causing it to increase its firing
  rate.
- In turn, the I neuron inhibites the E neuron which fires less, causing
- the I neuron to fire less and thus E is less inhibited and fires more again.
+ In turn, the I neuron inhibits the E neuron which fires less, causing the
+ I neuron to fire less and thus E is less inhibited and fires more again.
  This is the nature of the cycle.
  
 \end_layout
@@ -1769,8 +1920,41 @@ We run the simulation for 3 values of
 Qualitative Observation
 \end_layout
 
-\begin_layout Enumerate
+\begin_layout Subsubsection
+Frequency Of Oscillations Increased With 
+\begin_inset Formula $J_{EI}$
+\end_inset
 
+And decreased With 
+\begin_inset Formula $J_{EE}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Paragraph
+We saw in the graph.
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula $J_{EE}$
+\end_inset
+
+ increase means the E neuron have a bigger effect on itself, the relative
+ part of the negative feedback decreases
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula $J_{EI}$
+\end_inset
+
+ increase means the exact opposite, The relative effect of the negative
+ feedback is greater.
+\end_layout
+
+\begin_layout Subsubsection
+linear model describe the non-linear dynamics
 \end_layout
 
 \end_body
