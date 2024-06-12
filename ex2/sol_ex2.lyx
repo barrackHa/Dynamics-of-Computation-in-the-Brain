@@ -1499,9 +1499,13 @@ As we can see in power spectrum's plot, the peak power is around
 \begin_inset Formula $\frac{1}{0.16}\approx6.25$
 \end_inset
 
- second to complete an oscillation.
- As was approximated from the the signal's plot.
- Here is the plot of the signal's power spectrum.
+ second to complete an oscillation, As was approximated from the the signal's
+ plot.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Here is the plot of the signal's power spectrum.
  Note I used sampling space od 1 second accross 100 seconds and this is
  why the max possible power is so low.
  Increasing the sample rate does not change anything other than the possible
@@ -1519,6 +1523,32 @@ As we can see in power spectrum's plot, the peak power is around
  
 \begin_inset Graphics
 	filename q_3_1_2_PSD.png
+	width 70text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+See Section 3.1.2
+\end_layout
+
+\begin_layout Subsubsection
+Frequency Of Oscillations As A Function Of 
+\begin_inset Formula $J_{EI}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here we can see 
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_3_1_4_f_vs_J_EI.png
 	width 70text%
 
 \end_inset
@@ -1563,6 +1593,18 @@ Now -
 
 So, the expected frequency of this system is: 
 \begin_inset Formula $k=\frac{J}{2\pi}$
+\end_inset
+
+.
+ Now looking at the simulation results VS the analytical expectation we
+ can see they're prrety much the same:
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_3_2_2_skew_symm_mat_freqs.png
+	width 70text%
+
 \end_inset
 
 

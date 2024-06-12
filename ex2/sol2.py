@@ -276,102 +276,103 @@ def q_3_1_2(sol=None, t_span=(0, 100), NPOINTS=100):
     psd.grid()
     psd.legend()
     psd.set_facecolor('lightgray')
+    return fig_fft, psd
 
 def q_3_1_2_4():
     funcs = []
     y0 = np.array((2.5, 3.5))
     h_0 = np.array([36, 4])
+    t_span, NPOINTS = (0, 100), 100
     for J_EE in [2,2.5,3]:
         func = []
-        # b = 2 + i
-        # for J_EE, J_EI in [[b, 1.75], [b, 1.25], [b, 4], [b, 16], [b,18]]:
-        for J_EI in np.linspace(2, 7, 20):
-        # for J_EE, J_EI in [[2, 1.1], [2.5, 1.7], [3, 2.5]]:
-            # sol = get_simulation_results(
-            #     M_1(J_EE,J_EI), initial_conditions=y0, 
-            #     external_input=h_0, time_span=(0, 100), points_num=100
-            # )
+        for J_EI in np.linspace(2, 10, 50):
             sol = simulate_excitatory_inhibitory_system(
                 J_EE, J_EI, h_0, initial_conditions=y0, 
-                time_span=(0, 100), points_num=100
+                time_span=t_span, points_num=NPOINTS
             )
-            # _, _, sol = q_3_1_1(J_EE, J_EI, h_0=np.array([6, 2]), y0=y0)
-            # sig.plot(sol.t, sol.y[0], label=f'J_EE={J_EE}, J_EI={J_EI}')
             r_E_fft = fft(sol.y[0])
-            freqs = fftfreq(len(r_E_fft), d=1)
-            # psd.plot(freqs[0<=freqs], np.abs(r_E_fft)[0<=freqs], label=f'J_EE={J_EE}, J_EI={J_EI}')
-            max_freq = freqs[np.abs(r_E_fft)[0.05<freqs].argmax()]
+            freqs = fftfreq(len(r_E_fft), d=np.diff(sol.t).mean())
+            max_freq, _ = find_freqs_peak(freqs, r_E_fft)
             func.append(np.array([J_EI, max_freq]))
-            # print(func)
+            
         funcs.append(np.array(func))
     
     funcs = np.array(funcs)
     print(funcs.shape)
 
-    fig, ax = plt.subplots()
-    for func in funcs:
-        ax.plot(func[:,0], func[:,1])
+    fig, ax = plt.subplots(figsize=(10,6))
+    for i, func in enumerate(funcs):
+        ax.plot(func[:,0], func[:,1], label=r'$J_{EE}$'+f'={2+i}')
+    ax.set_xlabel(r'$J_{EI}$')
+    ax.set_ylabel('Peak Frequency [Hz]')
+    ax.grid()
+    ax.legend()
+    ax.set_facecolor('lightgray')
 
-    plt.show()
-    exit()
+    ttl = r'Peak Frequency As A Function Of $J_{EI}$' + '\n'
+    ttl += f'h_0={h_0}, y0={y0}, Times: {t_span}[Sec], #Of Sample Points: {NPOINTS}'
+    fig.suptitle(ttl)
 
-    # fig, (sig, psd) = plt.subplots(2)
-    # sig.set_xlabel('Time [Seconds]')
-    # sig.set_ylabel(r'$r_{E}$', rotation=0)
-    # sig.set_facecolor('lightgray')
-    # sig.grid()
-    # sig.legend()
-    # psd.set_xlabel('Frequency [Hz]')
-    # psd.set_ylabel('Power')
-    # psd.set_title(r'Power Spectrum Of $r_{E}$')
-    # psd.grid()
-    # psd.legend()
-    # psd.set_facecolor('lightgray')
+    return fig, ax
 
+def q_3_2_1_mat_factory(J=1):
+    return np.array([
+        [0, J],
+        [(-1 * J), 0]
+    ])
+
+def q_3_2_1_simulator(J=1, h_0=np.array([1, 1]), y0=np.array([1, 1]),
+        t_span=(0, 100), NPOINTS=100):
+    M = q_3_2_1_mat_factory(J)
+    t_span, NPOINTS = (0, 100), 100
+    sol = get_simulation_results(M, h_0, y0, t_span, NPOINTS)
+    return sol
+
+def q_3_2_1_fft_helper(sol):
+    sol_fft = fft(sol.y[0])
+    # calculate the mean sampling rate
+    dt = np.diff(sol.t).mean()
+    # get the freqs 
+    freqs = fftfreq(len(sol_fft), d=dt)
+
+    max_freq, _ = find_freqs_peak(freqs, sol_fft)
+    return max_freq
+
+def q_3_2_1():
+    max_freqs = []
+    t = np.arange(0.3, 3, 0.1)
+    for J in t:
+        sol = q_3_2_1_simulator(J)
+        max_freq = q_3_2_1_fft_helper(sol)
+        max_freqs.append(max_freq)
     
+    max_freqs = np.array(max_freqs)
+    fig, ax = plt.subplots()
+    ax.plot(t, max_freqs, linewidth=2, label='Peak Frequency From Simulation')
+    ax.plot(
+        t, t/(2*np.pi), linestyle='--', color='red',
+        label=r'k=$\frac{J}{2\pi}$', alpha=0.5, linewidth=2
+    )
+    ax.set_xlabel('J')
+    ax.set_ylabel('k[Hz]', rotation=0)  
+    ax.grid()
+    ax.legend()
+    ax.set_facecolor('lightgray')
 
+    ttl = 'Peak Frequency As A Function Of J - Simulation VS Analytical'
+    fig.suptitle(ttl)
 
 def q_3():
     # t_span, NPOINTS = (0, 100), 100
     # _, _, sol_q_3_1 = q_3_1_1()
-    q_3_1_2()
+    # q_3_1_2()
     # q_3_1_2_4()
+    q_3_2_1()
+
 
 if __name__ == "__main__":
-
     # q_2()
     # plt.show()
-
     q_3()
     plt.show()
-    exit()
-    J_EE = J_EI = 2
-    t_span, NPOINTS = (0, 100), 100
-    h_0 = np.array([6, 2])
-    y0 = [-10, -10]
-    solution = get_simulation_results(M_1(J_EE,J_EI), h_0, y0, t_span, NPOINTS)
-
-    t = np.linspace(0, 100, 100)
-    x = np.sin(t)
-    fig_fft, (r_vs_t, psd) = plt.subplots(2)
-    # r_vs_t.plot(solution.t, solution.y[0], label=r'$r_{E}$')
-    r_vs_t.plot(t, x, label=r'x')
-
-    # Run numpy fft on solution.y[0]
-    print(solution.y[0].shape)
-    # fft = np.fft.fft(solution.y[0])
-    fft = np.fft.fft(x)
-    print(fft.shape)
-    # freqs = np.fft.fftfreq(len(fft), d=1/NPOINTS)
-    freqs = np.fft.fftfreq(len(fft), d=1/10)
-    print(freqs.shape)
-    # Plot the power spectrum
-    psd.plot(freqs[:len(fft)//2], np.abs(fft)[:len(fft)//2])
-    # psd.plot(np.abs(fft))
-    # psd.set_xlabel('Frequency')
-    # psd.set_ylabel('Power')
-    # psd.legend()
-    # psd.grid()
-
-
-    plt.show()
+    
