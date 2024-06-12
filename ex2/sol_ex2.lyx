@@ -1422,8 +1422,61 @@ Qualitative Observation
 Stability Analysis 
 \end_layout
 
+\begin_layout Paragraph
+We saw here a complex system with a few types of attractors and repellers
+ including limit-cycles, convergence to fixed points, divergence to infinity.
+ Also, it's not shown here but I also came across oscillating divergence.
+ For some values, any small change of parameters can cause dramatic changes,
+ for others, not so much.
+ We've learned about the different regimes of the dynamics, how we can approxima
+te the dynamics as linear dynamics in the different regimes and how those
+ linear systems behave.
+ We saw this does not correspond 1-1 with the system and still, it's good
+ enough to tell us a lot about how it works
+\end_layout
+
+\begin_layout Paragraph
+After such a long H.W.
+ assignment, it's hard to say we've missed anything at all and it seems
+ like an eternity had passed while I was working on this.
+ Still, I would say we haven't plotted the 
+\begin_inset Quotes eld
+\end_inset
+
+Phase portraits
+\begin_inset Quotes erd
+\end_inset
+
+ of the dynamics.
+\end_layout
+
 \begin_layout Subsubsection
 Connectivity Structure And Non-Linearities
+\end_layout
+
+\begin_layout Paragraph
+In the E-I we first saw oscillations.
+ There's negative feedback with time delay (as Prof' Kleinfeld referred
+ to it) which causes oscillations.
+ Basically, when the wight of the synapses (
+\begin_inset Formula $J_{\alpha\beta}$
+\end_inset
+
+) is in a 
+\begin_inset Quotes eld
+\end_inset
+
+good
+\begin_inset Quotes erd
+\end_inset
+
+ ratio, and the excitatory (E) initial input is bigger than the inhibitory
+ (I), the E neuron excites the I neuron, causing it to increase its firing
+ rate.
+ In turn, the I neuron inhibites the E neuron which fires less, causing
+ the I neuron to fire less and thus E is less inhibited and fires more again.
+ This is the nature of the cycle.
+ 
 \end_layout
 
 \begin_layout Section
@@ -1506,12 +1559,12 @@ As we can see in power spectrum's plot, the peak power is around
 
 \begin_layout Paragraph
 Here is the plot of the signal's power spectrum.
- Note I used sampling space od 1 second accross 100 seconds and this is
- why the max possible power is so low.
+ Note I used sampling space is 1 second across 100 seconds and this is why
+ the max possible power is so low.
  Increasing the sample rate does not change anything other than the possible
  frequencies.
- There's no nned to zoom in in this graph.
- Moreover, as the power spectrum is symmetic around 
+ There's no need to zoom in in this graph.
+ Moreover, as the power spectrum is symmetric around 
 \begin_inset Formula $f=0[Hz]$
 \end_inset
 
@@ -1542,8 +1595,25 @@ Frequency Of Oscillations As A Function Of
 
 \end_layout
 
-\begin_layout Standard
-Here we can see 
+\begin_layout Paragraph
+Here we can see the frequency of the oscillation as a function of 
+\begin_inset Formula $J_{EI}$
+\end_inset
+
+ for 3 values of 
+\begin_inset Formula $J_{EE}$
+\end_inset
+
+.
+ We can see the drop where we shift to the 
+\begin_inset Quotes eld
+\end_inset
+
+real eigenvalues - unstable solution
+\begin_inset Quotes erd
+\end_inset
+
+ regime from section 2.1.3.
 \end_layout
 
 \begin_layout Paragraph
@@ -1597,12 +1667,97 @@ So, the expected frequency of this system is:
 
 .
  Now looking at the simulation results VS the analytical expectation we
- can see they're prrety much the same:
+ can see they're pretty much the same:
 \end_layout
 
 \begin_layout Paragraph
 \begin_inset Graphics
-	filename q_3_2_2_skew_symm_mat_freqs.png
+	filename q_3_2_1_skew_symm_mat_freqs.png
+	width 70text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Frequency Of Oscillations From The Linear Model - Predicted VS Simulated
+\end_layout
+
+\begin_layout Paragraph
+Using the linear model :
+\begin_inset Formula 
+\[
+M=\left[\begin{array}{cc}
+-1+J_{EE} & -J_{EI}\\
+1 & -1
+\end{array}\right]
+\]
+
+\end_inset
+
+We run the simulation for 3 values of 
+\begin_inset Formula $J_{EE}$
+\end_inset
+
+ (
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2, 2.5 and 3
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+) with initial condition 
+\begin_inset Formula $(h_{E}(t=0),h_{I}(t=0))=(2.5,3.5)$
+\end_inset
+
+, with constant external input 
+\begin_inset Formula $(h_{E}^{0},h_{I}^{0})=(36,4)$
+\end_inset
+
+ from T=0[Sec] to T=100[Sec] with sample rate of 1 sample per second.
+ We calculate the eigenvalues of matrix 
+\begin_inset Formula $M$
+\end_inset
+
+.
+ As this is an oscillating 2D system, we get eigenvalues of the form 
+\begin_inset Formula $a\pm bi$
+\end_inset
+
+.
+ We calculate 
+\begin_inset Formula $k=\frac{b}{2\pi}$
+\end_inset
+
+ as was instructed and also extract the frequency of the simulation using
+ FFT analysis and plot them.
+ We can see in the plot that the expected values (dashed lines) pretty match
+ what happens in the simulations:
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_3_2_2_sim_vs_calc.png
 	width 70text%
 
 \end_inset
@@ -1612,6 +1767,10 @@ So, the expected frequency of this system is:
 
 \begin_layout Subsection
 Qualitative Observation
+\end_layout
+
+\begin_layout Enumerate
+
 \end_layout
 
 \end_body

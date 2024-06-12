@@ -302,7 +302,7 @@ def q_3_1_2_4():
 
     fig, ax = plt.subplots(figsize=(10,6))
     for i, func in enumerate(funcs):
-        ax.plot(func[:,0], func[:,1], label=r'$J_{EE}$'+f'={2+i}')
+        ax.plot(func[:,0], func[:,1], label=r'$J_{EE}$'+f'={2+(i/2)}')
     ax.set_xlabel(r'$J_{EI}$')
     ax.set_ylabel('Peak Frequency [Hz]')
     ax.grid()
@@ -322,9 +322,11 @@ def q_3_2_1_mat_factory(J=1):
     ])
 
 def q_3_2_1_simulator(J=1, h_0=np.array([1, 1]), y0=np.array([1, 1]),
-        t_span=(0, 100), NPOINTS=100):
-    M = q_3_2_1_mat_factory(J)
-    t_span, NPOINTS = (0, 100), 100
+        t_span=(0, 100), NPOINTS=100, mat=None):
+    if mat is None:
+        M = q_3_2_1_mat_factory(J)
+    else:
+        M = mat
     sol = get_simulation_results(M, h_0, y0, t_span, NPOINTS)
     return sol
 
@@ -362,12 +364,61 @@ def q_3_2_1():
     ttl = 'Peak Frequency As A Function Of J - Simulation VS Analytical'
     fig.suptitle(ttl)
 
+def q_3_2_2_matrix_analyzer(
+    J_EE=2, J_EI=2, y0=np.array((2.5, 3.5)),
+    h_0=np.array([36, 4]), t_span=(0, 100), NPOINTS=100
+):
+    M = M_1(J_EE=J_EE, J_EI=J_EI)
+    eigenvalues = np.linalg.eigvals(M)
+
+    # get the imaginary part of the eigenvalues
+    imaginary_eigenvalue_part = np.imag(eigenvalues)[0]
+    excepted_k = imaginary_eigenvalue_part / (2 * np.pi)
+
+    t_span, NPOINTS = (0, 100), 100
+
+    sol = q_3_2_1_simulator(h_0=h_0, y0=y0, t_span=t_span, NPOINTS=NPOINTS, mat=M)
+    max_freq = q_3_2_1_fft_helper(sol)
+    
+    return max_freq, excepted_k
+
+def q_3_2_2():
+    J_EIs = np.linspace(3.5, 7, 50)
+    funcs = []
+    for J_EE in [2,2.5,3]:
+        func = []
+        for J_EI in J_EIs:
+            max_freq, excepted_k = q_3_2_2_matrix_analyzer(J_EE=J_EE, J_EI=J_EI)
+            func.append(np.array([max_freq, excepted_k]))
+        funcs.append(np.array(func))
+    
+    funcs = np.array(funcs)
+    print(funcs.shape)
+    fig, ax = plt.subplots(figsize=(10,6))
+    for i, func in enumerate(funcs):
+        ax.plot(J_EIs, func[:,0], label=r'$J_{EE}$'+f'={2+(i/2)} FFT', linewidth=2)
+        ax.plot(J_EIs, func[:,1], label=r'$J_{EE}$'+f'={2+(i/2)} Expected', linestyle='--')
+    
+    ax.set_xlabel(r'$J_{EI}$')
+    ax.set_ylabel('K[Hz]', rotation=0)
+    ax.grid()
+    ax.legend()
+    ax.set_facecolor('lightgray')
+
+    ttl = r'Q3.2.2 Frequency Of Oscillations From The Linear Model' + '\n'
+    ttl += r'Predicted VS Simulated As A Function Of $J_{EI}$'
+    # ttl += f'h_0={h_0}, y0={y0}, Times: {t_span}[Sec], #Of Sample Points: {NPOINTS}'
+    fig.suptitle(ttl)
+
+    return fig, ax
+
 def q_3():
     # t_span, NPOINTS = (0, 100), 100
     # _, _, sol_q_3_1 = q_3_1_1()
     # q_3_1_2()
     # q_3_1_2_4()
-    q_3_2_1()
+    # q_3_2_1()
+    q_3_2_2()
 
 
 if __name__ == "__main__":
