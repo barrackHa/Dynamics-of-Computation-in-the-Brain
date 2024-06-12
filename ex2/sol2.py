@@ -223,11 +223,13 @@ def q_2():
         q_2_2_1_complex_unstable(),
     ]
 
-def q_3_1_1(J_EE=2, J_EI=2, t_span=(0, 100), NPOINTS=100, h_0=np.array([2, 1]), y0=[1,1]):    
-    
-    solution = get_simulation_results(M_1(J_EE,J_EI), h_0, y0, t_span, NPOINTS)
+def q_3_1_1(J_EE=2, J_EI=2, t_span=(0, 100), NPOINTS=100, h_0=np.array([32, 1]), y0=[1,1]):    
+    # solution = get_simulation_results(M_1(J_EE,J_EI), h_0, y0, t_span, NPOINTS)
+    solution = simulate_excitatory_inhibitory_system(J_EE, J_EI, h_0, y0, t_span, NPOINTS)
     fig, ax = plt.subplots()
-    fig.suptitle(f'Q3.1: J_EE={J_EE}, J_EI={J_EI}, y0={y0}, h0={h_0}')
+    ttl = f"Q3.1.1 Simulation of the Excitatory-Inhibitory System From {t_span[0]} To {t_span[1]}[Sec]\n"
+    ttl += r'$J_{EE}$=' + f'{J_EE}, ' + r'$J_{EI}$=' + f'{J_EI}. #Of Sample Points: {NPOINTS}'
+    fig.suptitle(ttl)
     ax.plot(solution.t, solution.y[0], label=r'$r_{E}$', linewidth=2)
     ax.set_xlabel('Time [Seconds]')
     ax.set_ylabel(r'$r_{E}$', rotation=0)
@@ -236,26 +238,41 @@ def q_3_1_1(J_EE=2, J_EI=2, t_span=(0, 100), NPOINTS=100, h_0=np.array([2, 1]), 
 
     return fig, ax, solution
 
+def find_freqs_peak(freqs, power, threshold=0.05):
+    f, p = freqs[0<=freqs], np.abs(power)[0<=freqs]
+    # Discard frequencies below the threshold
+    f, p = f[f>threshold], p[f>threshold]
+    # Find the peak frequency and its power
+    return f[p.argmax()], p.max()
+
 def q_3_1_2(sol=None, t_span=(0, 100), NPOINTS=100):
     if sol is None:
         _, _, sol = q_3_1_1(t_span=t_span, NPOINTS=NPOINTS)
     
     # Run scipy fft on solution.y[0]
     r_E_fft = fft(sol.y[0])
-    freqs = fftfreq(len(r_E_fft), d=1)
+    # calculate the mean sampling rate
+    dt = np.diff(sol.t).mean()
+    # get the freqs 
+    freqs = fftfreq(len(r_E_fft), d=dt)
 
     # Plot the power spectrum
     fig_fft, psd = plt.subplots()
     psd.plot(freqs[0<=freqs], np.abs(r_E_fft)[0<=freqs])
     psd.set_xlabel('Frequency [Hz]')
     psd.set_ylabel('Power')
-    psd.set_title(r'Power Spectrum Of $r_{E}$')
-    max_freq = freqs[np.abs(r_E_fft).argmax()]
+    psd.set_title(
+        r'Power Spectrum Of $r_{E}$' + f'\nMean Sample Spacing: {dt:.2f}[Sec]'
+    )
+
+    max_freq, max_power = find_freqs_peak(freqs, r_E_fft)
+    
     psd.vlines(
-        max_freq, ymin=0, ymax=np.abs(r_E_fft).max(), 
+        max_freq, ymin=0, ymax=max_power, 
         color='orange', linestyle='--', linewidth=2, 
         label=f'Peak Frequency at ~ {max_freq:.2f}[Hz]'
     )
+
     psd.grid()
     psd.legend()
     psd.set_facecolor('lightgray')
@@ -270,9 +287,13 @@ def q_3_1_2_4():
         # for J_EE, J_EI in [[b, 1.75], [b, 1.25], [b, 4], [b, 16], [b,18]]:
         for J_EI in np.linspace(2, 7, 20):
         # for J_EE, J_EI in [[2, 1.1], [2.5, 1.7], [3, 2.5]]:
-            sol = get_simulation_results(
-                M_1(J_EE,J_EI), initial_conditions=y0, 
-                external_input=h_0, time_span=(0, 100), points_num=100
+            # sol = get_simulation_results(
+            #     M_1(J_EE,J_EI), initial_conditions=y0, 
+            #     external_input=h_0, time_span=(0, 100), points_num=100
+            # )
+            sol = simulate_excitatory_inhibitory_system(
+                J_EE, J_EI, h_0, initial_conditions=y0, 
+                time_span=(0, 100), points_num=100
             )
             # _, _, sol = q_3_1_1(J_EE, J_EI, h_0=np.array([6, 2]), y0=y0)
             # sig.plot(sol.t, sol.y[0], label=f'J_EE={J_EE}, J_EI={J_EI}')

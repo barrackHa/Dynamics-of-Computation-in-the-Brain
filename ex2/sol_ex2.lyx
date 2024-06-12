@@ -1442,7 +1442,7 @@ In Time
 \end_layout
 
 \begin_layout Paragraph
-The duration of a single oscillation is about 6 seconds
+The duration of a single oscillation is about 6 seconds.
 \end_layout
 
 \begin_layout Paragraph
@@ -1456,7 +1456,7 @@ The duration of a single oscillation is about 6 seconds
 \end_layout
 
 \begin_layout Subsubsection
-Power Spectrum Analysis Using The FFT Algorithm
+Q3.1.2-3: Power Spectrum Analysis Using The FFT Algorithm 
 \end_layout
 
 \begin_layout Paragraph
@@ -1487,7 +1487,11 @@ it takes
 \end_inset
 
  second to complete an oscillation.
- As we can see in power spectrum's plot, the peak power is around 
+ 
+\end_layout
+
+\begin_layout Paragraph
+As we can see in power spectrum's plot, the peak power is around 
 \begin_inset Formula $k=0.16\left[\frac{1}{sec}\right]$
 \end_inset
 
@@ -1497,6 +1501,17 @@ it takes
 
  second to complete an oscillation.
  As was approximated from the the signal's plot.
+ Here is the plot of the signal's power spectrum.
+ Note I used sampling space od 1 second accross 100 seconds and this is
+ why the max possible power is so low.
+ Increasing the sample rate does not change anything other than the possible
+ frequencies.
+ There's no nned to zoom in in this graph.
+ Moreover, as the power spectrum is symmetic around 
+\begin_inset Formula $f=0[Hz]$
+\end_inset
+
+, we only need to look at the positive part of the plot.
  
 \begin_inset Newline newline
 \end_inset
