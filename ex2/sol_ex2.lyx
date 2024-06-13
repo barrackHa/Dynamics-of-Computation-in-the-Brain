@@ -379,12 +379,19 @@ and
 
  points of discontinuity.
  From reasons of functional analysis that I would not get into here, there
- is a uniform convergence of 
+ is a convergence of 
 \begin_inset Formula $\bar{f}'s\;\&\bar{\;g's}$
 \end_inset
 
- Fourier series to them in all of the real line (note that this is not true
- for any function but ours are good enough).
+ Fourier series point-wise on all of the real line and uniformly for any
+ bounded segment of the form 
+\begin_inset Formula $[-n,n]$
+\end_inset
+
+.
+ It's a bit messy but we'll consider the post hoc expansions of the functions
+ as if they were done on a wide enough segment to include what we're trying
+ to compute.
  Moreover, all the arguments we've needed in order to calculate 
 \begin_inset Formula $f\;\&\;g's$
 \end_inset
@@ -1492,10 +1499,9 @@ k=\frac{im(\mu_{1})}{2\pi}=\frac{\sqrt{3}}{2\pi}\approx0.275[Hz]
 
 \end_inset
 
-Now, sure, you can say we didn't need the Euler's identity for that, just
- the eigenvalue and you'll be right.
- As I'm trying to please the crowd - it's included anyway.
- Now, for the magic...
+We didn't need Euler's identity for that, just the imaginary component of
+ the eigenvalue.
+ .
 \end_layout
 
 \begin_layout Subsubsection
@@ -1604,7 +1610,7 @@ Phase portraits
 \end_inset
 
  of the dynamics.
- Also, we left out a lot of
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -1643,11 +1649,11 @@ Using the ReLu function as a non-linearity, enabled us to have a few regimes
 \begin_inset Formula $g(x)=x$
 \end_inset
 
- instead would have caused some odd behaviours such as - what's the meaning
+ instead would have caused some odd behaviors such as - what's the meaning
  of the feedback loop for negative values.
  Also, using the sigmoid function would limit the effect of the inhibitory
  and excitatory inputs to between 0 and 1 (times the wight of the synapse),
- this may have not been sufficiant enough feedback to power oscillations.
+ this may have not been sufficient enough feedback to power oscillations.
 \end_layout
 
 \begin_layout Standard

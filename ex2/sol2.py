@@ -117,8 +117,6 @@ def q_2_plot_helper(
         # Plot the solution
         ax.plot(solution.y[0], solution.y[1], label=f'Starting At ({y0[0]:.2f},{y0[1]:.2f})')
         sc = ax.scatter(solution.y[0], solution.y[1], c=solution.t, cmap='viridis', alpha=0.7)
-        
-    sc = ax.scatter(solution.y[0], solution.y[1], c=solution.t, cmap='viridis', alpha=0.7)
     
     if fig is not None:
         # Add a color bar
@@ -220,14 +218,14 @@ def q_2_bonus():
     dict = plot_helper_wrapper(np.array([
             [J_EE, J_EI],
         ]), type_str='Complex UnStable', t_span=(0, 20), NPOINTS=1000,
-        h_E_0=36, h_I_0=1
+        h_E_0=36, h_I_0=1, use_linear_system=True
     )
     
     h_0 = dict['h_0']
     y0 = [20.83,20.83]
     t_span = dict['t_span']
     NPOINTS = dict['NPOINTS']
-
+    
     solution = simulate_excitatory_inhibitory_system(J_EE, J_EI, h_0, y0, t_span, NPOINTS)
     sys_fig, sys_ax = plt.subplots(figsize=(10,6))
     sys_ax.plot(solution.y[0], solution.y[1], label=f'Starting At ({y0[0]:.2f},{y0[1]:.2f})')
