@@ -1588,7 +1588,7 @@ We saw here a complex system with a few types of attractors and repellers
 te the dynamics as linear dynamics in the different regimes and how those
  linear systems behave.
  We saw this does not correspond 1-1 with the system and still, it's good
- enough to tell us a lot about how it works
+ enough to tell us a lot about how it works.
 \end_layout
 
 \begin_layout Paragraph
@@ -1604,6 +1604,7 @@ Phase portraits
 \end_inset
 
  of the dynamics.
+ Also, we left out a lot of
 \end_layout
 
 \begin_layout Subsubsection
@@ -1633,6 +1634,27 @@ good
  I neuron to fire less and thus E is less inhibited and fires more again.
  This is the nature of the cycle.
  
+\end_layout
+
+\begin_layout Paragraph
+Using the ReLu function as a non-linearity, enabled us to have a few regimes
+ of fixed points.
+ Using 
+\begin_inset Formula $g(x)=x$
+\end_inset
+
+ instead would have caused some odd behaviours such as - what's the meaning
+ of the feedback loop for negative values.
+ Also, using the sigmoid function would limit the effect of the inhibitory
+ and excitatory inputs to between 0 and 1 (times the wight of the synapse),
+ this may have not been sufficiant enough feedback to power oscillations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1907,8 +1929,16 @@ We run the simulation for 3 values of
 
  as was instructed and also extract the frequency of the simulation using
  FFT analysis and plot them.
- We can see in the plot that the expected values (dashed lines) pretty match
- what happens in the simulations:
+ We can see in the plot that the expected values (lines) pretty match what
+ happens in the simulations (
+\begin_inset Quotes eld
+\end_inset
+
++
+\begin_inset Quotes erd
+\end_inset
+
+ signs):
 \end_layout
 
 \begin_layout Paragraph
@@ -1939,27 +1969,57 @@ And decreased With
 \end_layout
 
 \begin_layout Paragraph
-We saw in the graph.
-\end_layout
-
-\begin_layout Paragraph
+As seen in the graph of 3.1.4.
+ , 
 \begin_inset Formula $J_{EE}$
 \end_inset
 
  increase means the E neuron have a bigger effect on itself, the relative
- part of the negative feedback decreases
-\end_layout
-
-\begin_layout Paragraph
+ part of the negative feedback decreases.
+ Also, 
 \begin_inset Formula $J_{EI}$
 \end_inset
 
  increase means the exact opposite, The relative effect of the negative
  feedback is greater.
+ It's worth getting back to the explanation in section 2.4.2.
+ Looking at the negative feedback creating the feedback loop, we can see
+ how increasing the amount an E neuron acting on itself in effect, diminishes
+ the significant of the the negative feedback and thus, the oscillations
+ decrease.
+ From the same perspective we can see how an increase in the negative feedback
+ increases the oscillations.
 \end_layout
 
 \begin_layout Subsubsection
-linear model describe the non-linear dynamics
+Linear Model Describes The Non-Linear Dynamics
+\end_layout
+
+\begin_layout Paragraph
+All in all we were able to capture the essence of the dynamics using the
+ linear model.
+ Albeit very limited to regions and it does not really looks like the dynamics,
+ just gives us the gist of how it behaves.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+For Larger Values Of 
+\begin_inset Formula $J_{EE}$
+\end_inset
+
+ The Linear Model Diverges From Expectations
+\end_layout
+
+\begin_layout Paragraph
+As we can see in the graphs of 3.2.1 and 3.2.2, the FFT analysis of the linear
+ model's simulation is around what we'd expect though for increasing values
+ of 
+\begin_inset Formula $J_{EE}$
+\end_inset
+
+, the error increases as well.
+ 
 \end_layout
 
 \end_body
