@@ -168,7 +168,7 @@ def plot_helper_wrapper(Js_array, h_E_0=2, h_I_0=1, t_span=(0, 15),
         't_span': t_span,
         'NPOINTS': NPOINTS,
         'h_0': np.array([h_E_0, h_I_0]),
-        'initial_conditions': np.array(Js_array),
+        'J_values': np.array(Js_array),
     }
 
 def q_2_2_1_real_stable(use_linear_system=False):
@@ -215,14 +215,6 @@ def q_2_2_1_complex_unstable(use_linear_system=False):
         use_linear_system=use_linear_system
     )
 
-def q_2():
-    return [
-        q_2_2_1_real_stable(),
-        q_2_2_1_real_unstable(),
-        q_2_2_1_complex_stable(),
-        q_2_2_1_complex_unstable(),
-    ]
-
 def q_2_bonus():
     J_EE, J_EI = 2, 4
     dict = plot_helper_wrapper(np.array([
@@ -232,12 +224,28 @@ def q_2_bonus():
     )
     
     h_0 = dict['h_0']
-    y0 = dict['initial_conditions'][0]
+    y0 = [20.83,20.83]
     t_span = dict['t_span']
     NPOINTS = dict['NPOINTS']
 
-    # solution = get_simulation_results(M_1(J_EE,J_EI), h_0, y0, t_span, NPOINTS)
     solution = simulate_excitatory_inhibitory_system(J_EE, J_EI, h_0, y0, t_span, NPOINTS)
+    sys_fig, sys_ax = plt.subplots(figsize=(10,6))
+    sys_ax.plot(solution.y[0], solution.y[1], label=f'Starting At ({y0[0]:.2f},{y0[1]:.2f})')
+    sc = sys_ax.scatter(solution.y[0], solution.y[1], c=solution.t, cmap='viridis', alpha=0.7)
+    cbar = sys_fig.colorbar(sc, ax=sys_ax)
+    cbar.set_label('Time')
+    ttl = "Solution of the 2D Original System - Boarder Of Instability\n"
+    ttl += r'$h_{E}^{0}$=' + f'{h_0[0]}, ' + r'$h_{I}^{0}$=' + f'{h_0[1]} '
+    ttl += f"Starting at {t_span[0]} to {t_span[1]}" 
+    sys_fig.suptitle(ttl)
+    sys_ax.set_xlabel(r'$r_{E}$')
+    sys_ax.set_ylabel(r'$r_{I}$', rotation=0)
+    sys_ax.legend()
+    sys_ax.grid()
+    sys_ax.set_facecolor('lightgray')
+    ttl = r'$J_{EE}$=' + f'{J_EE}, ' + r'$J_{EI}$=' + f'{J_EI}'
+    sys_ax.set_title(ttl)
+
     max_freq = q_3_2_1_fft_helper(solution)
     fig, ax = plt.subplots()
     ax.plot(solution.t, solution.y[0], label=r'$r_{E}$', linewidth=2)
@@ -421,8 +429,8 @@ def q_3_2_2():
     funcs = np.array(funcs)
     fig, ax = plt.subplots(figsize=(10,6))
     for i, func in enumerate(funcs):
-        ax.plot(J_EIs, func[:,0], label=r'$J_{EE}$'+f'={2+(i/2)} FFT', linewidth=2)
-        ax.plot(J_EIs, func[:,1], label=r'$J_{EE}$'+f'={2+(i/2)} Expected', linestyle='--')
+        ax.scatter(J_EIs, func[:,0], label=r'$J_{EE}$'+f'={2+(i/2)} FFT', marker='+')
+        ax.plot(J_EIs, func[:,1], label=r'$J_{EE}$'+f'={2+(i/2)} Expected')
     
     ax.set_xlabel(r'$J_{EI}$')
     ax.set_ylabel('K[Hz]', rotation=0)
@@ -432,10 +440,17 @@ def q_3_2_2():
 
     ttl = r'Q3.2.2 Frequency Of Oscillations From The Linear Model' + '\n'
     ttl += r'Predicted VS Simulated As A Function Of $J_{EI}$'
-    # ttl += f'h_0={h_0}, y0={y0}, Times: {t_span}[Sec], #Of Sample Points: {NPOINTS}'
     fig.suptitle(ttl)
 
     return fig, ax
+
+def q_2():
+    return [
+        q_2_2_1_real_stable(),
+        q_2_2_1_real_unstable(),
+        q_2_2_1_complex_stable(),
+        q_2_2_1_complex_unstable(),
+    ]
 
 def q_3():
     # _, _, sol_q_3_1 = q_3_1_1()

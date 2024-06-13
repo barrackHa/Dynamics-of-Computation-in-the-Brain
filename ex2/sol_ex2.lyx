@@ -1517,7 +1517,11 @@ So as per request, Here is the simulation of the system:
 
 \end_inset
 
-And the oscillations of 
+
+\end_layout
+
+\begin_layout Paragraph
+The oscillations of 
 \begin_inset Formula $r_{E}$
 \end_inset
 
@@ -1527,7 +1531,8 @@ And the oscillations of
 \end_inset
 
 .
- Moreover, we can see from the graph it's a bit under 3.
+ Moreover, we can see in the graph it takes about 4 seconds to complete
+ a cycle.
 \end_layout
 
 \begin_layout Paragraph
