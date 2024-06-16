@@ -1,0 +1,440 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{enumitem}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\pdf_quoted_options "linkcolor=blue"
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\boxbgcolor #007df2
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\tg}{}
+{\tilde{\Gamma}(\delta\psi-\delta\psi')}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Dynamics of Computation in the Brain
+\begin_inset Newline linebreak
+\end_inset
+
+76908
+\begin_inset Newline linebreak
+\end_inset
+
+Solution EX #3
+\end_layout
+
+\begin_layout Author
+Barak Haim 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Analytical part
+\end_layout
+
+\begin_layout Subsection
+Coupled oscillators
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+\frac{d\delta\psi}{dt}=\Gamma(\delta\psi,\delta\psi')
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Approximate integral solution
+\end_layout
+
+\begin_layout Subsubsection
+Fixed point analysis of 
+\begin_inset Formula $\tilde{\Gamma}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+\tg=\frac{d(\delta\psi-\delta\psi')}{dt}=\frac{g_{syn}}{c_{m}}\cdot\frac{\epsilon}{\pi}\cdot\frac{\omega\tau\left[1-\left(\omega\tau\right)^{2}\right]}{\left[1+\left(\omega\tau\right)^{2}\right]^{2}}\cdot sin(\delta\psi-\delta\psi')
+\]
+
+\end_inset
+
+Let 
+\begin_inset Formula $\tg=0$
+\end_inset
+
+, then:
+\begin_inset Formula 
+\[
+\frac{g_{syn}}{c_{m}}\cdot\frac{\epsilon}{\pi}\cdot\frac{\omega\tau\left[1-\left(\omega\tau\right)^{2}\right]}{\left[1+\left(\omega\tau\right)^{2}\right]^{2}}\cdot sin(\delta\psi-\delta\psi')=0
+\]
+
+\end_inset
+
+Iff 1.
+ 
+\begin_inset Formula $sin(\delta\psi-\delta\psi')=0$
+\end_inset
+
+ or 2.
+ 
+\begin_inset Formula $1-\left(\omega\tau\right)^{2}=0$
+\end_inset
+
+.
+ As the cell's time constant 
+\begin_inset Formula $(\tau)$
+\end_inset
+
+ and frequency 
+\begin_inset Formula $(\omega)$
+\end_inset
+
+ should be strictly positive (there's sense in it otherwise), we're left
+ with #1, i.e.:
+\begin_inset Formula 
+\[
+sin(\delta\psi-\delta\psi')=0
+\]
+
+\end_inset
+
+ iff 
+\begin_inset Formula $(\delta\psi-\delta\psi')=0$
+\end_inset
+
+ or 
+\begin_inset Formula $(\delta\psi-\delta\psi')=\pi$
+\end_inset
+
+.
+ Note there's no need to look outside of 
+\begin_inset Formula $[0,2\pi)$
+\end_inset
+
+ as we're looking at the difference in phase.
+ and the sine function is periodical.
+ We get than, 2 possible situations:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $(\delta\psi-\delta\psi')=0$
+\end_inset
+
+: The neurons fire together.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $(\delta\psi-\delta\psi')=\pi$
+\end_inset
+
+: The neurons are out of phase, i.e., fire alternatingly.
+\end_layout
+
+\begin_layout Subsubsection
+Stability analysis
+\end_layout
+
+\begin_layout Enumerate
+We'll use Strogatz's geometric way of analyzing flow on the line (see section
+ 2.1 in his book 
+\begin_inset Quotes eld
+\end_inset
+
+Nonlinear Dynamics And Chaos
+\begin_inset Quotes erd
+\end_inset
+
+, specifically, figure 2.1.1).
+ Note that 
+\begin_inset Formula $\tg$
+\end_inset
+
+ is basically the sine function multiplied by a constant, strictly negative
+ or positive.
+ The constant itself doesn't make any qualitative difference, the only thing
+ that matters is the sign of the constant.
+ Now, Note there are only 2 termes which may be negative: 
+\begin_inset Formula $g_{syn}$
+\end_inset
+
+and 
+\begin_inset Formula $\left[1-\left(\omega\tau\right)^{2}\right]$
+\end_inset
+
+.
+ We get then 4 possible states in which all in all give 2 possible outcomes
+ - 
+\begin_inset Formula $sin(x)$
+\end_inset
+
+ or 
+\begin_inset Formula $-sin(x)$
+\end_inset
+
+ up too multiplication by a (positive) constant.
+ The case of excitatory or inhibitory synapse determins the sign of 
+\begin_inset Formula $g_{syn}$
+\end_inset
+
+.
+ Also:
+\begin_inset Formula 
+\begin{align*}
+\omega<\frac{1}{\tau} & \Longrightarrow1-\left(\omega\tau\right)^{2}<0\\
+\frac{1}{\tau}<\omega & \Longrightarrow0<1-\left(\omega\tau\right)^{2}
+\end{align*}
+
+\end_inset
+
+Togther we get:
+\begin_inset Formula 
+\begin{align*}
+1.\; & \left[\omega<\frac{1}{\tau}\&g_{syn}<0\right]\;\;\;OR\;\;\;\left[\frac{1}{\tau}<\omega\&0<g_{syn}\right] & \Longrightarrow\;\;\;0<g_{syn}\left[1-\left(\omega\tau\right)^{2}\right]\\
+2.\; & \left[\omega<\frac{1}{\tau}\&0<g_{syn}\right]\;\;\;OR\;\;\;\left[\omega<\frac{1}{\tau}\&0<g_{syn}\right] & \Longrightarrow\;\;\;g_{syn}\left[1-\left(\omega\tau\right)^{2}\right]<0
+\end{align*}
+
+\end_inset
+
+Now we get:
+\begin_inset Newline newline
+\end_inset
+
+1.
+ 
+\begin_inset Formula $0<g_{syn}\left[1-\left(\omega\tau\right)^{2}\right]\Rightarrow$
+\end_inset
+
+ 
+\series bold
+0 is an Unstable
+\series default
+ FP and 
+\series bold
+
+\begin_inset Formula $\pi$
+\end_inset
+
+ is a Stable
+\series default
+ FP as 
+\begin_inset Formula $\tg$
+\end_inset
+
+ behaives like 
+\begin_inset Formula $sin(x)$
+\end_inset
+
+.
+ Graphicaly it looks like this:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename sine.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $g_{syn}\left[1-\left(\omega\tau\right)^{2}\right]<0\Rightarrow$
+\end_inset
+
+ 
+\series bold
+0 is a Stable
+\series default
+ FP and 
+\series bold
+
+\begin_inset Formula $\pi$
+\end_inset
+
+ is an Unstable
+\series default
+ FP as 
+\begin_inset Formula $\tg$
+\end_inset
+
+ behaives like 
+\begin_inset Formula $-sin(x)$
+\end_inset
+
+.
+ Graphicaly it looks like this:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename minus_sine.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Here, the green arrows mark regimes when 
+\begin_inset Formula $0<\dot{x}$
+\end_inset
+
+ and so 
+\begin_inset Formula $x$
+\end_inset
+
+ will increase and red arrows are the opposite.
+ A stable point is one such that to its left, 
+\begin_inset Formula $x$
+\end_inset
+
+ tends to grow (thus pushing the dynamics back to the FP if it perturbs
+ below it) and to its right, 
+\begin_inset Formula $x$
+\end_inset
+
+ tends to decrease (also, back towards the FP).
+ Note that this is equivilant to looking at the eignvalues of the linearized
+ system in the FP's.
+ 
+\end_layout
+
+\begin_layout Section
+Numerical Part
+\end_layout
+
+\begin_layout Subsection
+Plotting the FHN model
+\end_layout
+
+\begin_layout Subsection
+Oscillations in FHN
+\end_layout
+
+\begin_layout Subsection
+Sensitivity of phase to perturbations
+\end_layout
+
+\begin_layout Subsection
+Coupled oscillators
+\end_layout
+
+\end_body
+\end_document
