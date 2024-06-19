@@ -143,7 +143,7 @@ Coupled oscillators
 \begin_layout Paragraph
 \begin_inset Formula 
 \[
-\frac{d\delta\psi}{dt}=\Gamma(\delta\psi,\delta\psi')
+\frac{d\delta\psi}{dt}=\Gamma(\delta\psi,\delta\psi')=\frac{\epsilon}{2\pi}\int_{-\pi}^{\pi}d\theta\overrightarrow{R}(\theta-(\delta\psi-\delta\psi'))\overrightarrow{S}(\theta)
 \]
 
 \end_inset
@@ -153,6 +153,17 @@ Coupled oscillators
 
 \begin_layout Subsubsection
 Approximate integral solution
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+\frac{\epsilon}{2\pi}\int_{-\infty}^{\infty}d\theta\overrightarrow{R}(\theta-(\delta\psi-\delta\psi'))\overrightarrow{S}(\theta)
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -400,19 +411,24 @@ Here, the green arrows mark regimes when
 \begin_inset Formula $x$
 \end_inset
 
- will increase and red arrows are the opposite.
- A stable point is one such that to its left, 
+ will increase .
+ Red arrows are the opposite, they mark regimes where 
 \begin_inset Formula $x$
 \end_inset
 
- tends to grow (thus pushing the dynamics back to the FP if it perturbs
+ tendes to decrease.
+ A stable fixed point is one such that to its left, 
+\begin_inset Formula $x$
+\end_inset
+
+ tends to increase (thus pushing the dynamics back to the FP if it perturbs
  below it) and to its right, 
 \begin_inset Formula $x$
 \end_inset
 
  tends to decrease (also, back towards the FP).
- Note that this is equivilant to looking at the eignvalues of the linearized
- system in the FP's.
+ Note that this is equivilant to looking at the eignvalues of system at
+ the FP's.
  
 \end_layout
 
@@ -420,16 +436,141 @@ Here, the green arrows mark regimes when
 Numerical Part
 \end_layout
 
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+\dot{v}=f(v)-w+I_{ext}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\dot{w}=\epsilon\cdot(v+a-bw)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+f(v)=v-\frac{v^{3}}{3}
+\]
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Plotting the FHN model
+\end_layout
+
+\begin_layout Subsubsection
+f
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_1_1_inits.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+b
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_1_2_Is.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+c
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_1_3_bs.png
+	scale 60
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
 Oscillations in FHN
 \end_layout
 
+\begin_layout Subsubsection
+a
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_2_1_v_vs_t.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+b
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_2_2_inits.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Sensitivity of phase to perturbations
+\end_layout
+
+\begin_layout Subsubsection
+a
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_3_1_t1_vs_none.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+b
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_3_2_5_t1s.png
+	scale 60
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
