@@ -13,13 +13,14 @@ from scipy.signal import peak_widths, find_peaks
 def f(v):
     return v - ((v**3) / 3)
 
-def fhn(t, y, I_ext=0.8, epsilon=0.8, a=0.7, b=0.8, dt=0.1, t1=None):
+def fhn(t, y, I_ext=0.8, epsilon=0.08, a=0.7, b=0.8, dt=0.1, t1=None):
     v, w = y
     if (t1 is not None):
         perturbation_time = (t1 * dt)
-        if (perturbation_time < t) and (t <= (perturbation_time + dt)):
-            v *= 1.5
-            w *= 1.1
+        # if (perturbation_time < t) and (t <= (perturbation_time + dt)):
+        if (perturbation_time < t) and (t <= (perturbation_time + (2*dt))):
+            v = v + np.abs(v * 0.1)
+            w = w + np.abs(w * 0.1)
             print(f't={t}, v={v}, w={w}')
 
     dv_dt = f(v) - w + I_ext
@@ -28,19 +29,19 @@ def fhn(t, y, I_ext=0.8, epsilon=0.8, a=0.7, b=0.8, dt=0.1, t1=None):
 
 def get_sim_results(
     y0=[0.1, 0.1], t_span=(0, 200), dt=0.1, I_ext=0.8, 
-    epsilon=0.8, a=0.7, b=0.8, t1=None
+    epsilon=0.08, a=0.7, b=0.8, t1=None
 ):
     t_eval = np.arange(t_span[0], t_span[1], dt)
     sol = solve_ivp(
         fhn, t_span, y0, t_eval=t_eval, 
-        args=(I_ext, epsilon, a, b, dt, t1)
+        args=(I_ext, epsilon, a, b, dt, t1), method='LSODA'
     )
     return sol
 
 def fig_ax_formater(fig, ax):
     ax.set_xlabel('v')
     ax.set_ylabel('w', rotation=0)
-    ax.set_title('I_ext=0.8, ' + r'$\epsilon$=' + '0.8, a=0.7, b=0.8')
+    ax.set_title('I_ext=0.8, ' + r'$\epsilon$=' + '0.08, a=0.7, b=0.8')
     ax.legend()
     ax.grid()
     ax.set_facecolor('lightgray')
@@ -63,14 +64,14 @@ def q_2_1_2():
     """How different external currents affect the phase plane trajectory."""
     fig, ax = plt.subplots()
     y0 = [0.1, 0.1]
-    for i_ext in [0, 1.5, 2, 4, 10]:
+    for i_ext in [0, 0.6, 1, 1.5, 2, 4, 10]:
         fhn_sol = get_sim_results(y0=y0, I_ext=i_ext)
         ax.plot(fhn_sol.y[0], fhn_sol.y[1], label=r'$I_{ext}$='+f'{i_ext}')
         sc = ax.scatter(fhn_sol.y[0], fhn_sol.y[1], c=fhn_sol.t, cmap='viridis', alpha=0.7)
     
     fig.colorbar(sc, ax=ax, label='Time scale')
     fig, ax = fig_ax_formater(fig, ax)
-    ax.set_title(f'Initial condition: {y0}, ' + r'$\epsilon$=' + '0.8, a=0.7, b=0.8')
+    ax.set_title(f'Initial condition: {y0}, ' + r'$\epsilon$=' + '0.08, a=0.7, b=0.8')
     return fig, ax
 
 def q_2_1_3():
@@ -84,7 +85,7 @@ def q_2_1_3():
     
     fig.colorbar(sc, ax=ax, label='Time scale')
     fig, ax = fig_ax_formater(fig, ax)
-    ax.set_title(f'Initial condition: {y0}, ' + r'$\epsilon$=' + f'0.8, a=0.7')
+    ax.set_title(f'Initial condition: {y0}, ' + r'$\epsilon$=' + f'0.08, a=0.7')
     return fig, ax
 
 def q_2_1():
@@ -92,7 +93,7 @@ def q_2_1():
     q_2_1_2()
     q_2_1_3()
 
-def find_freqs_peak(freqs, power, threshold=0.05):
+def find_freqs_peak(freqs, power, threshold=0.001):
     """Find the peak frequency and its power."""
     f, p = freqs[0<=freqs], np.abs(power)[0<=freqs]
     # Discard frequencies below the threshold
@@ -133,10 +134,10 @@ def q_2_2_1(y0):
     fhn_sol = get_sim_results(y0=y0)
     ax.plot(fhn_sol.t, fhn_sol.y[0], label='v(t)', linewidth=2)
     fig, ax = fig_ax_formater(fig, ax)
-    ax.set_xlabel('t')
+    ax.set_xlabel('Time')
     ax.set_ylabel('v', rotation=0)
     fig.suptitle(f'Q.2.2.1 FitzHugh-Nagumo V vs Time')
-    ttl = f'Initial condition: {y0}, ' + r'$\epsilon$=' + f'0.8, a=0.7, b=0.8, ' + r'$I_{ext}$=0.8'
+    ttl = f'Initial condition: {y0}, ' + r'$\epsilon$=' + f'0.08, a=0.7, b=0.8, ' + r'$I_{ext}$=0.8'
     
     peak_period_by_fft = get_period_with_fft(fhn_sol.t, fhn_sol.y[0])
     print(peak_period_by_fft)
@@ -159,11 +160,11 @@ def q_2_2_2(y0, delta_v=0.25, delta_w=0.25):
     ax.plot(pert_sol.t, pert_sol.y[0], label=f'Starting at {pert_y0}', linewidth=2)
 
     fig, ax = fig_ax_formater(fig, ax)
-    ax.set_xlabel('t')
+    ax.set_xlabel('Time')
     ax.set_ylabel('v', rotation=0)
     fig.suptitle(f'Q.2.2.2 FitzHugh-Nagumo V vs Time')
     ax.set_title(
-        f'Initial condition: {y0}, ' + r'$\epsilon$=' + f'0.8, a=0.7, b=0.8, ' + r'$I_{ext}$=0.8'
+        f'Initial condition: {y0}, ' + r'$\epsilon$=' + f'0.08, a=0.7, b=0.8, ' + r'$I_{ext}$=0.8'
     )
 
     return fig, ax    
@@ -186,7 +187,7 @@ def q_2_3_1():
     ax.set_ylabel('v', rotation=0)
     fig.suptitle(f'Q.2.3.1 FitzHugh-Nagumo V vs Time')
     ax.set_title(
-        f'Initial condition: {y0}, ' + r'$\epsilon$=' + f'0.8, a=0.7, b=0.8' + r'$I_{ext}$=0.8'
+        f'Initial condition: {y0}, ' + r'$\epsilon$=' + f'0.08, a=0.7, b=0.8' + r'$I_{ext}$=0.8'
     )
     return fig, ax
 
@@ -203,21 +204,23 @@ def q_2_3_2():
     ax.set_ylabel('v', rotation=0)
     fig.suptitle(f'Q.2.3.2 FitzHugh-Nagumo V vs Time')
     ax.set_title(
-        f'Initial condition: {y0}, ' + r'$\epsilon$=' + f'0.8, a=0.7, b=0.8, ' + r'$I_{ext}$=0.8'
+        f'Initial condition: {y0}, ' + r'$\epsilon$=' + f'0.08, a=0.7, b=0.8, ' + r'$I_{ext}$=0.8'
     )
     return fig, ax
 
 def q_2_3():
-    q_2_3_1()
+    # q_2_3_1()
     q_2_3_2()
 
-def coupled_fhn(t, y, I_ext=0.8, epsilon=0.8, a=0.7, b=0.8, dt=0.1, gamma=0.4, t1=None):
+def coupled_fhn(t, y, I_ext=0.8, epsilon=0.08, a=0.7, b=0.8, dt=0.1, gamma=0.4, t1=None):
     v1, w1, v2, w2 = y
     if (t1 is not None):
         perturbation_time = (t1 * dt)
-        if (perturbation_time < t) and (t <= (perturbation_time + dt)):
-            v2 = v1 * 1.5
-            w2 = w2 * 1.5
+        # if 28 < t < 33:
+        #     print(perturbation_time, (perturbation_time + (2 * dt)), t, (perturbation_time < t), (t <= (perturbation_time + (2 * dt))))
+        if (perturbation_time < t) and (t <= (perturbation_time + (6 * dt))):
+            v2 = v1 + np.abs(v1 * 0.1)
+            w2 = w2 + np.abs(w1 * 0.1)
             print(f't={t}, v1={v1}, w1={w1}')
 
     dv1_dt = f(v1) - w1 + I_ext + (gamma * (v1 - v2))
@@ -229,43 +232,79 @@ def coupled_fhn(t, y, I_ext=0.8, epsilon=0.8, a=0.7, b=0.8, dt=0.1, gamma=0.4, t
 
 def get_coupled_fhn_sim_results(
     y0=[0.1, 0.1, 3, 0.2], t_span=(0, 200), dt=0.1, I_ext=0.8, 
-    epsilon=0.8, a=0.7, b=0.8, gamma=0.3, t1=None
+    epsilon=0.08, a=0.7, b=0.8, gamma=0.2, t1=None
 ):
     t_eval = np.arange(t_span[0], t_span[1], dt)
     sol = solve_ivp(
         coupled_fhn, t_span, y0, t_eval=t_eval, 
-        args=(I_ext, epsilon, a, b, dt, gamma, t1)
+        args=(I_ext, epsilon, a, b, dt, gamma, t1), method='LSODA'
     )
     return sol
 
+def coupled_phase_formater(fig, ax):
+    ax.set_xlabel('v')
+    ax.set_ylabel('w', rotation=0)
+    ax.set_title(r'$I_{ext}$=0.8, $\epsilon$=' + '0.08, a=0.7, b=0.8, ' + r'$\gamma$=0.2')
+    ax.legend()
+    ax.grid()
+    ax.set_facecolor('lightgray')
+    fig.suptitle(f'Q.2.4: Coupled oscillators - FitzHugh-Nagumo Phase Plane')
+    return fig, ax
+
+def v_to_t_formater(fig, ax):
+    fig, ax = coupled_phase_formater(fig, ax)
+    ax.set_xlabel('Time')
+    ax.set_ylabel('v')
+    return fig, ax
+
 def q_2_4_1():
-    phas_fig, phas_ax = plt.subplots()
-    sol = get_coupled_fhn_sim_results()
-    phas_ax.plot(sol.y[0], sol.y[1], label='Neuron #1')    
-    phas_ax.plot(sol.y[2], sol.y[3], label='Neuron #2')
-
-    period  = get_period_with_fft(sol.t, sol.y[0])
-    fig, ax = plt.subplots()
-    ax.plot(sol.t, sol.y[0], label='v1(t)', linewidth=2)
-    print(period)
-    ax.plot(sol.t, sol.y[2], label='v2(t)', linewidth=2)
-    return phas_fig, phas_ax, fig, ax
-
-def q_2_4_2():
     phas_fig, phas_ax = plt.subplots()
     y0 = [0.1, 0.2, 0.1, 0.2]
     sol = get_coupled_fhn_sim_results(y0=y0)
     phas_ax.plot(sol.y[0], sol.y[1], label='Neuron #1')    
     phas_ax.plot(sol.y[2], sol.y[3], label='Neuron #2')
 
+    phas_fig, phas_ax = coupled_phase_formater(phas_fig, phas_ax)
+
+    period  = get_period_with_fft(sol.t, sol.y[0])
+    fig, ax = plt.subplots()
+    ax.plot(sol.t, sol.y[0], label='v1(t)', linewidth=2)
+    print(period)
+    ax.plot(sol.t, sol.y[2], label='v2(t)', linewidth=2)
+
+    fig, ax = v_to_t_formater(fig,ax)
+
+    return phas_fig, phas_ax, fig, ax
+
+def q_2_4_2():
+    phas_fig, phas_ax = plt.subplots()
+    y0 = [0.1, 0.2, 0.1, 0.2]
+    sol = get_coupled_fhn_sim_results(t1=300, y0=y0)
+
+    n1_period = get_period_with_peaks(sol.t[500:], sol.y[0,500:])
+    n1_fft = get_period_with_fft(sol.t[500:], sol.y[0,500:])
+    n2_period = get_period_with_peaks(sol.t[500:], sol.y[2,500:])
+    n2_fft = get_period_with_fft(sol.t[500:], sol.y[2,500:])
+
+    print(n1_period, n1_fft)
+    print(n2_period, n2_fft)
+
+    phas_ax.plot(sol.y[0], sol.y[1], label='Neuron #1')    
+    phas_ax.plot(sol.y[2], sol.y[3], label='Neuron #2')
+
+    coupled_phase_formater(phas_fig, phas_ax)
+
     fig, ax = plt.subplots()
     ax.plot(sol.t, sol.y[0], label='v1(t)', linewidth=2)
     ax.plot(sol.t, sol.y[2], label='v2(t)', linewidth=2)
 
+    fig, ax = v_to_t_formater(fig,ax)
+    ax.set_title('Neuron #1')
+
     return phas_fig, phas_ax, fig, ax
 
 def q_2_4():
-    q_2_4_1()
+    # q_2_4_1()
     q_2_4_2()
 
 if __name__ == "__main__":

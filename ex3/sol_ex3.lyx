@@ -149,6 +149,17 @@ Coupled oscillators
 \end_inset
 
 
+\begin_inset Formula 
+\[
+R(\theta)=\begin{cases}
+0 & \theta<0\\
+\frac{g_{syn}}{c_{m}}\left(\frac{\theta}{\omega\tau}\right)e^{-\frac{\theta}{\omega\tau}} & \theta\ge0
+\end{cases}
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -157,9 +168,11 @@ Approximate integral solution
 
 \begin_layout Paragraph
 \begin_inset Formula 
-\[
-\frac{\epsilon}{2\pi}\int_{-\infty}^{\infty}d\theta\overrightarrow{R}(\theta-(\delta\psi-\delta\psi'))\overrightarrow{S}(\theta)
-\]
+\begin{align*}
+\Gamma(\delta\psi,\delta\psi') & =\frac{\epsilon}{2\pi}\int_{-\infty}^{\infty}d\theta\overrightarrow{R}(\theta-(\delta\psi-\delta\psi'))\overrightarrow{S}(\theta)\\
+= & \frac{\epsilon}{2\pi}\int_{-\infty}^{\infty}d\theta\overrightarrow{R}(\theta)\overrightarrow{S}(\theta-(\delta\psi'-\delta\psi))\\
+= & \frac{\epsilon}{2\pi}\int_{0}^{\infty}d\theta\frac{g_{syn}}{c_{m}}\left(\frac{\theta}{\omega\tau}\right)e^{-\frac{\theta}{\omega\tau}}sin(\theta-(\delta\psi'-\delta\psi))
+\end{align*}
 
 \end_inset
 
@@ -277,7 +290,7 @@ Nonlinear Dynamics And Chaos
  or positive.
  The constant itself doesn't make any qualitative difference, the only thing
  that matters is the sign of the constant.
- Now, Note there are only 2 termes which may be negative: 
+ Now, Note there are only 2 terms which may be negative: 
 \begin_inset Formula $g_{syn}$
 \end_inset
 
@@ -296,7 +309,7 @@ and
 \end_inset
 
  up too multiplication by a (positive) constant.
- The case of excitatory or inhibitory synapse determins the sign of 
+ The case of excitatory or inhibitory synapse determines the sign of 
 \begin_inset Formula $g_{syn}$
 \end_inset
 
@@ -310,7 +323,7 @@ and
 
 \end_inset
 
-Togther we get:
+Together we get:
 \begin_inset Formula 
 \begin{align*}
 1.\; & \left[\omega<\frac{1}{\tau}\&g_{syn}<0\right]\;\;\;OR\;\;\;\left[\frac{1}{\tau}<\omega\&0<g_{syn}\right] & \Longrightarrow\;\;\;0<g_{syn}\left[1-\left(\omega\tau\right)^{2}\right]\\
@@ -344,12 +357,12 @@ Now we get:
 \begin_inset Formula $\tg$
 \end_inset
 
- behaives like 
+ behaves like 
 \begin_inset Formula $sin(x)$
 \end_inset
 
 .
- Graphicaly it looks like this:
+ Graphical it looks like this:
 \begin_inset Newline newline
 \end_inset
 
@@ -383,12 +396,12 @@ Now we get:
 \begin_inset Formula $\tg$
 \end_inset
 
- behaives like 
+ behaves like 
 \begin_inset Formula $-sin(x)$
 \end_inset
 
 .
- Graphicaly it looks like this:
+ Graphical it looks like this:
 \begin_inset Newline newline
 \end_inset
 
@@ -416,7 +429,7 @@ Here, the green arrows mark regimes when
 \begin_inset Formula $x$
 \end_inset
 
- tendes to decrease.
+ tends to decrease.
  A stable fixed point is one such that to its left, 
 \begin_inset Formula $x$
 \end_inset
@@ -427,7 +440,7 @@ Here, the green arrows mark regimes when
 \end_inset
 
  tends to decrease (also, back towards the FP).
- Note that this is equivilant to looking at the eignvalues of system at
+ Note that this is equivalent to looking at the eigenvalues of system at
  the FP's.
  
 \end_layout
@@ -468,7 +481,7 @@ Plotting the FHN model
 \end_layout
 
 \begin_layout Subsubsection
-f
+Plotting activity of different initial conditions
 \end_layout
 
 \begin_layout Paragraph
@@ -481,8 +494,21 @@ f
 
 \end_layout
 
+\begin_layout Paragraph
+We see here that although the starting points are different, the dynamics
+ converges to the same cycle as it is a limit cycle.
+ I.e.
+ the dynamics is attracted to a stable trajectory in the phase space and
+ keeps at it.
+ Thus, the behavior of the system is not dependent on your choice of points.
+\end_layout
+
 \begin_layout Subsubsection
-b
+Effect of external input 
+\begin_inset Formula $I_{ext}$
+\end_inset
+
+ on the system
 \end_layout
 
 \begin_layout Paragraph
@@ -495,8 +521,39 @@ b
 
 \end_layout
 
+\begin_layout Paragraph
+We see here that the value of 
+\begin_inset Formula $I_{ext}$
+\end_inset
+
+ changes the behavior of the system from convergence to a fixed point to
+ a limit cycle.
+ For 
+\begin_inset Formula $0\le b<0.6$
+\end_inset
+
+ the system converges to a fixed point.
+ For 
+\begin_inset Formula $b's$
+\end_inset
+
+ around 
+\begin_inset Formula $0.8$
+\end_inset
+
+, a limit cycle emerge's and past 
+\begin_inset Formula $1$
+\end_inset
+
+, again we go back to a fixed point.
+ We can also see the location of the fixed point changes and as it seems,
+ also the time it takes to converge.
+ Note this is based solely on observation of the graphs and not an analytical
+ analysis.
+\end_layout
+
 \begin_layout Subsubsection
-c
+Effect of b on the system
 \end_layout
 
 \begin_layout Paragraph
@@ -509,12 +566,36 @@ c
 
 \end_layout
 
+\begin_layout Paragraph
+Again, we see a limit cycle emerging only for small enough values of 
+\begin_inset Formula $b$
+\end_inset
+
+.
+ Otherwise, theres a fixed point.
+ It's like increasing the value of 
+\begin_inset Formula $b$
+\end_inset
+
+ 
+\begin_inset Quotes eld
+\end_inset
+
+slows down
+\begin_inset Quotes erd
+\end_inset
+
+ the transition to phase #3 (by David's numbering system of the cycle) until
+ it stop altogether at a fixed point.
+ 
+\end_layout
+
 \begin_layout Subsection
 Oscillations in FHN
 \end_layout
 
 \begin_layout Subsubsection
-a
+Cycles of v
 \end_layout
 
 \begin_layout Paragraph
@@ -527,8 +608,17 @@ a
 
 \end_layout
 
+\begin_layout Paragraph
+The system take about 36-40 units of time (Milliseconds in the real world
+ but...) to complete a cycle.
+ I used two methods to verify that.
+ One is by FFT like in exercise #2 and the the other is finding the peaks
+ and taking the mean of the distances between them.
+ Also, by looking at the graph, we can see it's just about right.
+\end_layout
+
 \begin_layout Subsubsection
-b
+Perturbation of initial conditions
 \end_layout
 
 \begin_layout Paragraph
@@ -541,12 +631,20 @@ b
 
 \end_layout
 
+\begin_layout Paragraph
+Here, the perturbation of initial conditions change the starting values
+ slightly but before too long everything becomes the same.
+ This is the meaning of converging to a limit cycle - you may start different
+ but everything converges to the same trajectory eventually (similar to
+ fixed point).
+\end_layout
+
 \begin_layout Subsection
 Sensitivity of phase to perturbations
 \end_layout
 
 \begin_layout Subsubsection
-a
+System reaction to a single push
 \end_layout
 
 \begin_layout Paragraph
@@ -559,8 +657,25 @@ a
 
 \end_layout
 
+\begin_layout Paragraph
+Much like in article 2.2.2, the perturbation may change the trajectory slightly
+ in one moment in time but changes nothing in the grand scheme of things.
+ Here, the situation is even more dire as the perturbation occurs at a much
+ later time (at timestep 
+\begin_inset Formula $t_{1}=400$
+\end_inset
+
+, i.e at 
+\begin_inset Formula $t=40$
+\end_inset
+
+.), much closer to the limit cycle and thus much less powerful.
+ To the effect it's not even visible on the plot.
+ 
+\end_layout
+
 \begin_layout Subsubsection
-b
+Sensitivity to perturbations in different phases
 \end_layout
 
 \begin_layout Paragraph
@@ -573,8 +688,47 @@ b
 
 \end_layout
 
+\begin_layout Paragraph
+Again, we see the effects of the limit cycle - nothing realy changes.
+ The most sensetive time for a perturbation are near the extrama points
+ where 
+\begin_inset Formula $v$
+\end_inset
+
+ changes direction.
+ In the plot we can see that at timestep 
+\begin_inset Formula $t_{1}=400$
+\end_inset
+
+ (i.e.
+ 
+\begin_inset Formula $t=40$
+\end_inset
+
+) where we can see a slight change in values.
+ Also, at timestep 
+\begin_inset Formula $t_{1}=600$
+\end_inset
+
+ (i.e.
+ 
+\begin_inset Formula $t=60$
+\end_inset
+
+) where we can see it causes a slight overshoot in the end.
+ 
+\end_layout
+
 \begin_layout Subsection
 Coupled oscillators
+\end_layout
+
+\begin_layout Subsubsection
+Coupled system behavior after a long time
+\end_layout
+
+\begin_layout Subsubsection
+Perturbation from same initial condition
 \end_layout
 
 \end_body
