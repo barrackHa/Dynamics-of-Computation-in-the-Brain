@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 from scipy.fftpack import fft, fftfreq
-from scipy.signal import peak_widths, find_peaks
+from scipy.signal import find_peaks
 
 def f(v):
     return v - ((v**3) / 3)
@@ -17,7 +17,6 @@ def fhn(t, y, I_ext=0.8, epsilon=0.08, a=0.7, b=0.8, dt=0.1, t1=None):
     v, w = y
     if (t1 is not None):
         perturbation_time = (t1 * dt)
-        # if (perturbation_time < t) and (t <= (perturbation_time + dt)):
         if (perturbation_time < t) and (t <= (perturbation_time + (2*dt))):
             v = v + np.abs(v * 0.1)
             w = w + np.abs(w * 0.1)
@@ -209,15 +208,13 @@ def q_2_3_2():
     return fig, ax
 
 def q_2_3():
-    # q_2_3_1()
+    q_2_3_1()
     q_2_3_2()
 
 def coupled_fhn(t, y, I_ext=0.8, epsilon=0.08, a=0.7, b=0.8, dt=0.1, gamma=0.4, t1=None):
     v1, w1, v2, w2 = y
     if (t1 is not None):
         perturbation_time = (t1 * dt)
-        # if 28 < t < 33:
-        #     print(perturbation_time, (perturbation_time + (2 * dt)), t, (perturbation_time < t), (t <= (perturbation_time + (2 * dt))))
         if (perturbation_time < t) and (t <= (perturbation_time + (6 * dt))):
             v2 = v1 + np.abs(v1 * 0.1)
             w2 = w2 + np.abs(w1 * 0.1)
@@ -244,7 +241,9 @@ def get_coupled_fhn_sim_results(
 def coupled_phase_formater(fig, ax):
     ax.set_xlabel('v')
     ax.set_ylabel('w', rotation=0)
-    ax.set_title(r'$I_{ext}$=0.8, $\epsilon$=' + '0.08, a=0.7, b=0.8, ' + r'$\gamma$=0.2')
+    ax_ttl = r'$I_{ext}$=0.8, $\epsilon$=' + '0.08, a=0.7, b=0.8, ' + r'$\gamma$=0.2'
+    ax_ttl += '\nv1=0.1, w1=0.2 & v2=0.4, w2=0.5'
+    ax.set_title(ax_ttl)
     ax.legend()
     ax.grid()
     ax.set_facecolor('lightgray')
@@ -259,10 +258,13 @@ def v_to_t_formater(fig, ax):
 
 def q_2_4_1():
     phas_fig, phas_ax = plt.subplots()
-    y0 = [0.1, 0.2, 0.1, 0.2]
+    y0 = [0.1, 0.2, 0.4, 0.5]
     sol = get_coupled_fhn_sim_results(y0=y0)
     phas_ax.plot(sol.y[0], sol.y[1], label='Neuron #1')    
     phas_ax.plot(sol.y[2], sol.y[3], label='Neuron #2')
+    sc = phas_ax.scatter(sol.y[0], sol.y[1], c=sol.t, cmap='viridis', alpha=0.7)
+    sc = phas_ax.scatter(sol.y[2], sol.y[3], c=sol.t, cmap='viridis', alpha=0.7)
+    phas_fig.colorbar(sc, ax=phas_ax, label='Time scale')
 
     phas_fig, phas_ax = coupled_phase_formater(phas_fig, phas_ax)
 
@@ -276,15 +278,21 @@ def q_2_4_1():
 
     return phas_fig, phas_ax, fig, ax
 
-def q_2_4_2():
+def q_2_4_2(perturb=False):
     phas_fig, phas_ax = plt.subplots()
     y0 = [0.1, 0.2, 0.1, 0.2]
-    sol = get_coupled_fhn_sim_results(t1=300, y0=y0)
 
-    n1_period = get_period_with_peaks(sol.t[500:], sol.y[0,500:])
-    n1_fft = get_period_with_fft(sol.t[500:], sol.y[0,500:])
-    n2_period = get_period_with_peaks(sol.t[500:], sol.y[2,500:])
-    n2_fft = get_period_with_fft(sol.t[500:], sol.y[2,500:])
+    if perturb:
+        sol = get_coupled_fhn_sim_results(t1=300, y0=y0)
+    else:
+        sol = get_coupled_fhn_sim_results(y0=y0)
+    
+    n1_period = get_period_with_peaks(sol.t[1000:], sol.y[0,1000:])
+    n1_fft = get_period_with_fft(sol.t[1000:], sol.y[0,1000:])
+    n_1_cycle = np.mean([n1_period, n1_fft])
+    n2_period = get_period_with_peaks(sol.t[1000:], sol.y[2,1000:])
+    n2_fft = get_period_with_fft(sol.t[1000:], sol.y[2,1000:])
+    n_2_cycle = np.mean([n2_period, n2_fft])
 
     print(n1_period, n1_fft)
     print(n2_period, n2_fft)
@@ -292,27 +300,36 @@ def q_2_4_2():
     phas_ax.plot(sol.y[0], sol.y[1], label='Neuron #1')    
     phas_ax.plot(sol.y[2], sol.y[3], label='Neuron #2')
 
+    sc = phas_ax.scatter(sol.y[2], sol.y[3], c=sol.t, cmap='viridis', alpha=0.7)
+    sc = phas_ax.scatter(sol.y[0], sol.y[1], c=sol.t, cmap='viridis', alpha=0.7)
+    phas_fig.colorbar(sc, ax=phas_ax, label='Time scale')
+
     coupled_phase_formater(phas_fig, phas_ax)
+    ax_ttl = r'$I_{ext}$=0.8, $\epsilon$=' + '0.08, a=0.7, b=0.8, ' + r'$\gamma$=0.2'
+    ax_ttl += '\nv1=0.1, w1=0.2 & v2=0.1, w2=0.2'
+    phas_ax.set_title(ax_ttl)
 
     fig, ax = plt.subplots()
     ax.plot(sol.t, sol.y[0], label='v1(t)', linewidth=2)
     ax.plot(sol.t, sol.y[2], label='v2(t)', linewidth=2)
 
     fig, ax = v_to_t_formater(fig,ax)
-    ax.set_title('Neuron #1')
+    fig.suptitle('Q.2.4 V vs Time - Neurons 1 & 2')
+    ax.set_title(f'Neuron 1: Period ~ {n_1_cycle:.2f} & Neuron 2: Period ~ {n_2_cycle:.2f}')
 
     return phas_fig, phas_ax, fig, ax
 
 def q_2_4():
-    # q_2_4_1()
+    q_2_4_1()
     q_2_4_2()
+    q_2_4_2(perturb=True)
 
 if __name__ == "__main__":
-    # q_2_1()
-    # plt.show()
-    # q_2_2()
-    # plt.show()
-    # q_2_3()
-    # plt.show()
+    q_2_1()
+    plt.show()
+    q_2_2()
+    plt.show()
+    q_2_3()
+    plt.show()
     q_2_4()
     plt.show()

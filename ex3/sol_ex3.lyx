@@ -661,7 +661,7 @@ System reaction to a single push
 Much like in article 2.2.2, the perturbation may change the trajectory slightly
  in one moment in time but changes nothing in the grand scheme of things.
  Here, the situation is even more dire as the perturbation occurs at a much
- later time (at timestep 
+ later time (at time-step 
 \begin_inset Formula $t_{1}=400$
 \end_inset
 
@@ -689,14 +689,14 @@ Sensitivity to perturbations in different phases
 \end_layout
 
 \begin_layout Paragraph
-Again, we see the effects of the limit cycle - nothing realy changes.
- The most sensetive time for a perturbation are near the extrama points
+Again, we see the effects of the limit cycle - nothing really changes.
+ The most sensitive time for a perturbation are near the extreme points
  where 
 \begin_inset Formula $v$
 \end_inset
 
  changes direction.
- In the plot we can see that at timestep 
+ In the plot we can see that at time-step 
 \begin_inset Formula $t_{1}=400$
 \end_inset
 
@@ -706,7 +706,7 @@ Again, we see the effects of the limit cycle - nothing realy changes.
 \end_inset
 
 ) where we can see a slight change in values.
- Also, at timestep 
+ Also, at time-step 
 \begin_inset Formula $t_{1}=600$
 \end_inset
 
@@ -723,12 +723,121 @@ Again, we see the effects of the limit cycle - nothing realy changes.
 Coupled oscillators
 \end_layout
 
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+\begin{array}{c}
+\dot{v}_{1}=f(v_{1})-w_{1}+I_{ext}+\gamma(v_{1}-v_{2})\\
+\dot{v}_{2}=f(v_{2})-w_{2}+I_{ext}+\gamma(v_{2}-v_{1})\\
+\dot{w}_{1}=\epsilon\cdot(v_{1}+a-bw_{1})\\
+\dot{w}_{2}=\epsilon\cdot(v_{2}+a-bw_{2})
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Coupled system behavior after a long time
 \end_layout
 
+\begin_layout Paragraph
+Here we see the coupled neurons at different initial conditions get looked
+ out of phase (when one fires the other refractors) after some time, although
+ they converge to the same limit cycle.
+ 
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_4_1_v_vs_wt.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_4_1_v_vs_t.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Perturbation from same initial condition
+\end_layout
+
+\begin_layout Paragraph
+Here we see the neurons at the same initial condition without perturbation
+ behave exactly the same.
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_4_2_v_vs_w_no_pert.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_4_2_v_vs_t_no_pert.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+When we add a perturbation at time-step 
+\begin_inset Formula $300$
+\end_inset
+
+ (i.e.
+ 
+\begin_inset Formula $t=30$
+\end_inset
+
+), we get the neurons get looked out of phase.
+ They still converge to a the same limit cycle after some time.
+ Here, the perturbation has some noticeable effect on the the trajectory.
+ The neurons take about 
+\begin_inset Formula $49.4$
+\end_inset
+
+ time units to finish one cycle and they do it out of phase, i.e.
+ when one fires, the other is in its refractory period and vise versa.
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_4_2_v_vs_w_with_pert.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_4_2_v_vs_t_with_pert.png
+	scale 60
+
+\end_inset
+
+
 \end_layout
 
 \end_body
