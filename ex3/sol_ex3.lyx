@@ -94,7 +94,7 @@
 \begin_layout Standard
 \begin_inset FormulaMacro
 \newcommand{\tg}{}
-{\tilde{\Gamma}(\delta\psi-\delta\psi')}
+{\tilde{\Gamma}(\delta\psi'-\delta\psi)}
 \end_inset
 
 
@@ -171,12 +171,83 @@ Approximate integral solution
 \begin{align*}
 \Gamma(\delta\psi,\delta\psi') & =\frac{\epsilon}{2\pi}\int_{-\infty}^{\infty}d\theta\overrightarrow{R}(\theta-(\delta\psi-\delta\psi'))\overrightarrow{S}(\theta)\\
 = & \frac{\epsilon}{2\pi}\int_{-\infty}^{\infty}d\theta\overrightarrow{R}(\theta)\overrightarrow{S}(\theta-(\delta\psi'-\delta\psi))\\
-= & \frac{\epsilon}{2\pi}\int_{0}^{\infty}d\theta\frac{g_{syn}}{c_{m}}\left(\frac{\theta}{\omega\tau}\right)e^{-\frac{\theta}{\omega\tau}}sin(\theta-(\delta\psi'-\delta\psi))
+= & \frac{\epsilon}{2\pi}\int_{0}^{\infty}d\theta\frac{g_{syn}}{c_{m}}\left(\frac{\theta}{\omega\tau}\right)e^{-\frac{\theta}{\omega\tau}}sin(\theta-(\delta\psi'-\delta\psi))\\
+= & \frac{\epsilon}{2\pi}\omega\tau\frac{g_{syn}}{c_{m}}\int_{0}^{\infty}d\left(\frac{\theta}{\omega\tau}\right)sin\left(\omega\tau\left(\frac{\theta}{\omega\tau}\right)-(\delta\psi'-\delta\psi)\right)\left(\frac{\theta}{\omega\tau}\right)e^{-\frac{\theta}{\omega\tau}}\\
+= & \frac{\epsilon}{2\pi}\omega\tau\frac{g_{syn}}{c_{m}}\int_{0}^{\infty}d\left(\frac{\theta}{\omega\tau}\right)sin\left(\omega\tau\left(\frac{\theta}{\omega\tau}\right)-(\delta\psi'-\delta\psi)\right)\left(\frac{\theta}{\omega\tau}\right)e^{-\frac{\theta}{\omega\tau}}\\
+= & \frac{\epsilon}{2\pi}\omega\tau\frac{g_{syn}}{c_{m}}\int_{0}^{\infty}d\left(\frac{\theta}{\omega\tau}\right)\frac{e^{i\left(\omega\tau\left(\frac{\theta}{\omega\tau}\right)-(\delta\psi'-\delta\psi)\right)}-e^{-i\left(\omega\tau\left(\frac{\theta}{\omega\tau}\right)-(\delta\psi'-\delta\psi)\right)}}{2i}\left(\frac{\theta}{\omega\tau}\right)e^{-\frac{\theta}{\omega\tau}}\\
+= & \frac{\epsilon}{2\pi}\omega\tau\frac{g_{syn}}{c_{m}}\frac{1}{2i}\int_{0}^{\infty}d\left(\frac{\theta}{\omega\tau}\right)\left[\left(e^{-(\delta\psi'-\delta\psi)i}e^{\left(\omega\tau\left(\frac{\theta}{\omega\tau}\right)i\right)}\right)-\left(e^{(\delta\psi'-\delta\psi)i}e^{\left(-\omega\tau\left(\frac{\theta}{\omega\tau}\right)i\right)}\right)\right]\left(\frac{\theta}{\omega\tau}\right)e^{-\frac{\theta}{\omega\tau}}\\
+= & \frac{\epsilon}{2\pi}\omega\tau\frac{g_{syn}}{c_{m}}\frac{1}{2i}\int_{0}^{\infty}dx\left[\left(e^{-(\delta\psi'-\delta\psi)i}e^{\left(\omega\tau xi\right)}xe^{-x}\right)-\left(e^{(\delta\psi'-\delta\psi)i}e^{\left(-\omega\tau xi\right)}xe^{-x}\right)\right]\\
+= & \frac{\epsilon}{2\pi}\omega\tau\frac{g_{syn}}{c_{m}}\frac{1}{2i}\left[\left(e^{-(\delta\psi'-\delta\psi)i}\int_{0}^{\infty}dxe^{\left(\omega\tau xi\right)}xe^{-x}\right)-\left(e^{(\delta\psi'-\delta\psi)i}\int_{0}^{\infty}dxe^{\left(-\omega\tau xi\right)}xe^{-x}\right)\right]\\
+= & \frac{\epsilon}{2\pi}\omega\tau\frac{g_{syn}}{c_{m}}\frac{1}{2i}\left[\frac{e^{-i(\delta\psi'-\delta\psi)}}{(1-i\omega\tau)^{2}}-\frac{e^{i(\delta\psi'-\delta\psi)}}{(1+i\omega\tau)^{2}}\right]\int_{0}^{\infty}xdxe^{-x}\\
+= & \frac{g_{syn}}{c_{m}}\frac{\epsilon}{2\pi}\frac{\omega\tau}{\left[1+(\omega\tau)^{2}\right]^{2}}\left[\left((\omega\tau)^{2}-1\right)sin(\delta\psi'-\delta\psi)+2\omega\tau cos(\delta\psi'-\delta\psi)\right]
 \end{align*}
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Paragraph
+Now:
+\begin_inset Formula 
+\begin{align*}
+\tilde{\Gamma}(\delta\psi'-\delta\psi) & =\Gamma(\delta\psi,\delta\psi')-\Gamma(\delta\psi,\delta\psi')\\
+= & \frac{g_{syn}}{c_{m}}\frac{\epsilon}{2\pi}\frac{\omega\tau}{\left[1+(\omega\tau)^{2}\right]^{2}}\left[\left((\omega\tau)^{2}-1\right)sin(\delta\psi'-\delta\psi)+2\omega\tau cos(\delta\psi'-\delta\psi)\right]\\
+ & -\\
+ & \frac{g_{syn}}{c_{m}}\frac{\epsilon}{2\pi}\frac{\omega\tau}{\left[1+(\omega\tau)^{2}\right]^{2}}\left[\left((\omega\tau)^{2}-1\right)sin(\delta\psi-\delta\psi')+2\omega\tau cos(\delta\psi-\delta\psi')\right]\\
+= & \frac{g_{syn}}{c_{m}}\frac{\epsilon}{2\pi}\frac{\omega\tau}{\left[1+(\omega\tau)^{2}\right]^{2}}\\
+ & \times\\
+ & \left[\left((\omega\tau)^{2}-1\right)sin(\delta\psi'-\delta\psi)+2\omega\tau cos(\delta\psi'-\delta\psi)-\left((\omega\tau)^{2}-1\right)sin(\delta\psi-\delta\psi')-2\omega\tau cos(\delta\psi-\delta\psi')\right]
+\end{align*}
+
+\end_inset
+
+Note that 
+\begin_inset Formula $cosine$
+\end_inset
+
+ is an even function and thus: 
+\begin_inset Formula 
+\[
+cos(\delta\psi'-\delta\psi)=cos(-1(\delta\psi'-\delta\psi))=cos(\delta\psi-\delta\psi')
+\]
+
+\end_inset
+
+and so we get:
+\begin_inset Formula 
+\[
+2\omega\tau cos(\delta\psi'-\delta\psi)-2\omega\tau cos(\delta\psi-\delta\psi')=0
+\]
+
+\end_inset
+
+Also, as 
+\begin_inset Formula $sine$
+\end_inset
+
+ is an odd function:
+\begin_inset Formula 
+\begin{align*}
+\left((\omega\tau)^{2}-1\right)sin(\delta\psi'-\delta\psi)-\left((\omega\tau)^{2}-1\right)sin(\delta\psi-\delta\psi') & =\left((\omega\tau)^{2}-1\right)\left[sin(\delta\psi'-\delta\psi)-sin(\delta\psi-\delta\psi')\right]\\
+= & \left((\omega\tau)^{2}-1\right)\left[sin(\delta\psi'-\delta\psi)-\left(-sin(-\left(\delta\psi-\delta\psi'\right))\right)\right]\\
+= & 2\left((\omega\tau)^{2}-1\right)sin(\delta\psi'-\delta\psi)
+\end{align*}
+
+\end_inset
+
+Altogether we get:
+\begin_inset Formula 
+\begin{align*}
+\tilde{\Gamma}(\delta\psi'-\delta\psi) & =\frac{g_{syn}}{c_{m}}\frac{\epsilon}{2\pi}\frac{\omega\tau}{\left[1+(\omega\tau)^{2}\right]^{2}}2\left((\omega\tau)^{2}-1\right)sin(\delta\psi'-\delta\psi)\\
+= & \frac{g_{syn}}{c_{m}}\frac{\epsilon}{2\pi}\frac{\omega\tau}{\left[1+(\omega\tau)^{2}\right]^{2}}2\left((\omega\tau)^{2}-1\right)\cdot-1\cdot sin(-1\left(\delta\psi'-\delta\psi\right))\\
+= & \frac{g_{syn}}{c_{m}}\frac{\epsilon}{2\pi}\frac{\omega\tau}{\left[1+(\omega\tau)^{2}\right]^{2}}2\left(1-(\omega\tau)^{2}\right)sin(\delta\psi-\delta\psi')\\
+= & \frac{g_{syn}}{c_{m}}\frac{\epsilon}{\pi}\frac{\omega\tau\left(1-(\omega\tau)^{2}\right)}{\left[1+(\omega\tau)^{2}\right]^{2}}sin(\delta\psi-\delta\psi')
+\end{align*}
+
+\end_inset
+
+QED.
 \end_layout
 
 \begin_layout Subsubsection
@@ -190,7 +261,7 @@ Fixed point analysis of
 \begin_layout Paragraph
 \begin_inset Formula 
 \[
-\tg=\frac{d(\delta\psi-\delta\psi')}{dt}=\frac{g_{syn}}{c_{m}}\cdot\frac{\epsilon}{\pi}\cdot\frac{\omega\tau\left[1-\left(\omega\tau\right)^{2}\right]}{\left[1+\left(\omega\tau\right)^{2}\right]^{2}}\cdot sin(\delta\psi-\delta\psi')
+\tilde{\Gamma}(\delta\psi'-\delta\psi)=\frac{d(\delta\psi-\delta\psi')}{dt}=\frac{g_{syn}}{c_{m}}\cdot\frac{\epsilon}{\pi}\cdot\frac{\omega\tau\left[1-\left(\omega\tau\right)^{2}\right]}{\left[1+\left(\omega\tau\right)^{2}\right]^{2}}\cdot sin(\delta\psi-\delta\psi')
 \]
 
 \end_inset
@@ -207,12 +278,12 @@ Let
 
 \end_inset
 
-Iff 1.
+If and only if #1.
  
 \begin_inset Formula $sin(\delta\psi-\delta\psi')=0$
 \end_inset
 
- or 2.
+ or #2.
  
 \begin_inset Formula $1-\left(\omega\tau\right)^{2}=0$
 \end_inset
@@ -226,8 +297,8 @@ Iff 1.
 \begin_inset Formula $(\omega)$
 \end_inset
 
- should be strictly positive (there's sense in it otherwise), we're left
- with #1, i.e.:
+ should be strictly positive (there is no sense in it otherwise), #2 is
+ not possible and we're left with #1, i.e.:
 \begin_inset Formula 
 \[
 sin(\delta\psi-\delta\psi')=0
@@ -354,7 +425,7 @@ Now we get:
  is a Stable
 \series default
  FP as 
-\begin_inset Formula $\tg$
+\begin_inset Formula $\tilde{\Gamma}(\delta\psi'-\delta\psi)$
 \end_inset
 
  behaves like 
@@ -393,7 +464,7 @@ Now we get:
  is an Unstable
 \series default
  FP as 
-\begin_inset Formula $\tg$
+\begin_inset Formula $\tilde{\Gamma}(\delta\psi'-\delta\psi)$
 \end_inset
 
  behaves like 
