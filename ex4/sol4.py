@@ -10,6 +10,7 @@ from scipy.linalg import circulant
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 import time
+from joblib import Parallel, delayed
 
 class RingModel:
     def __init__(self, N=1001, J=1, h_const=2) -> None:
@@ -34,13 +35,13 @@ class RingModel:
     def _init_connectivity_matrix(self) -> np.ndarray:
         thetas = self.angles
         v = (thetas < np.pi/2).astype(int) + (((3 * np.pi) / 2) < thetas).astype(int)
-        self.J_ij = (1/self.N) * circulant(v)
+        self.J_ij = (1/self.N) * self.J * circulant(v)
         return self.J_ij
     
     def linear_dynamic(self, t, r):
         return -r + (self.J_ij @ r) + self.h_vec
     
-    def simulate(self, t_span=(0, 1000), r0=None, dt=1):
+    def simulate(self, t_span=(0, 1000), r0=None, dt=0.05):
         if r0 is None:
             r0 = np.ones(self.N) * 0.1
         start = time.time()
@@ -61,12 +62,12 @@ class RingModel:
         except TypeError:
             timesteps = np.array([timesteps])
 
-        fig, ax = plt.subplots()
         if center_around_zero:
             xx = np.rad2deg(self.angles - np.pi)
         else:
             xx = np.rad2deg(self.angles)
-
+        
+        fig, ax = plt.subplots()
         for t in timesteps:
             yy = self.sol.y[:,t]
             if center_around_zero:
@@ -74,52 +75,74 @@ class RingModel:
             ax.plot(xx, yy, label=f't={t}', linewidth=2)
         
         hv = np.roll(self.h_vec, self.N//2) if center_around_zero else self.h_vec
-        ax.plot(xx, hv, label=r'$h_i$', linestyle='--', color='black')
-        ax.set_xticks((np.arange(-180, 181, 45)))
-        ax.set_xlabel('Angle on the ring [degrees]')
-        ax.set_ylabel(r'$r(t,\theta)$', rotation=0, labelpad=20)
-        ax.set_title('Ring model simulation')
+        ax.plot(xx, hv, label=r'$h(\theta)$', linestyle='--', color='black')
+        x_tick_names = [r'-$\pi$', r'-$\frac{\pi}{2}$', '0', r'$\frac{\pi}{2}$', r'$\pi$']
+        ax.set_xticks((np.arange(-180, 181, 90)), x_tick_names)
+        ax.set_xlabel('Angle on the ring [Rad]')
+        ax.set_ylabel(r'$r(\theta,t)$', rotation=0, labelpad=20)
+        fig.suptitle('Ring model simulation')
+        mean_dt = np.round(np.diff(self.sol.t).mean(), decimals=2)
+        t0, t_end = self.sol.t[0], self.sol.t[-1]
+        ax.set_title(f'N={self.N}, J={self.J}, dt={mean_dt}, Time=[{t0:.2f}, {t_end:.2f}] [sec]')
         ax.set_facecolor('lightgray')
         ax.legend()
-        # plt.show()
         return fig, ax
-
-    
-
-# def theta_of_i(i: int) -> float:
-#     return (2 * np.pi * i) / N
-
 #%%
-if __name__ == "__main__":
-    # v = np.arange(1,5)
-    # print(circulant(v))
-    N = 1001
-    # print([np.rad2deg(theta_of_i(i)) for i in range(N)])
-    # thets= np.array([(theta_of_i(i)) for i in range(N)])
-    # print(np.abs(thets - np.pi) > np.pi/2)
-    # v = (thets < np.pi/2).astype(int) + (((3 * np.pi) / 2)
+def q_2_1(N=1001):
     ring = RingModel(N=N)
     dur = ring.simulate()
-    print(f"Simulation took {dur} seconds")
-    t = [1, 25, 50, 200, 600]
-    fig, ax = ring.plot_sim(t)
-    
-    # print(sol.t.shape, sol.y.shape)
-    # xx = np.rad2deg(ring.angles - np.pi)
-    # yy = np.roll(sol.y[:,t], N//2)
-    # plt.plot(np.rad2deg(ring.angles), sol.y[:,-300])
-    # for y in yy.T:
-    #     plt.plot(xx, y)
-    # plt.xticks((np.arange(-180, 181, 45)))
-    plt.show()
-    # print(np.rad2deg(ring.angles))
-    # print(np.roll(np.rad2deg(ring.angles), shift=N//2))
-    # # change ring.angles from radians between 0-2pi to between -pi to pi so that positive valuse bigger than pi will be negative
-    # angles = ring.angles - np.pi
-    # print(np.rad2deg(angles))
+    print(f"Simulation took {np.round(dur, decimals=2)} seconds")
+    times = [1, 25, 50, 200, 600]
+    fig, ax = ring.plot_sim(times)
+    return fig, ax, dur
+
+def sim(N, J):
+    ring = RingModel(N=N, J=J)
+    dur = ring.simulate()
+    return ring
+
+def q_2_2(N=1001):
+    Js = [1, 1.5, 1.9, 2.1]
+    start = time.time()
+    results = Parallel(n_jobs=-1)(
+        delayed(sim)(N, J) for J in Js
+    )
+    # results = [sim(N, J) for J in Js]
+    end = time.time()
+    print(f"Simulation took {np.round(end-start, decimals=2)} seconds")
 
     
-    # ring
+    return results
+#%%
+if __name__ == "__main__":
     
-    
+    N = 1001
+    # fig, ax, dur = q_2_1(N)
+    # plt.show()
+    res = q_2_2(N)
+
+    mean_r_across_ring = np.array(
+        [np.mean(r.sol.y, axis=0) for r in res]
+    )
+    print(mean_r_across_ring.shape)
+
+# %%
+    fig, ax = plt.subplots()
+
+    for i, J in enumerate([1, 1.5, 1.9, 2.1]):
+        t = res[i].sol.t
+        ax.plot(t, mean_r_across_ring[i], label=f'J={J}')
+    ax.set_title('Mean activity across the ring')
+    ax.set_xlabel('Time [sec]')
+    ax.set_ylabel('Mean r(t)', rotation=0, labelpad=20)
+    ax.set_xlim([0, 100])
+    ax.set_ylim([0, 25])
+    ax.set_facecolor('lightgray')
+    ax.grid()
+    ax.legend()
+
+    times = [1, 25, 50, 200, 600]
+    fig, ax = res[-1].plot_sim(times)
+    plt.show()
+
 # %%
