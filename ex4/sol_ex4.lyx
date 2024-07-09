@@ -1339,5 +1339,31 @@ N=257
 External input as well as connectivity profile affect the dynamics
 \end_layout
 
+\begin_layout Paragraph
+The external input determines the exited part of the ring where's the connectivi
+ty matrix determines the peak and trough of the firing profile.
+ As we can see in section 2.1, the bump peaks at the center of the ring as
+ the neuron at 0 gets the must input - it gets the external input and the
+ maximal amount possible of input from other neurons around the half ring.
+ On the other hand, the neuron antipodal to it, gets no external input and
+ the minimal amount possible of input from other neurons around its half
+ ring.
+ We can see the most 
+\begin_inset Quotes eld
+\end_inset
+
+light up
+\begin_inset Quotes erd
+\end_inset
+
+ part is the part which gets strictly positive external input.
+ Even more so, this is the most connected part on the ring.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document

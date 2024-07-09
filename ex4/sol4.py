@@ -73,10 +73,10 @@ class RingModel:
             yy = self.sol.y[:,t]
             if center_around_zero:
                 yy = np.roll(yy, self.N//2)
-            ax.plot(xx, yy, label=f't={t}', linewidth=2)
+            ax.plot(xx, yy, label=f't={t}', linewidth=3)
         
         hv = np.roll(self.h_vec, self.N//2) if center_around_zero else self.h_vec
-        ax.plot(xx, hv, label=r'$h(\theta)$', linestyle='--', color='black')
+        ax.plot(xx, hv, label=r'$h(\theta)$', linestyle='--', color='black', linewidth=3)
         x_tick_names = [r'-$\pi$', r'-$\frac{\pi}{2}$', '0', r'$\frac{\pi}{2}$', r'$\pi$']
         ax.set_xticks((np.arange(-180, 181, 90)), x_tick_names)
         ax.set_xlabel('Angle on the ring [Rad]')
@@ -86,7 +86,7 @@ class RingModel:
         t0, t_end = self.sol.t[0], np.rint(self.sol.t[-1])
         ax.set_title(f'N={self.N}, J={self.J}, dt={mean_dt}, Time=[{t0:.2f}, {t_end:.2f}] [sec]')
         ax.set_facecolor('lightgray')
-        ax.legend()
+        ax.legend(fontsize=14)
         return fig, ax
 #%%
 def q_2_1(N=1001):
@@ -124,16 +124,16 @@ def q_2_2(N=1001, zoomin=True):
     fig, ax = plt.subplots(figsize=(8, 5))
     for i, J in enumerate([1, 1.5, 1.9, 2.1]):
         t = res[i].sol.t
-        ax.plot(t, mean_r_across_ring[i], label=f'J={J}')
-    ax.set_title('Mean activity across the ring')
-    ax.set_xlabel('Time [sec]')
-    ax.set_ylabel('Mean r(t)', rotation=0, labelpad=20)
+        ax.plot(t, mean_r_across_ring[i], label=f'J={J}', linewidth=3)
+    ax.set_title('Mean activity across the ring', fontsize=16)
+    ax.set_xlabel('Time [sec]', fontsize=10)
+    ax.set_ylabel('Mean r(t)', rotation=0, labelpad=20, fontsize=10)
     if zoomin:
         ax.set_xlim([0, 100])
         ax.set_ylim([0, 25])
     ax.set_facecolor('lightgray')
     ax.grid()
-    ax.legend()
+    ax.legend(fontsize=14)
 
     # Plot the simulation for J=2.1
     divergence_fig, divergence_ax = res[-1].plot_sim(timesteps=[1, 25, 50, 200, 600])
