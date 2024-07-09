@@ -31,6 +31,7 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
+\float_placement H
 \paperfontsize default
 \spacing single
 \use_hyperref true
@@ -133,7 +134,7 @@ For
 \end_inset
 
 : 
-\begin_inset Formula $\theta_{i}=\frac{s\pi i}{N}$
+\begin_inset Formula $\theta_{i}=\frac{2\pi i}{N}$
 \end_inset
 
 .
@@ -398,7 +399,8 @@ Where the last equality is holds because
 \end_inset
 
 .
- We can compare the coefficients element-wise and get a set of decoupled
+ We can compare the coefficients element-wise (which is possible as were
+ dealing with a linear combination of eigenfunctions) and get a set of decoupled
  ODE's:
 \begin_inset Newline newline
 \end_inset
@@ -714,17 +716,6 @@ Mean firing rate for
 \end_layout
 
 \begin_layout Paragraph
-\begin_inset Graphics
-	filename q_2_2_1.png
-	scale 50
-	rotateOrigin center
-
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
 We can see that for 
 \begin_inset Formula $J=2.1$
 \end_inset
@@ -739,10 +730,96 @@ We can see that for
 \end_inset
 
 
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename q_2_2_1_zoom_in.png
-	scale 50
+	lyxscale 50
+	width 50col%
 	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename q_2_2_1.png
+	lyxscale 50
+	width 50col%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mean activity VS time zoom in
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mean activity VS time, for 
+\begin_inset Formula $J=2.1$
+\end_inset
+
+ we get divergences
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -930,20 +1007,80 @@ As showed in 1.4, the
 
  diverges.
  
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="1">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename q_2_2_4.png
-	scale 50
+	width 75col%
 	rotateOrigin center
 
 \end_inset
 
 
-\begin_inset Newline newline
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Firing rate as a function of position on the ring [rad] at different time-steps
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
 Here we see plots of the firing rate on the ring for different time points
  when 
 \begin_inset Formula $2<J$
@@ -976,9 +1113,230 @@ For me, generally speaking, if a number is larger than the number of my
 \begin_inset Formula $\approx10$
 \end_inset
 
-), I consider it infinity.
- For others, nothing is ever large enough...
- In our context, 
+), I consider it to be infinity.
+ For some people, nothing is ever large enough...
+ In our context, the question boils down to how well the discrete sum 
+\begin_inset Formula $\sum J_{ij}r_{j}$
+\end_inset
+
+ approximates the integral 
+\begin_inset Formula $\frac{1}{2\pi}\int_{-\pi}^{\pi}\tilde{J}(\theta-\varphi)r(\varphi,t)d\varphi$
+\end_inset
+
+.
+ This is a function of 
+\begin_inset Formula $N$
+\end_inset
+
+, 
+\begin_inset Formula $dt$
+\end_inset
+
+ and maybe more (like the method of numerical solver).
+ Basically, as N is larger, 
+\begin_inset Formula $\Delta\theta=\frac{2\pi}{N}$
+\end_inset
+
+ is smaller which makes the discrete sum closer to the integral.
+ From other simulations I ran, I found that in my case when 
+\begin_inset Formula $N=3$
+\end_inset
+
+ the simulation does not diverge for 
+\begin_inset Formula $J=2.1$
+\end_inset
+
+, however, for 
+\begin_inset Formula $5\le N$
+\end_inset
+
+, it does (as could be seen in the graphs below).
+ Generally, I would choose 
+\begin_inset Formula $N$
+\end_inset
+
+ such that 
+\begin_inset Formula $\Delta\theta$
+\end_inset
+
+ is sensitive enough to changes in the different regimes of the ring.
+ Which in our case is 
+\begin_inset Formula $\Delta\theta<\frac{\pi}{2}$
+\end_inset
+
+.
+ Even better is 
+\begin_inset Formula $\Delta\theta\ll1$
+\end_inset
+
+.
+ All in all, we can see the choice of 
+\begin_inset Formula $N=1001$
+\end_inset
+
+, in this particular case, is 
+\begin_inset Quotes eld
+\end_inset
+
+good enough
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename q_3_N_3.png
+	lyxscale 50
+	width 45col%
+	rotateOrigin rightTop
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename q_3_N_5.png
+	lyxscale 50
+	width 45col%
+	rotateOrigin rightTop
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+N=3 - Wrongful convergence
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+N=5
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename q_3_N_49.png
+	lyxscale 50
+	width 45col%
+	rotateOrigin rightTop
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename q_3_N_257.png
+	lyxscale 50
+	width 45col%
+	rotateOrigin rightTop
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+N=49
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+N=257
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+External input as well as connectivity profile affect the dynamics
 \end_layout
 
 \end_body

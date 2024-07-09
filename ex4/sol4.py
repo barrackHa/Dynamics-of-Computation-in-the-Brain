@@ -26,6 +26,7 @@ class RingModel:
         self.h_vec = (np.abs(np.pi - self.angles) > (np.pi/2)).astype(int) * 2
         # Connectivity matrix
         self.J_ij = self._init_connectivity_matrix()
+        # Numerical solution of the simulation
         self.sol = None
         return
 
@@ -120,7 +121,7 @@ def q_2_2(N=1001, zoomin=True):
     )
 
     # Plot the mean activity across the ring vs time
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(8, 5))
     for i, J in enumerate([1, 1.5, 1.9, 2.1]):
         t = res[i].sol.t
         ax.plot(t, mean_r_across_ring[i], label=f'J={J}')
@@ -138,12 +139,22 @@ def q_2_2(N=1001, zoomin=True):
     divergence_fig, divergence_ax = res[-1].plot_sim(timesteps=[1, 25, 50, 200, 600])
 
     return fig, ax, divergence_fig, divergence_ax
+
+#%%
+def q_3(Ns=[3, 5, 49, 257]):
+    for N in Ns:
+        fig, _, divergence_fig, _ = q_2_2(N, zoomin=False)
+        fig.suptitle(f'N={N}', fontsize=16)
+        divergence_fig.clf()
+        plt.close(divergence_fig)
+    return 
 #%%
 if __name__ == "__main__":
     
     N = 1001
     fig, ax, dur = q_2_1(N)
     plt.show()
-    fig, ax, divergence_fig, divergence_ax = q_2_2(N, zoomin=True)
+    fig, ax, divergence_fig, divergence_ax = q_2_2(N, zoomin=False)
     plt.show()
-
+    q_3()
+    plt.show()
