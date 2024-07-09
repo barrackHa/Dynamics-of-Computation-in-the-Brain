@@ -199,7 +199,7 @@ thickness "0.4pt"
 separation "3pt"
 shadowsize "4pt"
 framecolor "black"
-backgroundcolor "none"
+backgroundcolor "yellow"
 status open
 
 \begin_layout Plain Layout
@@ -242,54 +242,39 @@ r(\theta,t)=\frac{a_{0}}{2}+\sum_{n=1}^{\infty}\left[a_{n}(t)cos(n\theta)+b_{n}(
 
 Where:
 \begin_inset Formula 
-\begin{align*}
-a_{n}(t)=\frac{1}{\pi}\int_{-\pi}^{\pi}r(\theta,t)cos(n\theta)d\theta & \;\;\;\& & b_{n}(t)=\frac{1}{\pi}\int_{-\pi}^{\pi}r(\theta,t)sin(n\theta)d\theta
-\end{align*}
+\[
+a_{n}(t)=\frac{1}{\pi}\int_{-\pi}^{\pi}r(\theta,t)cos(n\theta)d\theta\;\;\;\&\;\;\;b_{n}(t)=\frac{1}{\pi}\int_{-\pi}^{\pi}r(\theta,t)sin(n\theta)d\theta
+\]
 
 \end_inset
 
-Now, we differentiate with respect to the time variable:
-\begin_inset Formula 
-\begin{align*}
-\dot{a}_{n}(t)=\frac{da_{n}}{dt} & =\frac{d}{dt}\frac{1}{\pi}\int_{-\pi}^{\pi}r(\theta,t)cos(n\theta)d\theta=\frac{1}{\pi}\int_{-\pi}^{\pi}\frac{d}{dt}\left[r(\theta,t)cos(n\theta)\right]d\theta\\
-= & \frac{1}{\pi}\int_{-\pi}^{\pi}\left[\frac{dr}{dt}(\theta,t)cos(n\theta)+r(\theta,t)\frac{dcos}{dt}(n\theta)\right]d\theta\\
-\underset{1}{=} & \frac{1}{\pi}\int_{-\pi}^{\pi}\left[\dot{r}(\theta,t)cos(n\theta)+0\right]d\theta\underset{2}{=}\frac{1}{\pi}\int_{-\pi}^{\pi}\left[-r(\theta,t)cos(n\theta)+h(\theta,t)cos(n\theta)\right]d\theta\\
-= & -\frac{1}{\pi}\int_{-\pi}^{\pi}r(\theta,t)cos(n\theta)d\theta+\frac{1}{\pi}\int_{-\pi}^{\pi}h(\theta,t)cos(n\theta)d\theta\\
-\underset{3}{=} & -a_{n}+\frac{1}{\pi}\int_{-\pi}^{\pi}h(\theta,t)cos(n\theta)d\theta
-\end{align*}
-
-\end_inset
-
-Where equality #1 is due to the derivation of a product, #2 is because 
-\begin_inset Formula $cos(n\theta)$
-\end_inset
-
- does bot change with respect to time and #3 is uses the definition of the
- nth component of the Fourier decomposition of 
+We go back to the other parts of the sum in 1.1, we'll look at their Fourier
+ decomposition separately as we did for 
 \begin_inset Formula $r$
 \end_inset
 
 .
- From the same exact arguments we get:
-\begin_inset Formula 
-\begin{align*}
-\dot{b}_{n}(t)=-b_{n}+\frac{1}{\pi}\int_{-\pi}^{\pi}h(\theta,t)sin(n\theta)d\theta
-\end{align*}
-
+ Once we'll put them all together, we can compare them with the Fourier
+ decomposition of 
+\begin_inset Formula $\dot{r}$
 \end_inset
 
-Now:
+ and get a set of decoupled dynamical equations.
+ Moving on to the second member in the sum, the varying part of the input:
 \begin_inset Formula 
 \begin{align*}
-\frac{1}{2\pi}\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}Jr(\theta,t)d\theta & =\frac{1}{2\pi}\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}J\left[\frac{a_{0}}{2}+\sum_{n=1}^{\infty}\left[a_{n}(t)cos(n\theta)+b_{n}(t)sin(n\theta)\right]\right]d\theta\\
-= & \frac{J}{2\pi}\left[\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}\frac{a_{0}}{2}d\theta+\sum_{n=1}^{\infty}a_{n}\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}cos(n\theta)d\theta+\sum_{n=1}^{\infty}b_{n}\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}sin(n\theta)d\theta\right]\\
-= & \frac{J}{2\pi}\left[\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}\frac{a_{0}}{2}d\theta+\sum_{n=1}^{\infty}a_{n}\left.\frac{sin(nx)}{n}\right|_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}-\sum_{n=1}^{\infty}b_{n}\left.\frac{cos(nx)}{n}\right|_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}\right]\\
-\underset{1}{=} & \frac{J}{2\pi}\left[\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}\frac{a_{0}}{2}d\theta+\sum_{n=1}^{\infty}\frac{a_{n}}{n}\left[2cos(n\theta)sin(\frac{n\pi}{2})\right]-\sum_{n=1}^{\infty}\frac{b_{n}}{n}\left[-2sin(n\theta)sin(\frac{n\pi}{2})\right]\right]\\
-= & \frac{J}{2\pi}\left[\frac{a_{0}}{2}\left[\theta+\frac{\pi}{2}-\theta+\frac{\pi}{2}\right]+\sum_{n=1}^{\infty}\frac{a_{n}}{n}\left[2cos(n\theta)sin(\frac{n\pi}{2})\right]+\sum_{n=1}^{\infty}\frac{b_{n}}{n}\left[2sin(n\theta)sin(\frac{n\pi}{2})\right]\right]\\
-= & \frac{J}{2\pi}\left[\frac{a_{0}\pi}{2}+\sum_{n=1}^{\infty}\frac{a_{n}}{n}\left[2cos(n\theta)sin(\frac{n\pi}{2})\right]+\sum_{n=1}^{\infty}\frac{b_{n}}{n}\left[2sin(n\theta)sin(\frac{n\pi}{2})\right]\right]\\
-= & \frac{Ja_{0}}{4}+\frac{J}{2\pi}\sum_{n=1}^{\infty}\left[\frac{a_{n}}{n}\left[2cos(n\theta)sin(\frac{n\pi}{2})\right]+\frac{b_{n}}{n}\left[2sin(n\theta)sin(\frac{n\pi}{2})\right]\right]\\
-= & \frac{Ja_{0}}{4}+\sum_{n=1}^{\infty}\frac{J}{\pi n}sin(\frac{n\pi}{2})\left[a_{n}cos(n\theta)+b_{n}sin(n\theta)\right]\\
-= & \frac{Ja_{0}}{4}+\sum_{n=1}^{\infty}\frac{J}{\pi n}sin(\frac{n\pi}{2})a_{n}cos(n\theta)+\sum_{n=1}^{\infty}\frac{J}{\pi n}sin(\frac{n\pi}{2})b_{n}sin(n\theta)
+\frac{1}{2\pi}\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}Jr(\varphi,t)d\varphi & =\frac{1}{2\pi}\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}J\left[\frac{a_{0}}{2}+\sum_{n=1}^{\infty}\left[a_{n}(t)cos(n\varphi)+b_{n}(t)sin(n\varphi)\right]\right]dv\theta\\
+= & \frac{J}{2\pi}\left[\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}\frac{a_{0}}{2}d\varphi+\sum_{n=1}^{\infty}a_{n}\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}cos(n\varphi)d\varphi+\sum_{n=1}^{\infty}b_{n}\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}sin(n\varphi)d\varphi\right]\\
+= & \frac{J}{2\pi}\left[\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}\frac{a_{0}}{2}d\varphi+\sum_{n=1}^{\infty}a_{n}\left.\frac{sin(n\varphi)}{n}\right|_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}-\sum_{n=1}^{\infty}b_{n}\left.\frac{cos(n\varphi)}{n}\right|_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}\right]\\
+= & \frac{J}{2\pi}\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}\frac{a_{0}}{2}d\varphi\\
+ & +\frac{J}{2\pi}\sum_{n=1}^{\infty}\frac{a_{n}}{n}\left[sin\left(n\theta+\frac{n\pi}{2}\right)-sin\left(n\theta-\frac{n\pi}{2}\right)\right]\\
+ & -\frac{J}{2\pi}\sum_{n=1}^{\infty}\frac{b_{n}}{n}\left[cos\left(n\theta+\frac{n\pi}{2}\right)-cos\left(n\theta-\frac{n\pi}{2}\right)\right]\\
+\underset{1}{=} & \frac{J}{2\pi}\left[\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}\frac{a_{0}}{2}d\varphi+\sum_{n=1}^{\infty}\frac{a_{n}}{n}\left[2cos(n\theta)sin\left(\frac{n\pi}{2}\right)\right]-\sum_{n=1}^{\infty}\frac{b_{n}}{n}\left[-2sin(n\theta)sin\left(\frac{n\pi}{2}\right)\right]\right]\\
+= & \frac{J}{2\pi}\left[\frac{a_{0}}{2}\left[\theta+\frac{\pi}{2}-\theta+\frac{\pi}{2}\right]+\sum_{n=1}^{\infty}\frac{a_{n}}{n}\left[2cos(n\theta)sin\left(\frac{n\pi}{2}\right)\right]+\sum_{n=1}^{\infty}\frac{b_{n}}{n}\left[2sin(n\theta)sin\left(\frac{n\pi}{2}\right)\right]\right]\\
+= & \frac{J}{2\pi}\left[\frac{a_{0}\pi}{2}+\sum_{n=1}^{\infty}\frac{a_{n}}{n}\left[2cos(n\theta)sin\left(\frac{n\pi}{2}\right)\right]+\sum_{n=1}^{\infty}\frac{b_{n}}{n}\left[2sin(n\theta)sin\left(\frac{n\pi}{2}\right)\right]\right]\\
+= & \frac{Ja_{0}}{4}+\frac{J}{2\pi}\sum_{n=1}^{\infty}\left[\frac{a_{n}}{n}\left[2cos(n\theta)sin\left(\frac{n\pi}{2}\right)\right]+\frac{b_{n}}{n}\left[2sin(n\theta)sin\left(\frac{n\pi}{2}\right)\right]\right]\\
+= & \frac{Ja_{0}}{4}+\sum_{n=1}^{\infty}\frac{J}{\pi n}sin\left(\frac{n\pi}{2}\right)\left[a_{n}cos(n\theta)+b_{n}sin(n\theta)\right]\\
+= & \frac{Ja_{0}}{4}+\sum_{n=1}^{\infty}\left[\frac{J}{\pi n}sin\left(\frac{n\pi}{2}\right)a_{n}\right]cos(n\theta)+\sum_{n=1}^{\infty}\left[\frac{J}{\pi n}sin\left(\frac{n\pi}{2}\right)b_{n}\right]sin(n\theta)
 \end{align*}
 
 \end_inset
@@ -298,14 +283,41 @@ Now:
 \end_layout
 
 \begin_layout Paragraph
-Where equality #1 is explained in the TA (page #5).
- Notice the integrals in the equations above are simply the nth Fourier
- components of 
+Where equality #1 (explained in the TA, page #5) uses the identities:
+\begin_inset Formula 
+\begin{align*}
+sin\left(n\theta\pm\frac{n\pi}{2}\right)=sin(n\theta)cos\left(\frac{n\pi}{2}\right)\pm sin(n\theta)cos\left(\frac{n\pi}{2}\right)\\
+cos\left(n\theta\pm\frac{n\pi}{2}\right)=cos(n\theta)cos\left(\frac{n\pi}{2}\right)\mp sin(n\theta)sin\left(\frac{n\pi}{2}\right)
+\end{align*}
+
+\end_inset
+
+And thus:
+\begin_inset Formula 
+\begin{align*}
+sin\left(n\theta+\frac{n\pi}{2}\right)-sin\left(n\theta-\frac{n\pi}{2}\right)= & sin(n\theta)cos\left(\frac{n\pi}{2}\right)+sin(n\theta)cos\left(\frac{n\pi}{2}\right)-sin(n\theta)cos\left(\frac{n\pi}{2}\right)+sin(n\theta)cos\left(\frac{n\pi}{2}\right)\\
+= & 2cos(n\theta)sin\left(\frac{n\pi}{2}\right)
+\end{align*}
+
+\end_inset
+
+and:
+\begin_inset Formula 
+\begin{align*}
+cos\left(n\theta+\frac{n\pi}{2}\right)-cos\left(n\theta-\frac{n\pi}{2}\right)= & cos(n\theta)cos\left(\frac{n\pi}{2}\right)-sin(n\theta)sin\left(\frac{n\pi}{2}\right)-cos(n\theta)cos\left(\frac{n\pi}{2}\right)-sin(n\theta)sin\left(\frac{n\pi}{2}\right)\\
+= & -2sin(n\theta)sin\left(\frac{n\pi}{2}\right)
+\end{align*}
+
+\end_inset
+
+We got the Fourier components of the varying part of the input.
+ Now moving on to constant part of the input (note there may arise a slight
+ confusion here from the notation, usually we refer to all of the neural
+ input as 
 \begin_inset Formula $h$
 \end_inset
 
-.
- Now:
+ but here only to the fixed external component):
 \begin_inset Formula 
 \[
 h(\theta)=1+f(\theta)=1+\begin{cases}
@@ -322,41 +334,122 @@ for
 \end_inset
 
  from exercise #2, question 1.1.
- As we've seen its Fourier decomposition, we can write:
+ We've already calculated its Fourier decomposition:
 \begin_inset Formula 
 \begin{align*}
 h(\theta) & =1+\frac{4}{\pi n}\left(\sum_{n=1,5,9,...}cos(n\theta)-\sum_{n=3,7,11,...}cos(n\theta)\right)=1+\frac{4}{\pi n}\sum_{n=1,3,5,...}(-1)^{\frac{n-1}{2}}cos(n\theta)\\
-= & 1+\sum_{n=1}^{\infty}\frac{4}{\pi n}sin(\frac{n\pi}{2})cos(n\theta)
+= & 1+\sum_{n=1}^{\infty}\left[\frac{4}{\pi n}sin(\frac{n\pi}{2})\right]cos(n\theta)=\frac{2}{2}+\sum_{n=1}^{\infty}\left[\frac{4}{\pi n}sin(\frac{n\pi}{2})\right]cos(n\theta)+\sum_{n=1}^{\infty}0\cdot sin(n\theta)
 \end{align*}
 
 \end_inset
 
-Putting it all together, we get:
+Putting it all together, we join the coefficients of the sine, cosine and
+ free members together and get:
 \begin_inset Formula 
 \begin{align*}
 \dot{r} & =-r+\frac{1}{2\pi}\int_{\theta-\frac{\pi}{2}}^{\theta+\frac{\pi}{2}}Jr(\varphi)d\varphi+h(\theta)\\
-= & -\frac{a_{0}}{2}-\sum_{n=1}^{\infty}\left[a_{n}(t)cos(n\theta)+b_{n}(t)sin(n\theta)\right]\\
- & +\frac{Ja_{0}}{4}+\sum_{n=1}^{\infty}\frac{J}{\pi n}sin(\frac{n\pi}{2})\left[a_{n}cos(n\theta)+b_{n}sin(n\theta)\right]\\
- & +1+\sum_{n=1}^{\infty}\frac{4}{\pi n}sin(\frac{n\pi}{2})cos(nx)\\
+= & -\frac{a_{0}}{2}+\sum_{n=1}^{\infty}\left[-a_{n}\right](t)cos(n\theta)+\sum_{n=1}^{\infty}\left[-b_{n}\right](t)sin(n\theta)\\
+ & +\frac{Ja_{0}}{4}+\sum_{n=1}^{\infty}\left[\frac{J}{\pi n}sin\left(\frac{n\pi}{2}\right)a_{n}\right]cos(n\theta)+\sum_{n=1}^{\infty}\left[\frac{J}{\pi n}sin\left(\frac{n\pi}{2}\right)b_{n}\right]sin(n\theta)\\
+ & +1+\sum_{n=1}^{\infty}\left[\frac{4}{\pi n}sin(\frac{n\pi}{2})\right]cos(n\theta)\\
 = & \left[-\frac{a_{0}}{2}+\frac{Ja_{0}}{4}+1\right]+\\
- & +\sum_{n=1}^{\infty}\left[\frac{J}{\pi n}sin(\frac{n\pi}{2})a_{n}-a_{n}+\frac{4}{\pi n}sin(\frac{n\pi}{2})\right]cos(n\theta)\\
- & +\sum_{n=1}^{\infty}\left[\frac{J}{\pi n}sin(\frac{n\pi}{2})b_{n}-b_{n}\right]sin(n\theta)\\
-= & \frac{\left(J-2\right)a_{0}+4}{4}+\sum_{n=1}^{\infty}\left[\left(\frac{J}{\pi n}sin(\frac{n\pi}{2})-1\right)a_{n}+\frac{4}{\pi n}sin(\frac{n\pi}{2})\right]cos(n\theta)+\sum_{n=1}^{\infty}\left[\left(\frac{J}{\pi n}sin(\frac{n\pi}{2})-1\right)b_{n}\right]sin(n\theta)\\
-\coloneqq & \frac{a_{0}^{\prime}}{2}+\sum_{n=1}^{\infty}a_{n}^{\prime}cos(n\theta)+\sum_{n=1}^{\infty}b_{n}^{\prime}sin(n\theta)
+ & +\sum_{n=1}^{\infty}\left[\frac{J}{\pi n}sin\left(\frac{n\pi}{2}\right)a_{n}-a_{n}+\frac{4}{\pi n}sin\left(\frac{n\pi}{2}\right)\right]cos(n\theta)\\
+ & +\sum_{n=1}^{\infty}\left[\frac{J}{\pi n}sin\left(\frac{n\pi}{2}\right)b_{n}-b_{n}\right]sin(n\theta)\\
+= & \frac{\left(J-2\right)a_{0}+4}{4}+\sum_{n=1}^{\infty}\left[\left(\frac{J}{\pi n}sin\left(\frac{n\pi}{2}\right)-1\right)a_{n}+\frac{4}{\pi n}sin\left(\frac{n\pi}{2}\right)\right]cos(n\theta)+\sum_{n=1}^{\infty}\left[\left(\frac{J}{\pi n}sin\left(\frac{n\pi}{2}\right)-1\right)b_{n}\right]sin(n\theta)
 \end{align*}
 
 \end_inset
 
-Where the last transition is a definetion of a new Fourier decomposition.
+What we got defines the Fourier decomposition of 
+\begin_inset Formula $\dot{r}$
+\end_inset
+
+ in the terms of 
+\begin_inset Formula $a_{0},a_{n}\&b_{n}$
+\end_inset
+
+.
  Now, We also know that:
 \begin_inset Formula 
-\[
-\frac{dr}{dt}(\theta,t)=\dot{r}=\frac{\dot{a_{0}}}{2}+\sum_{n=1}^{\infty}\dot{a_{n}}(t)cos(n\theta)+\sum_{n=1}^{\infty}\dot{b_{n}}(t)sin(n\theta)
-\]
+\begin{align*}
+\dot{r} & =\frac{dr}{dt}(\theta,t)=\frac{d}{dt}\frac{a_{0}(t)}{2}+\frac{d}{dt}\sum_{n=1}^{\infty}a_{n}(t)cos(n\theta)+\frac{d}{dt}\sum_{n=1}^{\infty}b_{n}(t)sin(n\theta)\\
+= & \frac{\dot{a_{0}}}{2}+\sum_{n=1}^{\infty}\frac{d}{dt}\left(a_{n}(t)cos(n\theta)\right)+\sum_{n=1}^{\infty}\frac{d}{dt}\left(b_{n}(t)sin(n\theta)\right)\\
+= & \frac{\dot{a_{0}}}{2}+\sum_{n=1}^{\infty}\left(cos(n\theta)\frac{d}{dt}a_{n}(t)+a_{n}(t)\frac{d}{dt}cos(n\theta)\right)+\sum_{n=1}^{\infty}\left(sin(n\theta)\frac{d}{dt}b_{n}(t)+b_{n}(t)\frac{d}{dt}sin(n\theta)\right)\\
+= & \frac{\dot{a_{0}}}{2}+\sum_{n=1}^{\infty}\dot{a_{n}}(t)cos(n\theta)+\sum_{n=1}^{\infty}\dot{b_{n}}(t)sin(n\theta)
+\end{align*}
 
 \end_inset
 
-From this we get:
+Where the last equality is holds because 
+\begin_inset Formula $sin(n\theta)$
+\end_inset
+
+ and 
+\begin_inset Formula $cos(n\theta)$
+\end_inset
+
+ do not change with respect to time and so 
+\begin_inset Formula $0=\frac{d}{dt}sin(n\theta)=\frac{d}{dt}cos(n\theta)$
+\end_inset
+
+.
+ What we got is two different ways to write the Fourier decomposition of
+ 
+\begin_inset Formula $\dot{r}$
+\end_inset
+
+.
+ We can compare the coefficients element-wise and get a set of decoupled
+ ODE's:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Boxed
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "c"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "yellow"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{align*}
+\frac{\dot{a_{0}}}{2} & =\frac{\left(J-2\right)a_{0}+4}{4}\Longrightarrow\dot{a_{0}}=\frac{\left(J-2\right)a_{0}+4}{2}=a_{0}\left(\frac{J}{2}-1\right)+2\\
+\dot{a_{n}}= & \left(\frac{J}{\pi n}sin(\frac{n\pi}{2})-1\right)a_{n}+\frac{4}{\pi n}sin(\frac{n\pi}{2})\\
+\dot{b_{n}}= & \left(\frac{J}{\pi n}sin(\frac{n\pi}{2})-1\right)b_{n}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Fixed point analysis
+\end_layout
+
+\begin_layout Paragraph
+We want to find when 
+\begin_inset Formula $\dot{a_{0}}=\dot{a_{n}}=\dot{b_{n}}=0$
+\end_inset
+
+:
 \begin_inset Newline newline
 \end_inset
 
@@ -376,16 +469,187 @@ thickness "0.4pt"
 separation "3pt"
 shadowsize "4pt"
 framecolor "black"
-backgroundcolor "none"
+backgroundcolor "yellow"
 status open
 
 \begin_layout Plain Layout
 \begin_inset Formula 
+\[
+\begin{cases}
+0\overset{!}{=}\frac{\dot{a_{0}}}{2}=a_{0}\left(\frac{J}{2}-1\right)+2\Longrightarrow & a_{0}^{*}=-\frac{2}{\left(\frac{J}{2}-1\right)}=\frac{-4}{J-2}=\frac{4}{2-J}\\
+0\overset{!}{=}\dot{a_{n}}=\left(\frac{J}{\pi n}sin(\frac{n\pi}{2})-1\right)a_{n}+\frac{4}{\pi n}sin(\frac{n\pi}{2})\Longrightarrow & a_{n}^{*}=\frac{\frac{4}{\pi n}sin(\frac{n\pi}{2})}{\left(1-\frac{J}{\pi n}sin(\frac{n\pi}{2})\right)}=\frac{4sin(\frac{n\pi}{2})}{\pi n-Jsin(\frac{n\pi}{2})}\\
+0\overset{!}{=}\dot{b_{n}}=\left(\frac{J}{\pi n}sin(\frac{n\pi}{2})-1\right)b_{n}\Longrightarrow & b_{n}^{*}=0
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Note that if 
+\begin_inset Formula $\frac{J}{\pi n}sin(\frac{n\pi}{2})=1$
+\end_inset
+
+ then we can have 
+\begin_inset Formula $b_{n}^{*}\ne0$
+\end_inset
+
+.
+ This is iff 
+\begin_inset Formula $sin(\frac{n\pi}{2})=\frac{\pi n}{J}$
+\end_inset
+
+ and may only hold for a single n (
+\begin_inset Formula $=_{mod_{4}}1$
+\end_inset
+
+) and a suitable 
+\begin_inset Formula $J$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Fixed point stability
+\end_layout
+
+\begin_layout Paragraph
+As 
+\begin_inset Formula $b_{n}=0$
+\end_inset
+
+ at the FP's we can ignore it and only look at the eigenvalues of the linearized
+ systems of 
+\begin_inset Formula $a_{n}$
+\end_inset
+
+.
+ As for 
+\begin_inset Formula $a_{0}$
+\end_inset
+
+:
+\begin_inset Formula 
 \begin{align*}
-\frac{\dot{a_{0}}}{2} & =\frac{\left(J-2\right)a_{0}+4}{4}\Longrightarrow\dot{a_{0}}=\frac{\left(J-2\right)a_{0}+4}{2}=a_{0}\left(\frac{J}{2}-1\right)+2\\
-\dot{a_{n}}= & \left(\frac{J}{\pi n}sin(\frac{n\pi}{2})-1\right)a_{n}+\frac{4}{\pi n}sin(\frac{n\pi}{2})\\
-\dot{b_{n}}= & \left(\frac{J}{\pi n}sin(\frac{n\pi}{2})-1\right)b_{n}
+\frac{d\dot{a}_{0}}{da_{0}}= & \frac{J}{2}-1<0\iff J<2
 \end{align*}
+
+\end_inset
+
+As for 
+\begin_inset Formula $a_{n}$
+\end_inset
+
+ for even n's: 
+\begin_inset Formula $sin(\frac{n\pi}{2})=0$
+\end_inset
+
+ so:
+\begin_inset Formula 
+\[
+\frac{d\dot{a}_{n}}{da_{n}}=\frac{J}{\pi n}sin(\frac{n\pi}{2})-1=-1<0
+\]
+
+\end_inset
+
+And thus, those coefficients would converge.
+ For 
+\begin_inset Formula $n=3,7,11,...$
+\end_inset
+
+ we get: 
+\begin_inset Formula $sin(\frac{n\pi}{2})=-1$
+\end_inset
+
+, so:
+\begin_inset Formula 
+\[
+\frac{d\dot{a}_{n}}{da_{n}}=\frac{J}{\pi n}sin(\frac{n\pi}{2})-1=-\frac{J}{\pi n}-1<0
+\]
+
+\end_inset
+
+as 
+\begin_inset Formula $\frac{J}{\pi n}$
+\end_inset
+
+ is a positive number.
+ Lastly we're left with the case when 
+\begin_inset Formula $n=1,5,9,...$
+\end_inset
+
+.
+ In this case 
+\begin_inset Formula $sin(\frac{n\pi}{2})=1$
+\end_inset
+
+ and:
+\begin_inset Formula 
+\[
+\frac{d\dot{a}_{n}}{da_{n}}=\frac{J}{\pi n}sin(\frac{n\pi}{2})-1=\frac{J}{\pi n}-1<0\iff\frac{J}{\pi n}<1\iff J<\pi n\iff J<\pi<5\pi<9\pi...
+\]
+
+\end_inset
+
+So as 
+\begin_inset Formula $n\rightarrow\infty$
+\end_inset
+
+, we only need to check for the case 
+\begin_inset Formula $n=1$
+\end_inset
+
+ and we know the condition for bigger n's will be met.
+ As we've already demanded for the 
+\begin_inset Formula $a_{0}$
+\end_inset
+
+case that 
+\begin_inset Formula $J<2<\pi$
+\end_inset
+
+ and the condition that 
+\begin_inset Formula $\frac{d\dot{a}_{n}}{da_{n}}<0$
+\end_inset
+
+ will be satisfied.
+ In conclusion, we get stable fixed points iff:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "yellow"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+J<2
+\]
 
 \end_inset
 
