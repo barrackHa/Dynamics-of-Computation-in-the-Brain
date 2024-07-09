@@ -82,7 +82,7 @@ class RingModel:
         ax.set_ylabel(r'$r(\theta,t)$', rotation=0, labelpad=20)
         fig.suptitle('Ring model simulation')
         mean_dt = np.round(np.diff(self.sol.t).mean(), decimals=2)
-        t0, t_end = self.sol.t[0], self.sol.t[-1]
+        t0, t_end = self.sol.t[0], np.rint(self.sol.t[-1])
         ax.set_title(f'N={self.N}, J={self.J}, dt={mean_dt}, Time=[{t0:.2f}, {t_end:.2f}] [sec]')
         ax.set_facecolor('lightgray')
         ax.legend()
@@ -98,51 +98,52 @@ def q_2_1(N=1001):
 
 def sim(N, J):
     ring = RingModel(N=N, J=J)
-    dur = ring.simulate()
+    _ = ring.simulate()
     return ring
 
-def q_2_2(N=1001):
-    Js = [1, 1.5, 1.9, 2.1]
+def run_q_2_2_sims(N=1001, Js=[1, 1.5, 1.9, 2.1]):
     start = time.time()
     results = Parallel(n_jobs=-1)(
         delayed(sim)(N, J) for J in Js
     )
-    # results = [sim(N, J) for J in Js]
     end = time.time()
     print(f"Simulation took {np.round(end-start, decimals=2)} seconds")
-
-    
     return results
-#%%
-if __name__ == "__main__":
-    
-    N = 1001
-    # fig, ax, dur = q_2_1(N)
-    # plt.show()
-    res = q_2_2(N)
 
+def q_2_2(N=1001, zoomin=True):
+    # Run the simulations
+    res = run_q_2_2_sims(N)
+
+    # Calculate the mean activity across the ring
     mean_r_across_ring = np.array(
         [np.mean(r.sol.y, axis=0) for r in res]
     )
-    print(mean_r_across_ring.shape)
 
-# %%
+    # Plot the mean activity across the ring vs time
     fig, ax = plt.subplots()
-
     for i, J in enumerate([1, 1.5, 1.9, 2.1]):
         t = res[i].sol.t
         ax.plot(t, mean_r_across_ring[i], label=f'J={J}')
     ax.set_title('Mean activity across the ring')
     ax.set_xlabel('Time [sec]')
     ax.set_ylabel('Mean r(t)', rotation=0, labelpad=20)
-    ax.set_xlim([0, 100])
-    ax.set_ylim([0, 25])
+    if zoomin:
+        ax.set_xlim([0, 100])
+        ax.set_ylim([0, 25])
     ax.set_facecolor('lightgray')
     ax.grid()
     ax.legend()
 
-    times = [1, 25, 50, 200, 600]
-    fig, ax = res[-1].plot_sim(times)
+    # Plot the simulation for J=2.1
+    divergence_fig, divergence_ax = res[-1].plot_sim(timesteps=[1, 25, 50, 200, 600])
+
+    return fig, ax, divergence_fig, divergence_ax
+#%%
+if __name__ == "__main__":
+    
+    N = 1001
+    fig, ax, dur = q_2_1(N)
+    plt.show()
+    fig, ax, divergence_fig, divergence_ax = q_2_2(N, zoomin=True)
     plt.show()
 
-# %%

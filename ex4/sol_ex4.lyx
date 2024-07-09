@@ -685,6 +685,9 @@ Here's a plot of the activation on the ring at different times by position
 \end_inset
 
  to complete.
+ We see the bump in the center of the ring rises with time and converges
+ to its fixed point.
+ 
 \end_layout
 
 \begin_layout Paragraph
@@ -744,6 +747,16 @@ We can see that for
 \end_inset
 
 
+\begin_inset Newline newline
+\end_inset
+
+From these graphs we see that for 
+\begin_inset Formula $J<2$
+\end_inset
+
+ the dynamics converges to a fixed point relatively quickly compared to
+ the overall run time.
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -760,6 +773,29 @@ For a general function
 
 \begin_layout Paragraph
 By definition:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "yellow"
+status open
+
+\begin_layout Plain Layout
 \begin_inset Formula 
 \[
 f_{avg}:=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx=\frac{1}{2}\left(\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)dx\right)=\frac{1}{2}a_{0}
@@ -768,6 +804,154 @@ f_{avg}:=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx=\frac{1}{2}\left(\frac{1}{\pi}\in
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+The ODE derived for 
+\begin_inset Formula $a_{0}$
+\end_inset
+
+ determines the FP and rat of convergence
+\end_layout
+
+\begin_layout Paragraph
+We've computed the equation for 
+\begin_inset Formula $a_{0}$
+\end_inset
+
+ and the fixed point derived by it:
+\begin_inset Formula 
+\begin{align*}
+\dot{a_{0}} & =\left(\frac{J}{2}-1\right)a_{0}+2\\
+a_{0}^{*} & =\frac{4}{2-J}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "yellow"
+status open
+
+\begin_layout Plain Layout
+From this we can tell that when 
+\begin_inset Formula $J\nearrow2$
+\end_inset
+
+ , the value of 
+\begin_inset Formula $\left(2-J\right)\searrow0$
+\end_inset
+
+ and thus 
+\begin_inset Formula $a_{0}^{*}\nearrow\infty$
+\end_inset
+
+.
+ I.e.
+ the average firing rate at the FP would be greater.
+ Also, when 
+\begin_inset Formula $J\nearrow2$
+\end_inset
+
+, the value of 
+\begin_inset Formula $\left(\frac{J}{2}-1\right)\nearrow0$
+\end_inset
+
+.
+ I.e.
+ the rate of change for the average firing rate is greater.
+ Eventually, when 
+\begin_inset Formula $2<J$
+\end_inset
+
+, 
+\begin_inset Formula $0<\left(\frac{J}{2}-1\right)$
+\end_inset
+
+ and the average firing rate goes to infinity
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $J=2.1$
+\end_inset
+
+ Only 
+\begin_inset Formula $a_{0}$
+\end_inset
+
+ diverges
+\end_layout
+
+\begin_layout Paragraph
+As showed in 1.4, the 
+\begin_inset Formula $b_{n}$
+\end_inset
+
+'s are always 0.
+ The 
+\begin_inset Formula $a_{n}$
+\end_inset
+
+'s converge when 
+\begin_inset Formula $J<\pi$
+\end_inset
+
+ but if 
+\begin_inset Formula $2<J$
+\end_inset
+
+ then 
+\begin_inset Formula $a_{0}$
+\end_inset
+
+ diverges.
+ 
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Graphics
+	filename q_2_2_4.png
+	scale 50
+	rotateOrigin center
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Here we see plots of the firing rate on the ring for different time points
+ when 
+\begin_inset Formula $2<J$
+\end_inset
+
+.
+ We can see how the the structure is kept but everything moves upwards together.
+ 
 \end_layout
 
 \begin_layout Section
