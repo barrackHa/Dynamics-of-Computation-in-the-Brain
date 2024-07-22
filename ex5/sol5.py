@@ -159,20 +159,48 @@ def q_1_2_sim_helper(beta, N=1000, P=50):
     patterns_ovlp = hn.overlap_of_mem_patterns(sol.y)
     return patterns_ovlp, sol, hn
 
+def q_1_2_1(N=1000, P=50):
+    betas = [1, 4, 6, 8, 10, 15]
+    mem_ovrlps_by_beta = Parallel(n_jobs=-1)(
+        delayed(q_1_2_sim_helper)(beta=b, N=N, P=P) for b in betas
+    )
+    # tot_ovlp, sol, _ = q_1_2_sim_helper(beta=1, N=N, P=P)
+    # tot_ovlp, sol, _ = mem_ovrlps_by_beta[0]
+
+    fig, axes = plt.subplots(3,2, figsize=(15, 8), sharex=True, sharey=True)
+    for i, (beta, (tot_ovlp, sol, _)) in enumerate(zip(betas, mem_ovrlps_by_beta)):
+        ax = axes[i%3, i//3]
+        ax.plot(sol.t, tot_ovlp[1:].T, color='skyblue', alpha=0.5, linewidth=1)
+        ax.plot(sol.t, tot_ovlp[0], label="Overlap with 1st pattern")
+        # ax.set_xlabel("Time")
+        ax.set_xticks([])
+        # ax.set_ylabel("Overlap\nscore", rotation=0, labelpad=20)
+        ax.set_title(r"$\beta$ = " + f"{beta}")
+        
+    print(sol.t.shape, sol.t[0], sol.t[-1])
+    # axes[2,0].set_xticks(np.linspace(0, np.round(sol.t[-1]), 5))
+    # axes[2,1].set_xticks(np.arange(0, sol.t.size, 10))
+    fig.suptitle("Overlap score of the network with the memory patterns")
+    return fig, axes
 
 def q_1_2(N=1000, P=50):
-    # hn = HopfieldNetwork(N, beta=1)
-    # _ = hn.generate_random_patterns(P)
-    # _ = hn.train()
-    # sol = hn.simulate(r0=hn.patterns[0], t_span=(0, 50*hn.tau))
-    # tot_ovlp = hn.overlap_of_mem_patterns(sol.y)
-    # print(tot_ovlp.shape)
-    tot_ovlp, sol, _ = q_1_2_sim_helper(beta=1, N=N, P=P)
-
-    plt.plot(sol.t, tot_ovlp[1:].T, label="Overlap with all patterns", color='skyblue', alpha=0.5, linewidth=1)
-    plt.plot(sol.t, tot_ovlp[0], label="Overlap with 1st pattern")
-    # plt.plot(sol.t, overlap, label="Overlap with 1st pattern")
-    plt.show()
+    # fig, axs = q_1_2_1()
+    betas = [1, 2, 4, 6, 8, 10, 15, 20, 25]
+    res = np.zeros((10, len(betas)))
+    print(res.shape)
+    # mem_ovrlps_by_beta = Parallel(n_jobs=-1)(
+    #     delayed(q_1_2_sim_helper)(beta=b, N=N, P=P) for b in betas
+    # )
+    # for m in mem_ovrlps_by_beta:
+    #     print(m[0][0,-1])
+    for i in range(10):
+        mem_ovrlps_by_beta = Parallel(n_jobs=-1)(
+            delayed(q_1_2_sim_helper)(beta=b, N=N, P=P) for b in betas
+        )
+        res[i][:] = np.array([m[0][0,-1] for m in mem_ovrlps_by_beta])
+    fig, ax = plt.subplots()
+    ax.plot(betas, res.mean(axis=0), 'o-', label="Mean")
+    ax.fill_between(betas, res.min(axis=0), res.max(axis=0), alpha=0.3, label="Min-Max")
 
     return
 
