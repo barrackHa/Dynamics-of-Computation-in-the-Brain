@@ -17,7 +17,7 @@ plt.rcParams.update({
     'font.size': 14,
     'figure.figsize': (10, 6),
     'axes.labelsize': 12,
-    'axes.facecolor': 'lightgrey',
+    # 'axes.facecolor': 'lightgrey',
     'axes.grid': True,
     'lines.linewidth': 3
 })
@@ -95,7 +95,7 @@ class HopfieldNetwork:
     def get_probable_error(self, P_smpl=20, threshold=0.1, T_frac=0.25):
         """Calculate the fraction of times the simulation gets the wrong neurons"""
         # get #P_smpl uniqe samples out of arange(self.N)
-        smpls = rng.choice(self.P, P_smpl, replace=False)
+        smpls = rng.choice(self.P, P_smpl, replace=True)
         # select random sample of memory patterns
         smpl_patterns = self.patterns[smpls, :]
         errs_over_samples = np.zeros(P_smpl)
@@ -105,16 +105,27 @@ class HopfieldNetwork:
             # run the dynamics for short time T = 0.25τ  
             sol = self.simulate(r0=smpl, t_span=(0, T_frac*self.tau))
             # check the fraction of neurons that have errors 
-            # errs_over_samples += self.get_error(sol.y[:,-1], smpl, threshold)
             errs_over_samples[i] = self.get_error(sol.y[:,-1], smpl, threshold)
-        # return np.mean(errs_over_samples)
         return np.sum(errs_over_samples) / P_smpl
+    
+    def overlap_of_mem_patterns(self, r, mu=None):
+        """
+        Calculate the overlap between vector r to the mu'th mem 
+        pattern (if mu is None, to all patterns).
+        """
+        c = (1 / (self.N * self.f * (1 - self.f)))
+         # (P X N) @ (N X time_steps) = (P X time_steps)
+        ovrlp_with_patterns = c * ((self.patterns - self.f) @ r)
+        if mu is not None:
+            ovrlp_with_patterns = ovrlp_with_patterns[mu]
+        return ovrlp_with_patterns
     
 def sim_run_helper(P, N, T_frac=0.25):
     hn = HopfieldNetwork(N)
     _ = hn.generate_random_patterns(P)
     _ = hn.train()
-    smp_size = np.min([20, P//2])
+    # smp_size = np.min([20, P//2])
+    smp_size = 20
     probable_error = hn.get_probable_error(P_smpl=smp_size, T_frac=T_frac)
     return hn, probable_error
 
@@ -128,11 +139,6 @@ def get_probable_errors(Ps, T_frac, N=1000):
 def q_1_1(N=1000):
     Ps = [10, 20, 30, 80, 90, 100, 200, 300, 400, 500]
     T_frac=0.25
-    # trained_networks = Parallel(n_jobs=-1)(
-    #     delayed(sim_run_helper)(P, N, T_frac) for P in Ps
-    # )
-    # # trained_networks = [sim_run_helper(P, N) for P in Ps]
-    # probable_errors = [res[-1] for res in trained_networks]
     probable_errors = get_probable_errors(Ps, T_frac, N)
 
     mc = 'orange'
@@ -145,11 +151,38 @@ def q_1_1(N=1000):
     ax.legend()
     return fig, ax
 
+def q_1_2_sim_helper(beta, N=1000, P=50):
+    hn = HopfieldNetwork(N=N, beta=beta)
+    _ = hn.generate_random_patterns(P)
+    _ = hn.train()
+    sol = hn.simulate(r0=hn.patterns[0], t_span=(0, 50*hn.tau))
+    patterns_ovlp = hn.overlap_of_mem_patterns(sol.y)
+    return patterns_ovlp, sol, hn
+
+
+def q_1_2(N=1000, P=50):
+    # hn = HopfieldNetwork(N, beta=1)
+    # _ = hn.generate_random_patterns(P)
+    # _ = hn.train()
+    # sol = hn.simulate(r0=hn.patterns[0], t_span=(0, 50*hn.tau))
+    # tot_ovlp = hn.overlap_of_mem_patterns(sol.y)
+    # print(tot_ovlp.shape)
+    tot_ovlp, sol, _ = q_1_2_sim_helper(beta=1, N=N, P=P)
+
+    plt.plot(sol.t, tot_ovlp[1:].T, label="Overlap with all patterns", color='skyblue', alpha=0.5, linewidth=1)
+    plt.plot(sol.t, tot_ovlp[0], label="Overlap with 1st pattern")
+    # plt.plot(sol.t, overlap, label="Overlap with 1st pattern")
+    plt.show()
+
+    return
+
     
 #%%
 if __name__ == "__main__":
     P, N = 50, 1000
-    q_1_1(N)
+    # q_1_1(N)
+    # plt.show()
+    q_1_2(N, P)
     plt.show()
     exit()
     hn = HopfieldNetwork(N)
