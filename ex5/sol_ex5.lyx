@@ -1,0 +1,391 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{enumitem}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "times" "default"
+\font_sans "helvet" "default"
+\font_typewriter "courier" "default"
+\font_math "eulervm" "auto"
+\font_default_family rmdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\pdf_quoted_options "linkcolor=blue"
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\boxbgcolor #007df2
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 1cm
+\rightmargin 2cm
+\bottommargin 1cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Dynamics of Computation in the Brain
+\begin_inset Newline linebreak
+\end_inset
+
+76908
+\begin_inset Newline linebreak
+\end_inset
+
+Solution EX #5
+\end_layout
+
+\begin_layout Author
+Barak Haim 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Numerical simulation of the associative memory model
+\end_layout
+
+\begin_layout Subsection
+Stability of Memory Patterns for Large-
+\begin_inset Formula $\beta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Overlap Dynamics and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ - Dependence
+\end_layout
+
+\begin_layout Subsection
+Associative Memory Recall
+\end_layout
+
+\begin_layout Subsection
+Qualitative Section
+\end_layout
+
+\begin_layout Section
+Modified exam question (2018 Moed A)
+\end_layout
+
+\begin_layout Subsection
+Two-layer feedforward network with N neurons to one output 
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+p_{i}^{\mu}=\begin{cases}
+1 & w.p.\;f\\
+0 & w.p.\;(1-f)
+\end{cases}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+q^{\mu}=\begin{cases}
+1 & w.p.\;f\\
+0 & w.p.\;(1-f)
+\end{cases}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+w_{j}=\frac{1}{f(1-f)N}\sum_{\mu=1}^{P}(q^{\mu}-f)(p_{j}^{\mu}-f)\;,\;s=H(h-\theta)\;,\;h=\sum_{j=1}^{N}w_{j}r_{j}
+\]
+
+\end_inset
+
+We have P patterens (
+\begin_inset Formula $\mu=1,...,P$
+\end_inset
+
+), and for some 
+\begin_inset Formula $i$
+\end_inset
+
+ we have 
+\begin_inset Formula $r_{i}=p_{i}^{1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+a.
+ 
+\begin_inset Formula $\theta$
+\end_inset
+
+ For which 
+\begin_inset Formula $P(s=1|q^{1}=0)=P(s=0|q^{1}=1)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\begin{align*}
+h=\sum_{j=1}^{N}w_{j}r_{j} & =\sum_{j=1}^{N}r_{j}\frac{1}{f(1-f)N}\sum_{\mu=1}^{P}(q^{\mu}-f)(p_{j}^{\mu}-f)\\
+= & \frac{1}{f(1-f)N}\sum_{j=1}^{N}\sum_{\mu=1}^{P}(q^{\mu}-f)(p_{j}^{\mu}-f)r_{j}\\
+= & \frac{1}{f(1-f)N}\left[\sum_{j=1}^{N}\sum_{\mu=1}^{P}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \frac{1}{f(1-f)N}\left[\sum_{\mu=1}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \frac{1}{f(1-f)N}\left[\sum_{j=1}^{N}(q^{1}-f)(p_{j}^{1}-f)p_{j}^{1}+\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]
+\end{align*}
+
+\end_inset
+
+Now we want the expected value of h:
+\begin_inset Formula 
+\begin{align*}
+E[h|p^{1},q^{1}] & =E\left[\frac{1}{f(1-f)N}\left[\sum_{j=1}^{N}(q^{1}-f)(p_{j}^{1}-f)p_{j}^{1}+\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\right]\\
+= & \frac{1}{f(1-f)N}E\left[\sum_{j=1}^{N}(q^{1}-f)(p_{j}^{1}-f)p_{j}^{1}\right]+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \frac{1}{f(1-f)N}\sum_{j=1}^{N}(q^{1}-f)E\left[(p_{j}^{1}-f)p_{j}^{1}\right]+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \frac{(q^{1}-f)}{f(1-f)N}\sum_{j=1}^{N}E\left[p_{j}^{1}p_{j}^{1}-fp_{j}^{1}\right]+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \frac{(q^{1}-f)}{f(1-f)N}\sum_{j=1}^{N}E\left[\left(1-f\right)p_{j}^{1}\right]+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \frac{(q^{1}-f)}{f(1-f)N}\left(1-f\right)fN+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \left(q^{1}-f\right)+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \left(q^{1}-f\right)+\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}p_{j}^{1}E\left[(q^{\mu}-f)(p_{j}^{\mu}-f)\right]\\
+= & \left(q^{1}-f\right)+\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}p_{j}^{1}E\left[(q^{\mu}-f)(p_{j}^{\mu}-f)\right]\\
+= & \left(q^{1}-f\right)+\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}E\left[p_{j}^{1}\right]E\left[q^{\mu}-f\right]E\left[p_{j}^{\mu}-f\right]\\
+= & \left(q^{1}-f\right)+\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}E\left[p_{j}^{1}\right]\cdot0\cdot0\\
+= & q^{1}-f
+\end{align*}
+
+\end_inset
+
+Now, for 
+\begin_inset Formula $q^{1}=1$
+\end_inset
+
+ we get: 
+\begin_inset Formula 
+\[
+h=\frac{1}{f(1-f)N}\left[\sum_{j=1}^{N}(1-f)(p_{j}^{1}-f)p_{j}^{1}+\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+E[h|p^{1},q^{1}=1] & =E\left[\frac{1}{f(1-f)N}\left[\sum_{j=1}^{N}(1-f)(p_{j}^{1}-f)p_{j}^{1}+\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\right]\\
+= & \frac{1}{f(1-f)N}E\left[\sum_{j=1}^{N}(1-f)(p_{j}^{1}-f)p_{j}^{1}\right]+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \frac{1}{f(1-f)N}\sum_{j=1}^{N}(1-f)E\left[(p_{j}^{1}-f)p_{j}^{1}\right]+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \frac{1}{fN}\sum_{j=1}^{N}E\left[p_{j}^{1}p_{j}^{1}-fp_{j}^{1}\right]+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \frac{1}{fN}\sum_{j=1}^{N}E\left[\left(1-f\right)p_{j}^{1}\right]+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \frac{\left(1-f\right)}{fN}\sum_{j=1}^{N}E\left[p_{j}^{1}\right]+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \frac{\left(1-f\right)}{fN}Nf+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \left(1-f\right)+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \left(1-f\right)+\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}p_{j}^{1}E\left[(q^{\mu}-f)(p_{j}^{\mu}-f)\right]\\
+= & \left(1-f\right)+\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}p_{j}^{1}E\left[(q^{\mu}-f)(p_{j}^{\mu}-f)\right]\\
+= & \left(1-f\right)+\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}E\left[p_{j}^{1}\right]E\left[q^{\mu}-f\right]E\left[p_{j}^{\mu}-f\right]\\
+= & \left(1-f\right)+\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}E\left[p_{j}^{1}\right]\cdot0\cdot0\\
+= & 1-f
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+Var[h|p^{1},q^{1} & =1]=Var\left[\frac{1}{f(1-f)N}\sum_{j=1}^{N}(1-f)(p_{j}^{1}-f)p_{j}^{1}+\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & Var\left[\frac{1}{f(1-f)N}\sum_{j=1}^{N}(1-f)(p_{j}^{1}-f)p_{j}^{1}\right]+Var\left[\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & Var\left[\frac{(1-f)}{f(1-f)N}\sum_{j=1}^{N}(p_{j}^{1}-f)p_{j}^{1}\right]+Var\left[\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \left(\frac{1}{fN}\right)^{2}\sum_{j=1}^{N}Var\left[(1-f)p_{j}^{1}\right]+Var\left[\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \left(\frac{1}{fN}\right)^{2}N(1-f)^{2}Var\left[p_{j}^{1}\right]+Var\left[\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & 0+Var\left[\frac{1}{f(1-f)N}\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & 0+\left(\frac{1}{f(1-f)N}\right)^{2}(P-1)\sum_{j=1}^{N}\left(p_{j}^{1}\right)^{2}Var\left[(p_{j}^{\mu}-f)\right]Var\left[(p_{j}^{\mu}-f)\right]\\
+= & \left(\frac{1}{N}\right)^{2}(P-1)\sum_{j=1}^{N}\left(p_{j}^{1}\right)^{2}\\
+= & \left(\frac{1}{N}\right)^{2}(P-1)\sum_{j=1}^{N}p_{j}^{1}\\
+= & \frac{(P-1)f}{N}\approx\frac{Pf}{N}
+\end{align*}
+
+\end_inset
+
+and for 
+\begin_inset Formula $q^{1}=0$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+h=\frac{1}{f(1-f)N}\left[\sum_{j=1}^{N}-f(p_{j}^{1}-f)p_{j}^{1}+\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+E[h|p^{1},q^{1} & =0]=E\left[\frac{1}{f(1-f)N}\left[\sum_{j=1}^{N}-f(p_{j}^{1}-f)p_{j}^{1}+\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\right]\\
+= & \frac{1}{f(1-f)N}E\left[\sum_{j=1}^{N}-f(p_{j}^{1}-f)p_{j}^{1}\right]+\frac{1}{f(1-f)N}E\left[\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]\\
+= & \frac{1}{f(1-f)N}E\left[\sum_{j=1}^{N}-f(p_{j}^{1}-f)p_{j}^{1}\right]+0\\
+= & \frac{1}{f(1-f)N}\sum_{j=1}^{N}-fE\left[(p_{j}^{1}-f)p_{j}^{1}\right]\\
+= & \frac{1}{(f-1)N}\sum_{j=1}^{N}E\left[(p_{j}^{1}-f)p_{j}^{1}\right]\\
+= & \frac{1}{(f-1)N}\sum_{j=1}^{N}E\left[p_{j}^{1}p_{j}^{1}-fp_{j}^{1}\right]\\
+= & \frac{1}{(f-1)N}\sum_{j=1}^{N}E\left[p_{j}^{1}-fp_{j}^{1}\right]\\
+= & \frac{1}{(f-1)N}\sum_{j=1}^{N}(1-f)E\left[p_{j}^{1}\right]\\
+= & \frac{1}{(f-1)N}N(1-f)f\\
+= & -f
+\end{align*}
+
+\end_inset
+
+Now 
+\begin_inset Formula $P_{1}=P_{2}\iff E_{1}=E_{2}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\theta=\frac{1-f-f}{2}=\frac{1-2f}{2}=\frac{1}{2}-f
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+b.
+ Probability of an error
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+Pr^{-}=P(s\ne q^{1})\underset{1}{=}P(s=1|q^{1}=0)f+P(s=0|q^{1}=1)(1-f)\underset{2}{=}P(s=1|q^{1}=0)\underset{3}{=}P(s=0|q^{1}=1)
+\]
+
+\end_inset
+
+Where equlity #1 is total probability and #2 and #3 are from (a).
+ Now we ask what is 
+\begin_inset Formula $P(s=0|q^{1}=1)$
+\end_inset
+
+ or, given that 
+\begin_inset Formula $q^{1}=1$
+\end_inset
+
+, what is:
+\begin_inset Formula 
+\[
+Pr\left[\frac{1}{f(1-f)N}\left[\sum_{j=1}^{N}-f(p_{j}^{1}-f)p_{j}^{1}+\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]<-f\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+h=\frac{1}{f(1-f)N}\left[\sum_{j=1}^{N}-f(p_{j}^{1}-f)p_{j}^{1}+\sum_{\mu=2}^{P}\sum_{j=1}^{N}(q^{\mu}-f)(p_{j}^{\mu}-f)p_{j}^{1}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -193,18 +193,24 @@ def q_1_2(N=1000, P=50):
     # )
     # for m in mem_ovrlps_by_beta:
     #     print(m[0][0,-1])
-    for i in range(10):
+    def tmp(i):
         mem_ovrlps_by_beta = Parallel(n_jobs=-1)(
             delayed(q_1_2_sim_helper)(beta=b, N=N, P=P) for b in betas
         )
         res[i][:] = np.array([m[0][0,-1] for m in mem_ovrlps_by_beta])
+
+    # for i in range(2):
+    #     mem_ovrlps_by_beta = Parallel(n_jobs=-1)(
+    #         delayed(q_1_2_sim_helper)(beta=b, N=N, P=P) for b in betas
+    #     )
+    #     res[i][:] = np.array([m[0][0,-1] for m in mem_ovrlps_by_beta])
+    
     fig, ax = plt.subplots()
     ax.plot(betas, res.mean(axis=0), 'o-', label="Mean")
     ax.fill_between(betas, res.min(axis=0), res.max(axis=0), alpha=0.3, label="Min-Max")
 
     return
 
-    
 #%%
 if __name__ == "__main__":
     P, N = 50, 1000
