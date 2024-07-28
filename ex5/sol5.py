@@ -10,6 +10,7 @@ from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 import time
 from joblib import Parallel, delayed
+from scipy.special import erf
 
 rng = np.random.default_rng(22040723)
 # set globaly the font size for the plots
@@ -21,16 +22,6 @@ plt.rcParams.update({
     'axes.grid': True,
     'lines.linewidth': 3
 })
-# set globaly the figure size for the plots
-# plt.rcParams.update({'figure.figsize': (10, 6)})
-# # set globaly the axes label size for the plots
-# plt.rcParams.update({'axes.labelsize': 12})
-# # set globaly the axes face color for the plots
-# plt.rcParams.update({'axes.facecolor': 'lightgrey'})
-# # Set grid globally
-# plt.rcParams.update({'axes.grid': True})
-# # Set line width globally
-# plt.rcParams.update({'lines.linewidth': 3})
 
 class HopfieldNetwork:
     def __init__(self, N=1000, f=0.5, theta=0, tau=5, beta=20):
@@ -108,6 +99,16 @@ class HopfieldNetwork:
             errs_over_samples[i] = self.get_error(sol.y[:,-1], smpl, threshold)
         return np.sum(errs_over_samples) / P_smpl
     
+    def get_analytical_error_prob(self, P=None):
+        if P is None:
+            P = self.P
+        mu = 1 - self.f - self.theta  # mean of the normal distribution
+        sigma = np.sqrt((P * self.f) / N)  # standard deviation
+        # prob_error_1 = 0.5 * (1 - erf(mu / (sigma * np.sqrt(2))))
+        prob_error = 0.5 * (1 + erf((-mu) / (sigma * np.sqrt(2))))
+        # print(np.array_equal(prob_error, prob_error_1))
+        return prob_error
+    
     def overlap_of_mem_patterns(self, r, mu=None):
         """
         Calculate the overlap between vector r to the mu'th mem 
@@ -124,7 +125,6 @@ def sim_run_helper(P, N, T_frac=0.25):
     hn = HopfieldNetwork(N)
     _ = hn.generate_random_patterns(P)
     _ = hn.train()
-    # smp_size = np.min([20, P//2])
     smp_size = 20
     probable_error = hn.get_probable_error(P_smpl=smp_size, T_frac=T_frac)
     return hn, probable_error
@@ -134,16 +134,17 @@ def get_probable_errors(Ps, T_frac, N=1000):
         delayed(sim_run_helper)(P, N, T_frac) for P in Ps
     )
     probable_errors = [res[-1] for res in trained_networks]
-    return probable_errors
+    return probable_errors, trained_networks
 
 def q_1_1(N=1000):
-    Ps = [10, 20, 30, 80, 90, 100, 200, 300, 400, 500]
-    T_frac=0.25
-    probable_errors = get_probable_errors(Ps, T_frac, N)
-
+    Ps = np.array([10, 20, 30, 80, 90, 100, 200, 300, 400, 500])
+    T_frac = 0.25
+    probable_errors, trained_networks = get_probable_errors(Ps, T_frac, N)
+    error_exp_cdf = trained_networks[0][0].get_analytical_error_prob(Ps)
     mc = 'orange'
     fig, ax = plt.subplots()
     ax.plot(Ps, probable_errors, 'o-', markerfacecolor=mc, markersize=7, label=r'T=0.25$\tau$')
+    ax.plot(Ps, error_exp_cdf, '-', label=r'Analytical', color='black')
     ax.set_xlabel("Number of patterns")
     ax.set_ylabel("Probable error")
     # fig.suptitle("Probable error as a function of the number of patterns")
@@ -204,7 +205,7 @@ def q_1_2(N=1000, P=50):
     #         delayed(q_1_2_sim_helper)(beta=b, N=N, P=P) for b in betas
     #     )
     #     res[i][:] = np.array([m[0][0,-1] for m in mem_ovrlps_by_beta])
-    
+
     fig, ax = plt.subplots()
     ax.plot(betas, res.mean(axis=0), 'o-', label="Mean")
     ax.fill_between(betas, res.min(axis=0), res.max(axis=0), alpha=0.3, label="Min-Max")
@@ -213,11 +214,16 @@ def q_1_2(N=1000, P=50):
 
 #%%
 if __name__ == "__main__":
+    start = time.time()
     P, N = 50, 1000
-    # q_1_1(N)
-    # plt.show()
-    q_1_2(N, P)
+    
+    q_1_1(N)
+    end = time.time()
+    print("Execution time:", end - start)
     plt.show()
+    # q_1_2(N, P)
+    # plt.show()
+    
     exit()
     hn = HopfieldNetwork(N)
     p = hn.generate_random_patterns(P)
