@@ -66,7 +66,7 @@ class HopfieldNetwork:
         if beta is None:
             beta = self.beta
         return 1 / (1 + np.exp(beta * (theta - x)))
-    
+        
     def dynamics(self, t, r):
         """The dynamics of the network"""
         return -r + self.nonlinearity(self.J @ r)
@@ -93,7 +93,7 @@ class HopfieldNetwork:
         # for each of these memory patterns start the network from 
         # the initial condition of that memory pattern
         for i, smpl in enumerate(smpl_patterns):
-            # run the dynamics for short time T = 0.25τ  
+            # run the dynamics for  time T = (T_frac * τ)  
             sol = self.simulate(r0=smpl, t_span=(0, T_frac*self.tau))
             # check the fraction of neurons that have errors 
             errs_over_samples[i] = self.get_error(sol.y[:,-1], smpl, threshold)
@@ -181,7 +181,7 @@ def q_1_2_sim_helper(beta, N=1000, P=50):
     hn = HopfieldNetwork(N=N, beta=beta)
     _ = hn.generate_random_patterns(P)
     _ = hn.train()
-    sol = hn.simulate(r0=hn.patterns[0], t_span=(0, 50*hn.tau))
+    sol = hn.simulate(r0=hn.patterns[0], t_span=(0, 20*hn.tau))
     patterns_ovlp = hn.overlap_of_mem_patterns(sol.y)
     return patterns_ovlp, sol, hn
 
@@ -190,64 +190,84 @@ def q_1_2_1(N=1000, P=50):
     mem_ovrlps_by_beta = Parallel(n_jobs=-1)(
         delayed(q_1_2_sim_helper)(beta=b, N=N, P=P) for b in betas
     )
-    # tot_ovlp, sol, _ = q_1_2_sim_helper(beta=1, N=N, P=P)
-    # tot_ovlp, sol, _ = mem_ovrlps_by_beta[0]
 
     fig, axes = plt.subplots(3,2, figsize=(15, 8), sharex=True, sharey=True)
     for i, (beta, (tot_ovlp, sol, _)) in enumerate(zip(betas, mem_ovrlps_by_beta)):
         ax = axes[i%3, i//3]
         ax.plot(sol.t, tot_ovlp[1:].T, color='skyblue', alpha=0.5, linewidth=1)
         ax.plot(sol.t, tot_ovlp[0], label="Overlap with 1st pattern")
-        # ax.set_xlabel("Time")
         ax.set_xticks([])
-        # ax.set_ylabel("Overlap\nscore", rotation=0, labelpad=20)
         ax.set_title(r"$\beta$ = " + f"{beta}")
         
     print(sol.t.shape, sol.t[0], sol.t[-1])
-    # axes[2,0].set_xticks(np.linspace(0, np.round(sol.t[-1]), 5))
-    # axes[2,1].set_xticks(np.arange(0, sol.t.size, 10))
-    fig.suptitle("Overlap score of the network with the memory patterns")
+    t = np.linspace(0, np.round(sol.t[-1]), 5, dtype=int)
+    axes[2,0].set_xticks(t, t)
+    axes[2,1].set_xticks(t, t)
+    axes[2,0].set_xlabel('Time'), axes[2,1].set_xlabel('Time')
+    axes[-1,0].set_ylabel('Overlap score')
+    fig.suptitle("Q1.2.1: Overlap score of the network with the memory patterns")
     return fig, axes
 
-def q_1_2(N=1000, P=50):
-    # fig, axs = q_1_2_1()
+def  q_1_2_2_n_3(N):
     betas = [1, 2, 4, 6, 8, 10, 15, 20, 25]
-    res = np.zeros((10, len(betas)))
-    print(res.shape)
-    # mem_ovrlps_by_beta = Parallel(n_jobs=-1)(
-    #     delayed(q_1_2_sim_helper)(beta=b, N=N, P=P) for b in betas
-    # )
-    # for m in mem_ovrlps_by_beta:
-    #     print(m[0][0,-1])
-    def tmp(i):
-        mem_ovrlps_by_beta = Parallel(n_jobs=-1)(
-            delayed(q_1_2_sim_helper)(beta=b, N=N, P=P) for b in betas
-        )
-        res[i][:] = np.array([m[0][0,-1] for m in mem_ovrlps_by_beta])
-
-    # for i in range(2):
-    #     mem_ovrlps_by_beta = Parallel(n_jobs=-1)(
-    #         delayed(q_1_2_sim_helper)(beta=b, N=N, P=P) for b in betas
-    #     )
-    #     res[i][:] = np.array([m[0][0,-1] for m in mem_ovrlps_by_beta])
-
+    inters = 10
     fig, ax = plt.subplots()
-    ax.plot(betas, res.mean(axis=0), 'o-', label="Mean")
-    ax.fill_between(betas, res.min(axis=0), res.max(axis=0), alpha=0.3, label="Min-Max")
+    for P in [50, 65]:
+        res = np.zeros((inters, len(betas)))
+        for i in range(inters):
+            mem_ovrlps_by_beta = Parallel(n_jobs=-1)(
+                delayed(q_1_2_sim_helper)(beta=b, N=N, P=P) for b in betas
+            )
+            res[i][:] = np.array([m[0][0,-1] for m in mem_ovrlps_by_beta])
+        mean_values = res.T.mean(axis=1)
+        stds = res.T.std(axis=1)
+        ax.plot(betas, mean_values, 'o-', label=f"Mean overlap P={P}", markerfacecolor='orange', markersize=7)
+        ax.fill_between(betas, (mean_values - stds), (mean_values + stds), alpha=0.3)
+    
+    ax.set_xlabel(r"$\beta$'s")
+    ax.set_ylabel("Mean overlap with 1st pattern")
+    ax.set_title("Q1.2.2+3: Mean overlap with the first memory pattern as a function of β")
+    ax.legend()
 
-    return
+    return fig, ax
+
+def q_1_2(N=1000, P=50):
+    fig, ax = q_1_2_1(N, P)
+    fig2, ax2 = q_1_2_2_n_3(N)
+    return fig, ax, fig2, ax2
+
+def q_1_3(N=1000, P=50):
+    f_errs = np.arange(0.05, 0.5, 0.05)
+    print(f_errs)
+    hn = HopfieldNetwork(N, beta=20)
+    patterns = hn.generate_random_patterns(P)
+    # for f in f_errs[:1]:
+        
+    #     _ = hn.train()
+    #     probable_error_mean, _ = hn.get_probable_error(P_smpl=20)
+    #     f_errs.append(probable_error_mean)
 
 #%%
 if __name__ == "__main__":
     P, N = 50, 1000
     
-    start = time.time()
-    q_1_1(N)
-    end = time.time()
-    print("Q1.1: Execution time:", end - start)
-    plt.show()
-    # q_1_2(N, P)
+    # start = time.time()
+    # q_1_1(N)
+    # end = time.time()
+    # print("Q1.1: Execution time:", end - start)
     # plt.show()
+
+    # start = time.time()
+    # q_1_2(N, P)
+    # end = time.time()
+    # print("Q1.2: Execution time:", end - start)
+    # plt.show()
+
+    start = time.time()
+    q_1_3(N, P)
+    end = time.time()
+    print("Q1.3: Execution time:", end - start)
+    plt.show()
     
     exit()
     hn = HopfieldNetwork(N)

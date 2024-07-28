@@ -98,6 +98,8 @@
 \begin_body
 
 \begin_layout Title
+
+\series bold
 Dynamics of Computation in the Brain
 \begin_inset Newline linebreak
 \end_inset
@@ -110,10 +112,14 @@ Solution EX #5
 \end_layout
 
 \begin_layout Author
+
+\series bold
 Barak Haim 
 \end_layout
 
 \begin_layout Standard
+
+\series bold
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
 
@@ -123,6 +129,8 @@ LatexCommand tableofcontents
 \end_layout
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Newpage newpage
 \end_inset
 
@@ -142,12 +150,16 @@ Stability of Memory Patterns for Large-
 \end_layout
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Float figure
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
+
+\series bold
 \begin_inset Graphics
 	filename q1_1errs_vs_P_num.png
 	width 85page%
@@ -159,6 +171,8 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
+
+\series bold
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -195,6 +209,10 @@ In the figure we see how the mean probable error changes as a number of
 .
  Shaded ereas mark the standard deviation.
  
+\bar under
+Try to suggest a qualitative explaination to the difference between the
+ analytical calculation and the numerical results for long timescales.
+ How does this difference depends on P ?
 \end_layout
 
 \begin_layout Subsection
@@ -203,6 +221,117 @@ Overlap Dynamics and
 \end_inset
 
  - Dependence
+\end_layout
+
+\begin_layout Subsubsection
+Overlap score in time for different 
+\begin_inset Formula $\beta's$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename q_1_2_1_overlap_score_in_time_for_beta.png
+	lyxscale 75
+	width 85page%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Overlap score in time 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Overlap-score-in"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Average final value of the overlap as a function of 
+\begin_inset Formula $\beta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename q_1_2_2_and_3_mean_overlap_vs_beta.png
+	width 85page%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Mean overlap VS 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Mean-overlap-VS"
+
+\end_inset
+
+ 
+\begin_inset Formula $\beta$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -388,6 +517,8 @@ backgroundcolor "yellow"
 status open
 
 \begin_layout Plain Layout
+
+\series bold
 \begin_inset Formula 
 \[
 \theta=\frac{1-f-f}{2}=\frac{1-2f}{2}=\frac{1}{2}-f
@@ -485,6 +616,8 @@ backgroundcolor "yellow"
 status open
 
 \begin_layout Plain Layout
+
+\series bold
 \begin_inset Formula 
 \[
 Pr^{-}=P(s\ne q^{1})=\int_{-\infty}^{-\sqrt{\frac{N}{4Pf}}}\frac{exp\left(\frac{-z^{2}}{2}\right)}{\sqrt{2\pi}}dz
@@ -556,6 +689,8 @@ backgroundcolor "yellow"
 status open
 
 \begin_layout Plain Layout
+
+\series bold
 \begin_inset Formula 
 \[
 Pr^{-}=P(s\ne q^{1})=\int_{-\infty}^{-1}\frac{exp\left(-z^{2}\right)}{\sqrt{2\pi}}dz=0.16
@@ -576,6 +711,8 @@ Pr^{-}=P(s\ne q^{1})=\int_{-\infty}^{-1}\frac{exp\left(-z^{2}\right)}{\sqrt{2\pi
 \end_layout
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula 
 \[
 s^{(k)}=H\left(\sum_{j=1}^{N}w_{j}^{(k)}r_{j}^{(k)}-\theta\right)
@@ -603,19 +740,6 @@ s^{out}=H\left(\frac{1}{M}\sum_{j=1}^{M}s^{(k)}-\theta^{out}\right)=H\left(h^{ou
 \end_layout
 
 \begin_layout Subsubsection
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
 Find 
 \begin_inset Formula $Pr_{out}^{-}$
 \end_inset
