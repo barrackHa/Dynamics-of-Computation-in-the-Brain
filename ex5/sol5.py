@@ -97,16 +97,15 @@ class HopfieldNetwork:
             sol = self.simulate(r0=smpl, t_span=(0, T_frac*self.tau))
             # check the fraction of neurons that have errors 
             errs_over_samples[i] = self.get_error(sol.y[:,-1], smpl, threshold)
-        return np.sum(errs_over_samples) / P_smpl
+        
+        return errs_over_samples.mean(), errs_over_samples.std()
     
     def get_analytical_error_prob(self, P=None):
         if P is None:
             P = self.P
         mu = 1 - self.f - self.theta  # mean of the normal distribution
         sigma = np.sqrt((P * self.f) / N)  # standard deviation
-        # prob_error_1 = 0.5 * (1 - erf(mu / (sigma * np.sqrt(2))))
         prob_error = 0.5 * (1 + erf((-mu) / (sigma * np.sqrt(2))))
-        # print(np.array_equal(prob_error, prob_error_1))
         return prob_error
     
     def overlap_of_mem_patterns(self, r, mu=None):
@@ -126,29 +125,55 @@ def sim_run_helper(P, N, T_frac=0.25):
     _ = hn.generate_random_patterns(P)
     _ = hn.train()
     smp_size = 20
-    probable_error = hn.get_probable_error(P_smpl=smp_size, T_frac=T_frac)
-    return hn, probable_error
+    probable_error_mean, probable_error_std = hn.get_probable_error(
+        P_smpl=smp_size, T_frac=T_frac
+    )
+    return hn, probable_error_mean, probable_error_std
 
 def get_probable_errors(Ps, T_frac, N=1000):
     trained_networks = Parallel(n_jobs=-1)(
         delayed(sim_run_helper)(P, N, T_frac) for P in Ps
     )
-    probable_errors = [res[-1] for res in trained_networks]
+    probable_errors = [res[1] for res in trained_networks]
     return probable_errors, trained_networks
 
 def q_1_1(N=1000):
     Ps = np.array([10, 20, 30, 80, 90, 100, 200, 300, 400, 500])
     T_frac = 0.25
-    probable_errors, trained_networks = get_probable_errors(Ps, T_frac, N)
-    error_exp_cdf = trained_networks[0][0].get_analytical_error_prob(Ps)
     mc = 'orange'
     fig, ax = plt.subplots()
+
+    # 1.1.1
+    probable_errors, trained_networks = get_probable_errors(Ps, T_frac, N)
+    stds = np.array([res[-1] for res in trained_networks])
+
+    # 1.1.2
+    examplar_hn = trained_networks[0][0]
+    error_exp_cdf = examplar_hn.get_analytical_error_prob(Ps)
+    
+    # plot 1.1.1
     ax.plot(Ps, probable_errors, 'o-', markerfacecolor=mc, markersize=7, label=r'T=0.25$\tau$')
+    ax.fill_between(Ps, probable_errors - stds, probable_errors + stds, alpha=0.3)
+
+    # plot 1.1.2
     ax.plot(Ps, error_exp_cdf, '-', label=r'Analytical', color='black')
+
+    # 1.1.3
+    for frac in [2, 18]:
+        T_frac = frac
+        probable_errors, trained_networks = get_probable_errors(Ps, T_frac, N)
+        stds = np.array([res[-1] for res in trained_networks])
+        ax.plot(Ps, probable_errors, 'o-', markerfacecolor=mc, markersize=7, label=f'T={frac}' + r'$\tau$')
+        ax.fill_between(Ps, probable_errors - stds, probable_errors + stds, alpha=0.3)
+
     ax.set_xlabel("Number of patterns")
     ax.set_ylabel("Probable error")
-    # fig.suptitle("Probable error as a function of the number of patterns")
-    # ax.set_title(f"{N} Nuerons. Ran for {0.25}" + r"$\tau$")
+    fig.suptitle("Q.1.1: Probability of an error as a function of the number of patterns")
+    f, theta, beta, tau = examplar_hn.f, examplar_hn.theta, examplar_hn.beta, examplar_hn.tau
+    ax.set_title(
+        f"{N} Nuerons, f={f}, " + r"$\tau$=" + f'{tau}, ' \
+        + r"$\theta$=" + f'{theta}, ' + r"$\beta$= " + f'{beta}'
+    )
     ax.legend()
     return fig, ax
 
@@ -214,12 +239,12 @@ def q_1_2(N=1000, P=50):
 
 #%%
 if __name__ == "__main__":
-    start = time.time()
     P, N = 50, 1000
     
+    start = time.time()
     q_1_1(N)
     end = time.time()
-    print("Execution time:", end - start)
+    print("Q1.1: Execution time:", end - start)
     plt.show()
     # q_1_2(N, P)
     # plt.show()
