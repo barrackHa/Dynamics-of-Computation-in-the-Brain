@@ -207,12 +207,22 @@ In the figure we see how the mean probable error changes as a number of
 \end_inset
 
 .
- Shaded ereas mark the standard deviation.
+ Shaded areas mark the standard deviation.
+ We used a finite (and small) 
+\begin_inset Formula $\beta$
+\end_inset
+
+.
+ For our purpose it may be almost the largest value we can use but for a
+ long time-scale, it may not be sufficient to simulate 
+\begin_inset Formula $\beta\rightarrow\infty$
+\end_inset
+
+ and prevent errors.
+ We see that as P grows, so does the probability for an error, the error
+ variance and the distribution of the signal to noise ratio which ultimately
+ tells us the probability of a pattern to become a FP in the network.
  
-\bar under
-Try to suggest a qualitative explaination to the difference between the
- analytical calculation and the numerical results for long timescales.
- How does this difference depends on P ?
 \end_layout
 
 \begin_layout Subsection
@@ -294,7 +304,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename q_1_2_2_and_3_mean_overlap_vs_beta.png
-	width 85page%
+	width 75page%
 	rotateOrigin center
 
 \end_inset
@@ -338,8 +348,205 @@ name "fig:Mean-overlap-VS"
 Associative Memory Recall
 \end_layout
 
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename q_1_3_beta_20.png
+	width 85page%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Recall rate and error rate 
+\begin_inset Formula $\beta=20$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Recal-rate-beta-20"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename q_1_3_beta_15.png
+	width 85page%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Recall rate and error rate 
+\begin_inset Formula $\beta=15$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Recal-rate-beta-15"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename q_1_3_beta_10.png
+	width 85page%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Recall rate and error rate 
+\begin_inset Formula $\beta=10$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Recal-rate-beta-10"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Qualitative Section
+\end_layout
+
+\begin_layout Paragraph
+Throughout the simulations of this section we've seen how large 
+\begin_inset Formula $\beta's$
+\end_inset
+
+ improve the retention capacity of the network while large P's impair it.
+ The theory behind this observation is discussed int the 
+\begin_inset Quotes eld
+\end_inset
+
+signal-to-noise
+\begin_inset Quotes erd
+\end_inset
+
+ chapter in the book.
+ There, it is shown a network has a limited capacity to retain memories.
+ Moreover we've seen how increasing the value of 
+\begin_inset Formula $\beta$
+\end_inset
+
+ allows the network more fixed points which in turn enable it to store more
+ memories.
+ Associative memory is the ability to learn a memory and recall it from
+ a 
+\begin_inset Quotes eld
+\end_inset
+
+similar enough
+\begin_inset Quotes erd
+\end_inset
+
+ though not necessarily exact same pattern.
+ We can see an example of this in section 1.3, figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Recal-rate-beta-20"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+where even in cases of 
+\begin_inset Formula $15\%$
+\end_inset
+
+ dissimilarity in the recall input, the network still manages to output
+ the correct pattern.
+ In this model, learning a new memory will changes all other memories as
+ the connectivity matrix would be changed.
+ This does not seem to be the case with 
+\begin_inset Quotes eld
+\end_inset
+
+real-life
+\begin_inset Quotes erd
+\end_inset
+
+ associative memory.
+ Of course , I might be mistaken as learning this model have changed my
+ perception of past events in which, in fact, I did recall changes in memory
+ as an after effect of learning something new.
 \end_layout
 
 \begin_layout Section
@@ -748,11 +955,11 @@ Find
 \end_layout
 
 \begin_layout Paragraph
-The probabilty for 
+The probability for 
 \begin_inset Formula $s^{(k)}=0$
 \end_inset
 
- is the probabilty for 
+ is the probability for 
 \begin_inset Formula $h^{(k)}<\theta$
 \end_inset
 
@@ -762,9 +969,20 @@ The probabilty for
 \begin_layout Paragraph
 \begin_inset Formula 
 \[
-s^{(k)}=\begin{cases}
+s^{(k)}|\left(q^{1}=0\right)=\begin{cases}
 0 & Pr^{-}\\
 1 & 1-Pr^{-}
+\end{cases}
+\]
+
+\end_inset
+
+and:
+\begin_inset Formula 
+\[
+s^{(k)}|\left(q^{1}=1\right)=\begin{cases}
+1 & Pr^{-}\\
+0 & 1-Pr^{-}
 \end{cases}
 \]
 
@@ -773,12 +991,192 @@ s^{(k)}=\begin{cases}
 Now:
 \begin_inset Formula 
 \[
-E[h^{out}]=E\left[\frac{1}{M}\sum_{j=1}^{M}s^{(k)}\right]=\frac{1}{M}\sum_{j=1}^{M}E\left[s^{(k)}\right]=\frac{1}{M}ME\left[s^{(k)}\right]=E\left[s^{(k)}\right]
+E[h^{out}]=E\left[\frac{1}{M}\sum_{j=1}^{M}s^{(k)}\right]=\frac{1}{M}\sum_{j=1}^{M}E\left[s^{(k)}\right]=\frac{1}{M}\cdot M\cdot E\left[s^{(k)}\right]=E\left[s^{(k)}\right]
+\]
+
+\end_inset
+
+So:
+\begin_inset Formula 
+\[
+E\left[s^{(k)}|q^{1}=0\right]=Pr^{-}\;\;\&\;\;E\left[s^{(k)}|q^{1}=1\right]=1-Pr^{-}
+\]
+
+\end_inset
+
+Also, note that again, the variance is symmetrical such that:
+\begin_inset Formula 
+\[
+Var[s^{(k)}|\left(q^{1}=1\right)]=Var[s^{(k)}|\left(q^{1}=0\right)]=Pr^{-}\left(1-Pr^{-}\right)
+\]
+
+\end_inset
+
+Using the fact that given 
+\begin_inset Formula $q^{1}=0$
+\end_inset
+
+ or 
+\begin_inset Formula $1$
+\end_inset
+
+, we have 
+\begin_inset Formula $Var\left[s^{(k)}\right]=0$
+\end_inset
+
+ and 
+\begin_inset Formula $Cov\left[s^{(k)},s^{(j)}\right]=0$
+\end_inset
+
+ for 
+\begin_inset Formula $1\ne k\ne j$
+\end_inset
+
+ (as they are uncorrelated):
+\begin_inset Formula 
+\[
+Var\left[\frac{1}{M}\sum_{j=1}^{M}s^{(k)}|\left(q^{1}=1\right)\right]=\frac{1}{M^{2}}\sum_{j=1}^{M}Var\left[s^{(k)}|\left(q^{1}=1\right)\right]=\frac{Pr^{-}\left(1-Pr^{-}\right)}{M}
+\]
+
+\end_inset
+
+As we've only used the fact that 
+\begin_inset Formula $q^{1}$
+\end_inset
+
+ is givven but did not use its value, we get:
+\begin_inset Formula 
+\[
+Var\left[\frac{1}{M}\sum_{j=1}^{M}s^{(k)}|\left(q^{1}=1\right)\right]=Var\left[\frac{1}{M}\sum_{j=1}^{M}s^{(k)}|\left(q^{1}=0\right)\right]=\frac{Pr^{-}\left(1-Pr^{-}\right)}{M}
+\]
+
+\end_inset
+
+Just like in the first section (as this is in fact the same problem with
+ different constants), we want to find 
+\begin_inset Formula $\theta$
+\end_inset
+
+ between the two expected values.
+ Again, as they have the same variance, we'd expect the distribution to
+ the left and right of 
+\begin_inset Formula $\theta$
+\end_inset
+
+ would be equal.
+ So:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "85col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "yellow"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\theta=\frac{E\left[s^{(k)}|q^{1}=0\right]+E\left[s^{(k)}|q^{1}=1\right]}{2}=\frac{Pr^{-}+\left(1-Pr^{-}\right)}{2}=\frac{1}{2}
 \]
 
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Calculate 
+\begin_inset Formula $Pr_{out}^{-}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+\begin_inset Formula 
+\[
+P=1000,\;N=400,\;f=0.1,\;M=25
+\]
+
+\end_inset
+
+So, given 
+\begin_inset Formula $q^{1}=1$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\frac{\theta-\mu}{\sigma}=\frac{\theta-\left(1-Pr^{-}\right)}{\sqrt{\frac{1}{M}Pr^{-}\left(1-Pr^{-}\right)}}\frac{0.5-1-0.16}{\sqrt{\frac{1}{25}\cdot\left(0.16-0.16^{2}\right)}}\approx-4.63
+\]
+
+\end_inset
+
+We then get:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "80col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "yellow"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+Pr_{out}^{-}=\int_{-\infty}^{-4.63}\frac{exp\left(-z^{2}\right)}{\sqrt{2\pi}}dz\approx1.6145e-05=\frac{2.9e-7+3.2e-5}{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Qualitative Section
+\end_layout
+
+\begin_layout Paragraph
+What is the impact on the probability of error due to reading-out from multiple
+ networks rather than just one? Why?
 \end_layout
 
 \end_body

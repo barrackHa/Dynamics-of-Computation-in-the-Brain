@@ -18,7 +18,6 @@ plt.rcParams.update({
     'font.size': 14,
     'figure.figsize': (10, 6),
     'axes.labelsize': 12,
-    # 'axes.facecolor': 'lightgrey',
     'axes.grid': True,
     'lines.linewidth': 3
 })
@@ -69,7 +68,7 @@ class HopfieldNetwork:
         
     def dynamics(self, t, r):
         """The dynamics of the network"""
-        return -r + self.nonlinearity(self.J @ r)
+        return (-r + self.nonlinearity(self.J @ r)) / (self.tau)
     
     def simulate(self, r0=None, t_span=(0, 10)):
         """Simulate the dynamics of the network"""
@@ -81,7 +80,7 @@ class HopfieldNetwork:
     
     def get_error(self, vec1, vec2, threshold=0.1):
         """Calculate the number of different neurons between two neural state vectors"""
-        return ((vec1 - vec2) > threshold).sum() / self.N
+        return (np.abs(vec1 - vec2) > threshold).sum() / self.N
 
     def get_probable_error(self, P_smpl=20, threshold=0.1, T_frac=0.25):
         """Calculate the fraction of times the simulation gets the wrong neurons"""
@@ -191,7 +190,7 @@ def q_1_2_1(N=1000, P=50):
         delayed(q_1_2_sim_helper)(beta=b, N=N, P=P) for b in betas
     )
 
-    fig, axes = plt.subplots(3,2, figsize=(15, 8), sharex=True, sharey=True)
+    fig, axes = plt.subplots(3,2, figsize=(15, 8), sharex=True, sharey=False)
     for i, (beta, (tot_ovlp, sol, _)) in enumerate(zip(betas, mem_ovrlps_by_beta)):
         ax = axes[i%3, i//3]
         ax.plot(sol.t, tot_ovlp[1:].T, color='skyblue', alpha=0.5, linewidth=1)
@@ -204,7 +203,8 @@ def q_1_2_1(N=1000, P=50):
     axes[2,0].set_xticks(t, t)
     axes[2,1].set_xticks(t, t)
     axes[2,0].set_xlabel('Time'), axes[2,1].set_xlabel('Time')
-    axes[-1,0].set_ylabel('Overlap score')
+    axes[1,0].set_ylabel(f'Overlap\nscore', rotation=0, labelpad=25)
+    axes[2,1].legend()
     fig.suptitle("Q1.2.1: Overlap score of the network with the memory patterns")
     return fig, axes
 
@@ -236,50 +236,66 @@ def q_1_2(N=1000, P=50):
     fig2, ax2 = q_1_2_2_n_3(N)
     return fig, ax, fig2, ax2
 
-def q_1_3(N=1000, P=50):
+def q_1_3_1(N=1000, P=50, beta=20):
     f_errs = np.arange(0.05, 0.5, 0.05)
     print(f_errs)
-    hn = HopfieldNetwork(N, beta=20)
+    hn = HopfieldNetwork(N, beta=beta)
     patterns = hn.generate_random_patterns(P)
-    # for f in f_errs[:1]:
-        
-    #     _ = hn.train()
-    #     probable_error_mean, _ = hn.get_probable_error(P_smpl=20)
-    #     f_errs.append(probable_error_mean)
+    _ = hn.train()
+    print(patterns.shape)
+    # choose 20 random patterns out of the memory patterns
+    p_smpl = 20
+    erroneous_patterns = rng.choice(patterns, p_smpl, replace=False)
+    single_errs = np.zeros((f_errs.size, p_smpl))
+    currect_recalls = np.zeros((f_errs.size, p_smpl))
 
+    def sim_helper(p, N, f_err ):
+        err_idxs = rng.choice(np.arange(N, dtype=int), size=(int(f_err * N)), replace=False)
+        err_p = p.copy()
+        err_p[err_idxs] = 1 - err_p[err_idxs]
+        sol = hn.simulate(r0=err_p, t_span=(0, 20*hn.tau))
+        return sol
+
+    for i, f_err in enumerate(f_errs):
+        for j, p in enumerate(erroneous_patterns):
+            sol = sim_helper(p, N, f_err)
+            single_errs[i,j] = single_err = hn.get_error(sol.y[:,-1], p)
+            currect_recalls[i,j] = single_err <= 0.05
+    
+    fig, ax = plt.subplots()
+    ax.plot(f_errs, single_errs.mean(axis=1), 'o-', label="Mean error rate")
+    ax.plot(f_errs, currect_recalls.mean(axis=1), 'o-', label="Mean correct recalls")
+    ax.set_xlabel("Fraction of errors")
+    ax.set_ylabel("Mean error rate")
+    fig.suptitle("Q1.3: Mean error rate and correct recalls as a function of the fraction of errors")
+    ax.set_title(f"β={beta}")
+
+    ax.legend()
+    return fig, ax
+
+def q_1_3(N=1000, P=50, beta=20):
+    for beta in [20, 15, 10]:
+        fig, ax = q_1_3_1(N, P, beta)
+    
 #%%
 if __name__ == "__main__":
     P, N = 50, 1000
     
-    # start = time.time()
-    # q_1_1(N)
-    # end = time.time()
-    # print("Q1.1: Execution time:", end - start)
-    # plt.show()
+    start = time.time()
+    q_1_1(N)
+    end = time.time()
+    print("Q1.1: Execution time:", end - start)
+    plt.show()
 
-    # start = time.time()
-    # q_1_2(N, P)
-    # end = time.time()
-    # print("Q1.2: Execution time:", end - start)
-    # plt.show()
+    start = time.time()
+    q_1_2(N, P)
+    end = time.time()
+    print("Q1.2: Execution time:", end - start)
+    plt.show()
 
     start = time.time()
     q_1_3(N, P)
     end = time.time()
     print("Q1.3: Execution time:", end - start)
     plt.show()
-    
-    exit()
-    hn = HopfieldNetwork(N)
-    p = hn.generate_random_patterns(P)
-    print(hn.patterns[0], hn.patterns.shape)
-    J = hn.train()
-    # print(hn.J, hn.J.shape)
-
-    sol = hn.simulate(r0=hn.patterns[0], t_span=(0, 0.25*hn.tau))
-    # print(sol.y, sol.y.shape)
-    print(((sol.y[:,-1] - hn.patterns[0]) > 0.1).sum())
-    get_probable_error = hn.get_probable_error()
-    print(get_probable_error)
-
 
