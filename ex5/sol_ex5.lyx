@@ -549,6 +549,13 @@ real-life
  as an after effect of learning something new.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Modified exam question (2018 Moed A)
 \end_layout
@@ -712,7 +719,7 @@ has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "80col%"
+width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
@@ -811,7 +818,7 @@ has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "80col%"
+width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
@@ -884,7 +891,7 @@ has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "80col%"
+width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
@@ -1044,7 +1051,7 @@ As we've only used the fact that
 \begin_inset Formula $q^{1}$
 \end_inset
 
- is givven but did not use its value, we get:
+ is given but did not use its value, we get:
 \begin_inset Formula 
 \[
 Var\left[\frac{1}{M}\sum_{j=1}^{M}s^{(k)}|\left(q^{1}=1\right)\right]=Var\left[\frac{1}{M}\sum_{j=1}^{M}s^{(k)}|\left(q^{1}=0\right)\right]=\frac{Pr^{-}\left(1-Pr^{-}\right)}{M}
@@ -1076,7 +1083,7 @@ has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "85col%"
+width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
@@ -1143,7 +1150,7 @@ has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "80col%"
+width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
@@ -1175,8 +1182,10 @@ Qualitative Section
 \end_layout
 
 \begin_layout Paragraph
-What is the impact on the probability of error due to reading-out from multiple
- networks rather than just one? Why?
+The probability of an error due to reading-out from multiple networks rather
+ than just one decreases as the noise averages out over all networks.
+ The networks overlap on the same shared pattern and the rest is uncorrelated
+ noise which is filterred out like the layers ewre a sieve.
 \end_layout
 
 \end_body
